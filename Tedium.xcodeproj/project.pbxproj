@@ -288,6 +288,7 @@
 				DAEBC0BC14C4C2280018FA96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
