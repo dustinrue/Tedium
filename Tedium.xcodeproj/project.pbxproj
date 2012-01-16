@@ -21,12 +21,12 @@
 		DAEBC0A314C4C2280018FA96 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		DAEBC0A414C4C2280018FA96 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DAEBC0A514C4C2280018FA96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DAEBC0A814C4C2280018FA96 /* Tedium-Info.plist */ = {isa = PBXFileReference; path = "Tedium-Info.plist"; sourceTree = "<group>"; };
+		DAEBC0A814C4C2280018FA96 /* Tedium-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tedium-Info.plist"; sourceTree = "<group>"; };
 		DAEBC0AA14C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAEBC0AC14C4C2280018FA96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DAEBC0AE14C4C2280018FA96 /* Tedium-Prefix.pch */ = {isa = PBXFileReference; path = "Tedium-Prefix.pch"; sourceTree = "<group>"; };
+		DAEBC0AE14C4C2280018FA96 /* Tedium-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tedium-Prefix.pch"; sourceTree = "<group>"; };
 		DAEBC0B014C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		DAEBC0B214C4C2280018FA96 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		DAEBC0B214C4C2280018FA96 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DAEBC0B314C4C2280018FA96 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DAEBC0B614C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
