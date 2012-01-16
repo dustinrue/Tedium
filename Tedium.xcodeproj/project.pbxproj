@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAEBC0A114C4C2280018FA96 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBC0A014C4C2280018FA96 /* Cocoa.framework */; };
+		DAEBC0AB14C4C2280018FA96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */; };
+		DAEBC0AD14C4C2280018FA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC0AC14C4C2280018FA96 /* main.m */; };
+		DAEBC0B114C4C2280018FA96 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0AF14C4C2280018FA96 /* Credits.rtf */; };
+		DAEBC0B414C4C2280018FA96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC0B314C4C2280018FA96 /* AppDelegate.m */; };
+		DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0B514C4C2280018FA96 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DAEBC09C14C4C2280018FA96 /* Tedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAEBC0A014C4C2280018FA96 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		DAEBC0A314C4C2280018FA96 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		DAEBC0A414C4C2280018FA96 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DAEBC0A514C4C2280018FA96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DAEBC0A814C4C2280018FA96 /* Tedium-Info.plist */ = {isa = PBXFileReference; path = "Tedium-Info.plist"; sourceTree = "<group>"; };
+		DAEBC0AA14C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DAEBC0AC14C4C2280018FA96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DAEBC0AE14C4C2280018FA96 /* Tedium-Prefix.pch */ = {isa = PBXFileReference; path = "Tedium-Prefix.pch"; sourceTree = "<group>"; };
+		DAEBC0B014C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DAEBC0B214C4C2280018FA96 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		DAEBC0B314C4C2280018FA96 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DAEBC0B614C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAEBC09914C4C2280018FA96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEBC0A114C4C2280018FA96 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAEBC09114C4C2270018FA96 = {
+			isa = PBXGroup;
+			children = (
+				DAEBC0A614C4C2280018FA96 /* Tedium */,
+				DAEBC09F14C4C2280018FA96 /* Frameworks */,
+				DAEBC09D14C4C2280018FA96 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAEBC09D14C4C2280018FA96 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC09C14C4C2280018FA96 /* Tedium.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAEBC09F14C4C2280018FA96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC0A014C4C2280018FA96 /* Cocoa.framework */,
+				DAEBC0A214C4C2280018FA96 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DAEBC0A214C4C2280018FA96 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC0A314C4C2280018FA96 /* AppKit.framework */,
+				DAEBC0A414C4C2280018FA96 /* CoreData.framework */,
+				DAEBC0A514C4C2280018FA96 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		DAEBC0A614C4C2280018FA96 /* Tedium */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC0B214C4C2280018FA96 /* AppDelegate.h */,
+				DAEBC0B314C4C2280018FA96 /* AppDelegate.m */,
+				DAEBC0B514C4C2280018FA96 /* MainMenu.xib */,
+				DAEBC0A714C4C2280018FA96 /* Supporting Files */,
+			);
+			path = Tedium;
+			sourceTree = "<group>";
+		};
+		DAEBC0A714C4C2280018FA96 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAEBC0A814C4C2280018FA96 /* Tedium-Info.plist */,
+				DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */,
+				DAEBC0AC14C4C2280018FA96 /* main.m */,
+				DAEBC0AE14C4C2280018FA96 /* Tedium-Prefix.pch */,
+				DAEBC0AF14C4C2280018FA96 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAEBC09B14C4C2280018FA96 /* Tedium */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAEBC0BA14C4C2280018FA96 /* Build configuration list for PBXNativeTarget "Tedium" */;
+			buildPhases = (
+				DAEBC09814C4C2280018FA96 /* Sources */,
+				DAEBC09914C4C2280018FA96 /* Frameworks */,
+				DAEBC09A14C4C2280018FA96 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tedium;
+			productName = Tedium;
+			productReference = DAEBC09C14C4C2280018FA96 /* Tedium.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAEBC09314C4C2270018FA96 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = DAEBC09614C4C2270018FA96 /* Build configuration list for PBXProject "Tedium" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DAEBC09114C4C2270018FA96;
+			productRefGroup = DAEBC09D14C4C2280018FA96 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAEBC09B14C4C2280018FA96 /* Tedium */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAEBC09A14C4C2280018FA96 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEBC0AB14C4C2280018FA96 /* InfoPlist.strings in Resources */,
+				DAEBC0B114C4C2280018FA96 /* Credits.rtf in Resources */,
+				DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAEBC09814C4C2280018FA96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEBC0AD14C4C2280018FA96 /* main.m in Sources */,
+				DAEBC0B414C4C2280018FA96 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAEBC0AA14C4C2280018FA96 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DAEBC0AF14C4C2280018FA96 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAEBC0B014C4C2280018FA96 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		DAEBC0B514C4C2280018FA96 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAEBC0B614C4C2280018FA96 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAEBC0B814C4C2280018FA96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DAEBC0B914C4C2280018FA96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DAEBC0BB14C4C2280018FA96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tedium/Tedium-Prefix.pch";
+				INFOPLIST_FILE = "Tedium/Tedium-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DAEBC0BC14C4C2280018FA96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tedium/Tedium-Prefix.pch";
+				INFOPLIST_FILE = "Tedium/Tedium-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAEBC09614C4C2270018FA96 /* Build configuration list for PBXProject "Tedium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEBC0B814C4C2280018FA96 /* Debug */,
+				DAEBC0B914C4C2280018FA96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAEBC0BA14C4C2280018FA96 /* Build configuration list for PBXNativeTarget "Tedium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEBC0BB14C4C2280018FA96 /* Debug */,
+				DAEBC0BC14C4C2280018FA96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAEBC09314C4C2270018FA96 /* Project object */;
+}
