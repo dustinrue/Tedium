@@ -8,8 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
+    NSImage *menuBarImage;
+    NSStatusItem *menuBarStatusItem;
+    IBOutlet NSMenu *menuBarMenu;
+}
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (NSImage *)prepareImageForMenubar:(NSString *)name;
+- (void)showInStatusBar:(id)sender;
+- (void)setMenuBarImage:(NSImage *)imageName;
 
 @end

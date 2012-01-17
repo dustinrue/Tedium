@@ -16,6 +16,7 @@
 		DADA99D014C4F7C20041A7F3 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */; };
 		DADA99D714C4F7E90041A7F3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */; };
 		DADA99E014C4F7F70041A7F3 /* BetterAuthorizationSampleLibInstallTool.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */; };
+		DADA99EC14C51BBE0041A7F3 /* uglyclock.png in Resources */ = {isa = PBXBuildFile; fileRef = DADA99EB14C51BBE0041A7F3 /* uglyclock.png */; };
 		DAEBC0A114C4C2280018FA96 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBC0A014C4C2280018FA96 /* Cocoa.framework */; };
 		DAEBC0AB14C4C2280018FA96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */; };
 		DAEBC0AD14C4C2280018FA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC0AC14C4C2280018FA96 /* main.m */; };
@@ -74,6 +75,7 @@
 		DADA99CD14C4F7AA0041A7F3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		DADA99D514C4F7E90041A7F3 /* HelperInstallTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelperInstallTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		DADA99EB14C51BBE0041A7F3 /* uglyclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uglyclock.png; sourceTree = "<group>"; };
 		DAEBC09C14C4C2280018FA96 /* Tedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAEBC0A014C4C2280018FA96 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DAEBC0A314C4C2280018FA96 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -140,9 +142,18 @@
 			path = AuthorizationLib;
 			sourceTree = "<group>";
 		};
+		DADA99ED14C51BD90041A7F3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DADA99EB14C51BBE0041A7F3 /* uglyclock.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		DAEBC09114C4C2270018FA96 = {
 			isa = PBXGroup;
 			children = (
+				DADA99ED14C51BD90041A7F3 /* Resources */,
 				DADA99AE14C4F6C10041A7F3 /* HelperTool */,
 				DAEBC0A614C4C2280018FA96 /* Tedium */,
 				DAEBC09F14C4C2280018FA96 /* Frameworks */,
@@ -296,6 +307,7 @@
 				DAEBC0AB14C4C2280018FA96 /* InfoPlist.strings in Resources */,
 				DAEBC0B114C4C2280018FA96 /* Credits.rtf in Resources */,
 				DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */,
+				DADA99EC14C51BBE0041A7F3 /* uglyclock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
