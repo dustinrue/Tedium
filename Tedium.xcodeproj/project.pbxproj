@@ -492,6 +492,7 @@
 				DADA99C914C4F76E0041A7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DADA99DD14C4F7EA0041A7F3 /* Build configuration list for PBXNativeTarget "HelperInstallTool" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +501,7 @@
 				DADA99DF14C4F7EA0041A7F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DAEBC09614C4C2270018FA96 /* Build configuration list for PBXProject "Tedium" */ = {
 			isa = XCConfigurationList;
