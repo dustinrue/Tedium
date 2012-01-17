@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DADA99B914C4F6C10041A7F3 /* HelperToolCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */; };
+		DADA99C114C4F76E0041A7F3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */; };
+		DADA99CA14C4F79B0041A7F3 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */; };
+		DADA99CB14C4F79B0041A7F3 /* HelperTool.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B314C4F6C10041A7F3 /* HelperTool.c */; };
+		DADA99CC14C4F79B0041A7F3 /* HelperToolCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */; };
+		DADA99CE14C4F7AA0041A7F3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99CD14C4F7AA0041A7F3 /* Security.framework */; };
+		DADA99D014C4F7C20041A7F3 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */; };
+		DADA99D714C4F7E90041A7F3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */; };
+		DADA99E014C4F7F70041A7F3 /* BetterAuthorizationSampleLibInstallTool.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */; };
 		DAEBC0A114C4C2280018FA96 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBC0A014C4C2280018FA96 /* Cocoa.framework */; };
 		DAEBC0AB14C4C2280018FA96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */; };
 		DAEBC0AD14C4C2280018FA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBC0AC14C4C2280018FA96 /* main.m */; };
@@ -15,7 +24,39 @@
 		DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0B514C4C2280018FA96 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DADA99BC14C4F76E0041A7F3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DADA99D314C4F7E90041A7F3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLib.c; sourceTree = "<group>"; };
+		DADA99B114C4F6C10041A7F3 /* BetterAuthorizationSampleLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterAuthorizationSampleLib.h; sourceTree = "<group>"; };
+		DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLibInstallTool.c; sourceTree = "<group>"; };
+		DADA99B314C4F6C10041A7F3 /* HelperTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HelperTool.c; sourceTree = "<group>"; };
+		DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HelperToolCommon.c; sourceTree = "<group>"; };
+		DADA99B514C4F6C10041A7F3 /* HelpertoolCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpertoolCommon.h; sourceTree = "<group>"; };
+		DADA99BE14C4F76E0041A7F3 /* HelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DADA99CD14C4F7AA0041A7F3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		DADA99D514C4F7E90041A7F3 /* HelperInstallTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelperInstallTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAEBC09C14C4C2280018FA96 /* Tedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAEBC0A014C4C2280018FA96 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DAEBC0A314C4C2280018FA96 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -32,6 +73,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DADA99BB14C4F76E0041A7F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DADA99D014C4F7C20041A7F3 /* CoreServices.framework in Frameworks */,
+				DADA99CE14C4F7AA0041A7F3 /* Security.framework in Frameworks */,
+				DADA99C114C4F76E0041A7F3 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DADA99D214C4F7E90041A7F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DADA99D714C4F7E90041A7F3 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAEBC09914C4C2280018FA96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,9 +102,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DADA99AE14C4F6C10041A7F3 /* HelperTool */ = {
+			isa = PBXGroup;
+			children = (
+				DADA99AF14C4F6C10041A7F3 /* AuthorizationLib */,
+				DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */,
+				DADA99B314C4F6C10041A7F3 /* HelperTool.c */,
+				DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */,
+				DADA99B514C4F6C10041A7F3 /* HelpertoolCommon.h */,
+			);
+			path = HelperTool;
+			sourceTree = "<group>";
+		};
+		DADA99AF14C4F6C10041A7F3 /* AuthorizationLib */ = {
+			isa = PBXGroup;
+			children = (
+				DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */,
+				DADA99B114C4F6C10041A7F3 /* BetterAuthorizationSampleLib.h */,
+			);
+			path = AuthorizationLib;
+			sourceTree = "<group>";
+		};
 		DAEBC09114C4C2270018FA96 = {
 			isa = PBXGroup;
 			children = (
+				DADA99AE14C4F6C10041A7F3 /* HelperTool */,
 				DAEBC0A614C4C2280018FA96 /* Tedium */,
 				DAEBC09F14C4C2280018FA96 /* Frameworks */,
 				DAEBC09D14C4C2280018FA96 /* Products */,
@@ -56,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				DAEBC09C14C4C2280018FA96 /* Tedium.app */,
+				DADA99BE14C4F76E0041A7F3 /* HelperTool */,
+				DADA99D514C4F7E90041A7F3 /* HelperInstallTool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,7 +146,10 @@
 		DAEBC09F14C4C2280018FA96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DADA99CD14C4F7AA0041A7F3 /* Security.framework */,
+				DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */,
 				DAEBC0A014C4C2280018FA96 /* Cocoa.framework */,
+				DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */,
 				DAEBC0A214C4C2280018FA96 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -105,6 +191,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DADA99BD14C4F76E0041A7F3 /* HelperTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DADA99C714C4F76E0041A7F3 /* Build configuration list for PBXNativeTarget "HelperTool" */;
+			buildPhases = (
+				DADA99BA14C4F76E0041A7F3 /* Sources */,
+				DADA99BB14C4F76E0041A7F3 /* Frameworks */,
+				DADA99BC14C4F76E0041A7F3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelperTool;
+			productName = HelperTool;
+			productReference = DADA99BE14C4F76E0041A7F3 /* HelperTool */;
+			productType = "com.apple.product-type.tool";
+		};
+		DADA99D414C4F7E90041A7F3 /* HelperInstallTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DADA99DD14C4F7EA0041A7F3 /* Build configuration list for PBXNativeTarget "HelperInstallTool" */;
+			buildPhases = (
+				DADA99D114C4F7E90041A7F3 /* Sources */,
+				DADA99D214C4F7E90041A7F3 /* Frameworks */,
+				DADA99D314C4F7E90041A7F3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelperInstallTool;
+			productName = HelperInstallTool;
+			productReference = DADA99D514C4F7E90041A7F3 /* HelperInstallTool */;
+			productType = "com.apple.product-type.tool";
+		};
 		DAEBC09B14C4C2280018FA96 /* Tedium */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAEBC0BA14C4C2280018FA96 /* Build configuration list for PBXNativeTarget "Tedium" */;
@@ -143,6 +263,8 @@
 			projectRoot = "";
 			targets = (
 				DAEBC09B14C4C2280018FA96 /* Tedium */,
+				DADA99BD14C4F76E0041A7F3 /* HelperTool */,
+				DADA99D414C4F7E90041A7F3 /* HelperInstallTool */,
 			);
 		};
 /* End PBXProject section */
@@ -161,12 +283,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DADA99BA14C4F76E0041A7F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DADA99CA14C4F79B0041A7F3 /* BetterAuthorizationSampleLib.c in Sources */,
+				DADA99CB14C4F79B0041A7F3 /* HelperTool.c in Sources */,
+				DADA99CC14C4F79B0041A7F3 /* HelperToolCommon.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DADA99D114C4F7E90041A7F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DADA99E014C4F7F70041A7F3 /* BetterAuthorizationSampleLibInstallTool.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAEBC09814C4C2280018FA96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DAEBC0AD14C4C2280018FA96 /* main.m in Sources */,
 				DAEBC0B414C4C2280018FA96 /* AppDelegate.m in Sources */,
+				DADA99B914C4F6C10041A7F3 /* HelperToolCommon.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +341,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DADA99C814C4F76E0041A7F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DADA99C914C4F76E0041A7F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DADA99DE14C4F7EA0041A7F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DADA99DF14C4F7EA0041A7F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		DAEBC0B814C4C2280018FA96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -272,6 +441,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DADA99C714C4F76E0041A7F3 /* Build configuration list for PBXNativeTarget "HelperTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DADA99C814C4F76E0041A7F3 /* Debug */,
+				DADA99C914C4F76E0041A7F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DADA99DD14C4F7EA0041A7F3 /* Build configuration list for PBXNativeTarget "HelperInstallTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DADA99DE14C4F7EA0041A7F3 /* Debug */,
+				DADA99DF14C4F7EA0041A7F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		DAEBC09614C4C2270018FA96 /* Build configuration list for PBXProject "Tedium" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
