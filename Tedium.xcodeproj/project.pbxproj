@@ -24,6 +24,23 @@
 		DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAEBC0B514C4C2280018FA96 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DADA99E114C4FAD20041A7F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAEBC09314C4C2270018FA96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DADA99BD14C4F76E0041A7F3;
+			remoteInfo = HelperTool;
+		};
+		DADA99E314C4FAD60041A7F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAEBC09314C4C2270018FA96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DADA99D414C4F7E90041A7F3;
+			remoteInfo = HelperInstallTool;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		DADA99BC14C4F76E0041A7F3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -236,6 +253,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				DADA99E414C4FAD60041A7F3 /* PBXTargetDependency */,
+				DADA99E214C4FAD20041A7F3 /* PBXTargetDependency */,
 			);
 			name = Tedium;
 			productName = Tedium;
@@ -312,6 +331,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DADA99E214C4FAD20041A7F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DADA99BD14C4F76E0041A7F3 /* HelperTool */;
+			targetProxy = DADA99E114C4FAD20041A7F3 /* PBXContainerItemProxy */;
+		};
+		DADA99E414C4FAD60041A7F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DADA99D414C4F7E90041A7F3 /* HelperInstallTool */;
+			targetProxy = DADA99E314C4FAD60041A7F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DAEBC0A914C4C2280018FA96 /* InfoPlist.strings */ = {

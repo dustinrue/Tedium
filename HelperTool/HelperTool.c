@@ -63,5 +63,5 @@ int main(int argc, char **argv) {
 	// BASHelperToolMain doesn't clean up after itself, so once it returns 
 	// we must quit.
 	
-	return BASHelperToolMain(kCPHelperToolCommandSet, kCPHelperToolCommandProcs);
+	return BASHelperToolMain(kHelperToolCommandSet, kHelperToolCommandProcs);
 }
