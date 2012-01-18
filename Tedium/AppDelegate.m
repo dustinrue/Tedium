@@ -11,6 +11,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize currentDestination;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -57,5 +58,7 @@
 	
 	[menuBarStatusItem setMenu:menuBarMenu];
 }
+
+
 
 @end

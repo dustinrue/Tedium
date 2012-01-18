@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA20C98714C52C4500DF9043 /* Tedium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98614C52C4500DF9043 /* Tedium.sdef */; };
+		DA20C98D14C5303F00DF9043 /* uglyclock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98C14C5303F00DF9043 /* uglyclock.icns */; };
+		DA8E687B14C62DDB00832644 /* AppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8E687A14C62DDB00832644 /* AppleScript.m */; };
 		DADA99B914C4F6C10041A7F3 /* HelperToolCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */; };
 		DADA99C114C4F76E0041A7F3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */; };
 		DADA99CA14C4F79B0041A7F3 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */; };
@@ -64,6 +67,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA20C98614C52C4500DF9043 /* Tedium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tedium.sdef; path = Resources/Tedium.sdef; sourceTree = "<group>"; };
+		DA20C98C14C5303F00DF9043 /* uglyclock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = uglyclock.icns; path = Resources/uglyclock.icns; sourceTree = "<group>"; };
+		DA8E687914C62DDB00832644 /* AppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleScript.h; sourceTree = "<group>"; };
+		DA8E687A14C62DDB00832644 /* AppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleScript.m; sourceTree = "<group>"; };
 		DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLib.c; sourceTree = "<group>"; };
 		DADA99B114C4F6C10041A7F3 /* BetterAuthorizationSampleLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterAuthorizationSampleLib.h; sourceTree = "<group>"; };
 		DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLibInstallTool.c; sourceTree = "<group>"; };
@@ -145,7 +152,9 @@
 		DADA99ED14C51BD90041A7F3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA20C98C14C5303F00DF9043 /* uglyclock.icns */,
 				DADA99EB14C51BBE0041A7F3 /* uglyclock.png */,
+				DA20C98614C52C4500DF9043 /* Tedium.sdef */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -196,6 +205,8 @@
 		DAEBC0A614C4C2280018FA96 /* Tedium */ = {
 			isa = PBXGroup;
 			children = (
+				DA8E687914C62DDB00832644 /* AppleScript.h */,
+				DA8E687A14C62DDB00832644 /* AppleScript.m */,
 				DAEBC0B214C4C2280018FA96 /* AppDelegate.h */,
 				DAEBC0B314C4C2280018FA96 /* AppDelegate.m */,
 				DAEBC0B514C4C2280018FA96 /* MainMenu.xib */,
@@ -308,6 +319,8 @@
 				DAEBC0B114C4C2280018FA96 /* Credits.rtf in Resources */,
 				DAEBC0B714C4C2280018FA96 /* MainMenu.xib in Resources */,
 				DADA99EC14C51BBE0041A7F3 /* uglyclock.png in Resources */,
+				DA20C98714C52C4500DF9043 /* Tedium.sdef in Resources */,
+				DA20C98D14C5303F00DF9043 /* uglyclock.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +352,7 @@
 				DAEBC0AD14C4C2280018FA96 /* main.m in Sources */,
 				DAEBC0B414C4C2280018FA96 /* AppDelegate.m in Sources */,
 				DADA99B914C4F6C10041A7F3 /* HelperToolCommon.c in Sources */,
+				DA8E687B14C62DDB00832644 /* AppleScript.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

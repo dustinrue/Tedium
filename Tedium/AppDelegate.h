@@ -12,9 +12,11 @@
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     IBOutlet NSMenu *menuBarMenu;
+    
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (readwrite,retain) NSString *currentDestination;
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
