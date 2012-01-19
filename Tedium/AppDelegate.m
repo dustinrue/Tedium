@@ -12,6 +12,7 @@
 
 @synthesize window = _window;
 @synthesize currentDestination;
+@synthesize destinations;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -21,6 +22,10 @@
     [self setMenuBarImage:menuBarImage];
     
    	[GrowlApplicationBridge setGrowlDelegate: self];
+    processInfo = [NSProcessInfo processInfo];
+    [processInfo enableSuddenTermination];
+    
+    [self setDestinations:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -75,6 +80,18 @@
 							   clickContext:nil];
 }
 
+- (void) setCurrentDestination:(NSString *)newVal {
+    currentDestination = newVal;
+    [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
+    
+    NSMutableArray *tmp = [NSMutableArray arrayWithArray:destinations];
+    [tmp addObject:newVal];
+    [self setDestinations:tmp];
+    NSLog(@"%@", [self destinations]);
+    [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];
+   	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark Growl Delegates
 
 - (void) growlIsReady
@@ -105,5 +122,7 @@
                          nil];
     return tmp;
 }
+
+
 
 @end

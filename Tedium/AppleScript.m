@@ -20,4 +20,10 @@
     [[NSApp delegate] setCurrentDestination:newDestination];
 }
 
+- (NSArray *) destinations
+{
+    NSLog(@"I see you!");
+    return [[NSApp delegate] destinations];
+}
+
 @end
