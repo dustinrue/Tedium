@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7395E18714C7C31F00AC1796 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7395E18614C7C31F00AC1796 /* Growl.framework */; };
+		7395E19014C7C4F500AC1796 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7395E18614C7C31F00AC1796 /* Growl.framework */; };
 		DA20C98714C52C4500DF9043 /* Tedium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98614C52C4500DF9043 /* Tedium.sdef */; };
 		DA20C98D14C5303F00DF9043 /* uglyclock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98C14C5303F00DF9043 /* uglyclock.icns */; };
 		DA8E687B14C62DDB00832644 /* AppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8E687A14C62DDB00832644 /* AppleScript.m */; };
@@ -46,6 +48,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7395E18F14C7C4DA00AC1796 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7395E19014C7C4F500AC1796 /* Growl.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DADA99BC14C4F76E0041A7F3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,6 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7395E18614C7C31F00AC1796 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		DA20C98614C52C4500DF9043 /* Tedium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tedium.sdef; path = Resources/Tedium.sdef; sourceTree = "<group>"; };
 		DA20C98C14C5303F00DF9043 /* uglyclock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = uglyclock.icns; path = Resources/uglyclock.icns; sourceTree = "<group>"; };
 		DA8E687914C62DDB00832644 /* AppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleScript.h; sourceTree = "<group>"; };
@@ -122,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAEBC0A114C4C2280018FA96 /* Cocoa.framework in Frameworks */,
+				7395E18714C7C31F00AC1796 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +198,7 @@
 		DAEBC09F14C4C2280018FA96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7395E18614C7C31F00AC1796 /* Growl.framework */,
 				DADA99CD14C4F7AA0041A7F3 /* Security.framework */,
 				DADA99CF14C4F7C20041A7F3 /* CoreServices.framework */,
 				DAEBC0A014C4C2280018FA96 /* Cocoa.framework */,
@@ -271,6 +287,7 @@
 				DAEBC09814C4C2280018FA96 /* Sources */,
 				DAEBC09914C4C2280018FA96 /* Frameworks */,
 				DAEBC09A14C4C2280018FA96 /* Resources */,
+				7395E18F14C7C4DA00AC1796 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -477,6 +494,10 @@
 		DAEBC0BB14C4C2280018FA96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tedium/Tedium-Prefix.pch";
 				INFOPLIST_FILE = "Tedium/Tedium-Info.plist";
@@ -488,6 +509,10 @@
 		DAEBC0BC14C4C2280018FA96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tedium/Tedium-Prefix.pch";
 				INFOPLIST_FILE = "Tedium/Tedium-Info.plist";

@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Growl/Growl.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     IBOutlet NSMenu *menuBarMenu;
@@ -21,5 +22,6 @@
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
+- (void) growlMessage:(NSString *)title message:(NSString *)message;
 
 @end
