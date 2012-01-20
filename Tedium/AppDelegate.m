@@ -84,8 +84,12 @@
     currentDestination = newVal;
     [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
     
-    NSMutableArray *tmp = [NSMutableArray arrayWithArray:destinations];
-    [tmp addObject:newVal];
+    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+    if ([self destinations])
+        tmp = [[self destinations] mutableCopy];
+        
+    [tmp addObject:[NSDictionary dictionaryWithObject:newVal forKey:@"destination"]];
+
     [self setDestinations:tmp];
     NSLog(@"%@", [self destinations]);
     [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];

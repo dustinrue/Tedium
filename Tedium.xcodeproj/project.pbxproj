@@ -14,6 +14,7 @@
 		DA8E687B14C62DDB00832644 /* AppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8E687A14C62DDB00832644 /* AppleScript.m */; };
 		DABD281714C8D0E000455E23 /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281514C8D0E000455E23 /* minus-8.png */; };
 		DABD281814C8D0E000455E23 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281614C8D0E000455E23 /* plus-arrow.png */; };
+		DABD281B14C92B8B00455E23 /* awesomeclock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DABD281A14C92B8B00455E23 /* awesomeclock.icns */; };
 		DADA99B914C4F6C10041A7F3 /* HelperToolCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B414C4F6C10041A7F3 /* HelperToolCommon.c */; };
 		DADA99C114C4F76E0041A7F3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99C014C4F76E0041A7F3 /* CoreFoundation.framework */; };
 		DADA99CA14C4F79B0041A7F3 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */; };
@@ -89,6 +90,7 @@
 		DA8E687A14C62DDB00832644 /* AppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleScript.m; sourceTree = "<group>"; };
 		DABD281514C8D0E000455E23 /* minus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minus-8.png"; path = "Resources/minus-8.png"; sourceTree = "<group>"; };
 		DABD281614C8D0E000455E23 /* plus-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-arrow.png"; path = "Resources/plus-arrow.png"; sourceTree = "<group>"; };
+		DABD281A14C92B8B00455E23 /* awesomeclock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = awesomeclock.icns; path = Resources/awesomeclock.icns; sourceTree = "<group>"; };
 		DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLib.c; sourceTree = "<group>"; };
 		DADA99B114C4F6C10041A7F3 /* BetterAuthorizationSampleLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterAuthorizationSampleLib.h; sourceTree = "<group>"; };
 		DADA99B214C4F6C10041A7F3 /* BetterAuthorizationSampleLibInstallTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLibInstallTool.c; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		DADA99ED14C51BD90041A7F3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DABD281A14C92B8B00455E23 /* awesomeclock.icns */,
 				DABD281514C8D0E000455E23 /* minus-8.png */,
 				DABD281614C8D0E000455E23 /* plus-arrow.png */,
 				DA20C98C14C5303F00DF9043 /* uglyclock.icns */,
@@ -346,6 +349,7 @@
 				DA20C98D14C5303F00DF9043 /* uglyclock.icns in Resources */,
 				DABD281714C8D0E000455E23 /* minus-8.png in Resources */,
 				DABD281814C8D0E000455E23 /* plus-arrow.png in Resources */,
+				DABD281B14C92B8B00455E23 /* awesomeclock.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
