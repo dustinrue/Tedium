@@ -12,18 +12,33 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
-    IBOutlet NSMenu *menuBarMenu;
     NSProcessInfo *processInfo;
+    NSNotification *windowCloseNotification;
+
+    
+    IBOutlet NSMenu *menuBarMenu;
+    IBOutlet NSWindow *prefsWindow;
+    IBOutlet NSWindow *addExternalDriveSheet;
+    IBOutlet NSWindow *addNetworkShareSheet;
+    IBOutlet NSWindow *addCurrentDriveSheet;
 
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
-@property (readwrite,copy) NSArray *destinations;
+@property (readwrite,assign) NSArray *destinations;
+@property (readwrite,assign) NSWindow *activeSheet;
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
+- (IBAction)openPreferences:(id)sender;
+- (IBAction)addExternalDrive:(id)sender;
+- (IBAction)addNetworkShare:(id)sender;
+- (IBAction)addCurrentDrive:(id)sender;
+- (IBAction)closeSheetWithOK:(id)sender;
+- (IBAction)closeSheetWithCancel:(id)sender;
+- (IBAction)closePreferences:(id)sender;
 
 @end
