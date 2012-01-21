@@ -10,4 +10,11 @@
 
 @interface NSApplication (AppleScript)
 
+- (NSString *) currentDestination;
+- (void) setCurrentDestination:(NSString *)newDestination;
+- (NSArray *) destinations;
+
 @end
+
+
+
