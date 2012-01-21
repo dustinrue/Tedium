@@ -16,7 +16,7 @@
 #import "AuthorizationLib/BetterAuthorizationSampleLib.h"
 #import "TediumHelpertoolCommon.h"
 
-extern const BASCommandSpec kHelperToolCommandSet[];
+extern const BASCommandSpec kTediumHelperToolCommandSet[];
 
 
 // Implements the GetVersionCommand. Returns the version number of the helper tool.
@@ -29,7 +29,7 @@ static OSStatus DoGetVersion(AuthorizationRef			auth,
 	
 	OSStatus retval = noErr;
 	CFNumberRef value;
-	static const unsigned int kCurrentVersion = kHelperToolVersionNumber;
+	static const unsigned int kCurrentVersion = kTediumHelperToolVersionNumber;
 	
 	assert(auth     != NULL);
 	assert(request  != NULL);
@@ -41,13 +41,32 @@ static OSStatus DoGetVersion(AuthorizationRef			auth,
 	if (!value)
 		retval = coreFoundationUnknownErr;
 	else {
-		CFDictionaryAddValue(response, CFSTR(kHelperToolGetVersionResponse), value);
+		CFDictionaryAddValue(response, CFSTR(kTediumHelperToolGetVersionResponse), value);
 		CFRelease(value);
 	}
 	
 	return retval;
 }
 
+
+// Implements the GetVersionCommand. Returns the version number of the helper tool.
+static OSStatus DoSetDestination(AuthorizationRef			auth,
+                                 const void *				userData,
+                                 CFDictionaryRef			request,
+                                 CFMutableDictionaryRef		response,
+                                 aslclient					asl,
+                                 aslmsg						aslMsg) {
+	
+	OSStatus retval = noErr;
+	
+	
+	
+	assert(auth     != NULL);
+	assert(request  != NULL);
+	assert(response != NULL);
+	return retval;
+    
+}
 
 
 
@@ -57,6 +76,7 @@ static OSStatus DoGetVersion(AuthorizationRef			auth,
 // the list defined here must match (same order) the list in CPHelperToolCommon.c
 static const BASCommandProc kHelperToolCommandProcs[] = {
 	DoGetVersion,
+    DoSetDestination,
 	NULL
 };
 
@@ -67,5 +87,5 @@ int main(int argc, char **argv) {
 	// BASHelperToolMain doesn't clean up after itself, so once it returns 
 	// we must quit.
 	
-	return BASHelperToolMain(kHelperToolCommandSet, kHelperToolCommandProcs);
+	return BASHelperToolMain(kTediumHelperToolCommandSet, kHelperToolCommandProcs);
 }

@@ -9,13 +9,19 @@
 #import "TediumHelpertoolCommon.h"
 #import "BetterAuthorizationSampleLib.h"
 
-const BASCommandSpec kHelperToolCommandSet[] = {
-	{	kHelperToolGetVersionCommand,		// commandName
+const BASCommandSpec kTediumHelperToolCommandSet[] = {
+	{	kTediumHelperToolGetVersionCommand,		// commandName
 		NULL,								// rightName
 		NULL,								// rightDefaultRule
 		NULL,								// rightDescriptionKey
 		NULL								// userData
 	},
+    {   kTediumHelperToolSetDestinationCommand,
+        kTediumHelperToolSetDestinationCommandRight,
+        "allow",
+        "SetDestination",
+        NULL
+    },
     {	NULL,
 		NULL,
 		NULL,

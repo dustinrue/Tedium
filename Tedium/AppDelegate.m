@@ -11,19 +11,9 @@
 #import "TediumHelpertoolCommon.h"
 
 
-@interface AppDelegate (Private) 
-- (OSStatus) helperToolActualPerform: (NSString *) action
-                       withParameter: (id) parameter
-                            response: (CFDictionaryRef *) response
-                                auth: (AuthorizationRef) auth;
-- (void) helperToolInit: (AuthorizationRef *) auth;
-- (OSStatus) helperToolFix: (BASFailCode) failCode withAuth: (AuthorizationRef) auth;
-- (void) helperToolAlert: (NSMutableDictionary *) parameters;
-
-@end
-
 @implementation AppDelegate
 
+@synthesize destinationsController;
 @synthesize window = _window;
 @synthesize currentDestination;
 @synthesize destinations;
@@ -226,6 +216,19 @@
 
 - (IBAction)closePreferences:(id)sender {
     [prefsWindow close];
+}
+
+- (IBAction)applyNewDestination:(id)sender {
+    [prefsWindow close];
+    
+    NSDictionary *newDestination = [[self destinations] objectAtIndex:[[self destinationsController] selectionIndex]]; 
+    
+    NSLog(@"new destination will be set to %@", [newDestination valueForKey:@"destination"]);
+
+    
+    NSString *command = @kTediumHelperToolSetDestinationCommand;
+    if([self helperToolPerformAction: command])
+        [self growlMessage:@"Failure" message:@"Failed to set new destination"];
 }
 
 - (void)addExternalDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo

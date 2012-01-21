@@ -46,7 +46,7 @@
 		
 		// get version of helper tool
         NSLog(@"checking HelperTool version");
-		error = [self helperToolActualPerform: @kHelperToolGetVersionCommand withParameter:nil response: &response auth: auth];
+		error = [self helperToolActualPerform: @kTediumHelperToolGetVersionCommand withParameter:nil response: &response auth: auth];
 		if (error) {
             NSLog(@"HelperTool version check failed");
 			OSAtomicDecrement32(&versionCheck);
@@ -54,8 +54,8 @@
 		}
 		
 		// check version and update if needed
-		NSNumber *version = [(__bridge_transfer NSDictionary *) response objectForKey: @kHelperToolGetVersionResponse];
-		if ([version intValue] < kHelperToolVersionNumber)
+		NSNumber *version = [(__bridge_transfer NSDictionary *) response objectForKey: @kTediumHelperToolGetVersionResponse];
+		if ([version intValue] < kTediumHelperToolVersionNumber)
 			[self helperToolFix: kBASFailNeedsUpdate withAuth: auth];
 		
 		// finish version check
@@ -96,7 +96,7 @@
 	
 	// Execute it.
 	error = BASExecuteRequestInHelperTool(auth,
-										  kHelperToolCommandSet, 
+										  kTediumHelperToolCommandSet, 
 										  (__bridge_retained CFStringRef) bundleID, 
 										  (__bridge_retained CFDictionaryRef) request,
 										  response);
@@ -112,7 +112,7 @@
 		// If the fix went OK, retry the request.
 		if (error == noErr)
 			error = BASExecuteRequestInHelperTool(auth,
-												  kHelperToolCommandSet,
+												  kTediumHelperToolCommandSet,
 												  (__bridge_retained CFStringRef) bundleID,
 												  (__bridge_retained CFDictionaryRef) request,
 												  response);
@@ -150,7 +150,7 @@
 	// for any custom rights that we use.
 	
 	BASSetDefaultRules(*auth, 
-					   kHelperToolCommandSet, 
+					   kTediumHelperToolCommandSet, 
 					   CFBundleGetIdentifier(CFBundleGetMainBundle()), 
 					   CFSTR("HelperToolAuthorizationPrompts"));
 }

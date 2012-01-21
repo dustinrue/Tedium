@@ -24,6 +24,7 @@
 
 }
 
+@property (unsafe_unretained) IBOutlet NSArrayController *destinationsController;
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
 @property (readwrite,assign) NSArray *destinations;
@@ -40,5 +41,6 @@
 - (IBAction)closeSheetWithOK:(id)sender;
 - (IBAction)closeSheetWithCancel:(id)sender;
 - (IBAction)closePreferences:(id)sender;
+- (IBAction)applyNewDestination:(id)sender;
 
 @end
