@@ -12,7 +12,7 @@
 
 @interface AppDelegate (HelperTool)
 
-- (BOOL) helperToolPerformAction: (NSString *) action;
-- (BOOL) helperToolPerformAction: (NSString *) action withParameter: (id) parameter;
+- (NSInteger) helperToolPerformAction: (NSString *) action;
+- (NSInteger) helperToolPerformAction: (NSString *) action withParameter: (id) parameter;
 
 @end

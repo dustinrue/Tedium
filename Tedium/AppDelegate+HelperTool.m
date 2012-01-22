@@ -25,12 +25,12 @@
 @implementation AppDelegate (HelperTool)
 
 
-- (BOOL) helperToolPerformAction: (NSString *) action {
+- (NSInteger) helperToolPerformAction: (NSString *) action {
     NSLog(@"called helper tool without a parameter");
     return [self helperToolPerformAction:action withParameter:nil];
 }
 
-- (BOOL) helperToolPerformAction: (NSString *) action withParameter: (id) parameter {
+- (NSInteger) helperToolPerformAction: (NSString *) action withParameter: (id) parameter {
 	static int32_t versionCheck = 0;
 	
 	CFDictionaryRef response = NULL;
@@ -72,7 +72,7 @@
 	error = [self helperToolActualPerform: (NSString *) action withParameter: parameter response: &response auth: auth];
     
 	
-	return (error ? NO : YES);
+	return (error);
 }
 
 - (OSStatus) helperToolActualPerform: (NSString *) action
@@ -130,6 +130,7 @@
 	if (error == noErr)
 		error = BASGetErrorFromResponse(*response);
 	
+    NSLog(@"command returned %d", error);
 	return error;
 }
 

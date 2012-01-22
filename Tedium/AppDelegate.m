@@ -20,6 +20,11 @@
 @synthesize destinationValueFromSheet;
 @synthesize allConfiguredDestinations;
 
+enum {
+    kDestinationVolumeSetSuccessfully = 0,
+    kDestinationVolumeDoesNotExist    = 512,
+    kDestinationVolumeUnreachable     = 1280,
+};
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -234,12 +239,28 @@
     
     NSString *command = @kTediumHelperToolSetDestinationCommand;
     
-    BOOL succeeded = [self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]];
+    NSInteger retval = [self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]];
     
-    NSLog(@"command status is %@", succeeded ? @"YES" : @"NO");
-    
-    if(!succeeded)
-        [self growlMessage:@"Failure" message:@"Failed to set new destination"];
+    switch (retval) {
+        case kDestinationVolumeSetSuccessfully:
+            [self growlMessage:@"Tedium succesfully changed the destination" message:@"Backup destination was changed successfully"];
+            break;
+            
+            
+        case kDestinationVolumeDoesNotExist:
+            [self growlMessage:@"Tedium failed to change the destination" message:@"The specified mount point doesn't exist.  Is the external drive connected?"];
+            break;
+            
+            
+        case kDestinationVolumeUnreachable:
+            [self growlMessage:@"Tedium failed to change the destination" message:@"Failed to set new destination, ensure remote server is available, check afp parameters or try again later"];
+            break;
+ 
+            
+        default:
+            [self growlMessage:@"Tedium failed to change the destination" message:[NSString stringWithFormat:@"Unknown error occurred, tmutil returned %d",retval]];
+            break;
+    }
 }
 
 - (void)addExternalDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
