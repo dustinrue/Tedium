@@ -10,10 +10,12 @@
 			<property name="destination" code="DEST" description="The currently selected destination" type="text" access="rw">
 				<cocoa key="currentDestination"/>
 			</property>
+            
             <property name="all destinations" code="ADST" description="Get all of the available destinations" access="r">
-                <type type="list of destination" list="yes" />
-				<cocoa key="destinations" class="NSArray"/>
+                <type type="record" list="yes" />
+				<cocoa key="getAllDestinations" class="NSArray"/>
 			</property>
+            
 		</class>
 	</suite>
 </dictionary>

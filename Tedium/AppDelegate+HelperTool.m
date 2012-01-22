@@ -70,6 +70,7 @@
     
     
 	error = [self helperToolActualPerform: (NSString *) action withParameter: parameter response: &response auth: auth];
+    
 	
 	return (error ? NO : YES);
 }
@@ -120,7 +121,7 @@
             NSLog(@"fixing HelperTool failed");
         }
 	}
-    NSLog(@"call to helper tool succeeded");
+    NSLog(@"call to helper tool succeeded, helper tool returned: %d", error);
 	
 	// If all of the above went OK, it means that the IPC to the helper tool worked.  We 
 	// now have to check the response dictionary to see if the command's execution within 

@@ -7,6 +7,7 @@
 //
 
 #import "AppleScript.h"
+#import "AppDelegate.h"
 
 @implementation NSApplication (AppleScript)
 
@@ -20,10 +21,13 @@
     [[NSApp delegate] setCurrentDestination:newDestination];
 }
 
-- (NSArray *) getAlldestinations
+- (NSArray *) getAllDestinations
 {
     NSLog(@"I see you!");
-    return [[NSArray alloc] init];
+    //return [NSArray arrayWithObjects:@"name","age", nil];
+    NSArray *tmp = [[NSApp delegate] allConfiguredDestinations];
+    NSLog(@"%@",tmp);
+    return tmp;
 }
 
 @end

@@ -31,12 +31,14 @@
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
 @property (readwrite,assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
+@property (assign) NSArray *allConfiguredDestinations;
 
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
+
 
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)addExternalDrive:(id)sender;
@@ -47,5 +49,6 @@
 - (IBAction)closePreferences:(id)sender;
 - (IBAction)applyNewDestination:(id)sender;
 - (IBAction)removeDestination:(id)sender;
+
 
 @end

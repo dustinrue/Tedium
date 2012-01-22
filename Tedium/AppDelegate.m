@@ -18,7 +18,7 @@
 @synthesize currentDestination;
 @synthesize activeSheet;
 @synthesize destinationValueFromSheet;
-
+@synthesize allConfiguredDestinations;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -38,13 +38,9 @@
     
     destinations = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
     
-    [[NSNotificationCenter defaultCenter] 
-                                addObserver:self 
-                                selector:@selector(saveSettings) 
-                                name:NSWindowWillCloseNotification
-                                object:nil];
  
     NSLog(@"loaded configuration");
+    [self setAllConfiguredDestinations:destinations];
 
 }
 
@@ -105,6 +101,7 @@
     NSLog(@"saving settings");
     [[NSUserDefaults standardUserDefaults] setObject:destinations forKey:@"destinations"];
    	[[NSUserDefaults standardUserDefaults] synchronize];
+    [self setAllConfiguredDestinations:destinations];
 }
 
 - (void)addNewDestination:(NSString *)newDestination {
@@ -236,7 +233,12 @@
 
     
     NSString *command = @kTediumHelperToolSetDestinationCommand;
-    if([self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]])
+    
+    BOOL succeeded = [self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]];
+    
+    NSLog(@"command status is %@", succeeded ? @"YES" : @"NO");
+    
+    if(!succeeded)
         [self growlMessage:@"Failure" message:@"Failed to set new destination"];
 }
 
@@ -254,6 +256,7 @@
 		return;
     
     [self addNewDestination:[self destinationValueFromSheet]];
+    [self setDestinationValueFromSheet:@""];
 }
 
 - (IBAction)removeDestination:(id)sender {
@@ -265,6 +268,7 @@
 
     [destinations removeObjectAtIndex:[destinationsTableView selectedRow]];
     [destinationsTableView reloadData];
+    [self saveSettings];
 
 }
 
@@ -287,6 +291,7 @@
 
     return [d valueForKey:[tableColumn identifier]];
 }
+
 
 
 

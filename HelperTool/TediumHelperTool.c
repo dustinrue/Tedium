@@ -64,6 +64,18 @@ static OSStatus DoSetDestination(AuthorizationRef			auth,
 	assert(auth     != NULL);
 	assert(request  != NULL);
 	assert(response != NULL);
+    
+    CFStringRef parameter = (CFStringRef) CFDictionaryGetValue(request, CFSTR("param"));
+    
+    char command[256];
+    char parameters[1024];
+    
+    CFStringGetCString(parameter,parameters,1024, kCFStringEncodingUTF8);
+    
+    //syslog(LOG_EMERG,"running command with '%s'", parameters);
+    sprintf(command, "/usr/bin/tmutil setdestination '%s'", parameters);
+    retval = system(command);
+    //syslog(LOG_EMERG, "command finished");
 	return retval;
     
 }
