@@ -11,12 +11,11 @@
 #import "TediumHelpertoolCommon.h"
 
 
+
 @implementation AppDelegate
 
-@synthesize destinationsController;
 @synthesize window = _window;
 @synthesize currentDestination;
-@synthesize destinations;
 @synthesize activeSheet;
 
 
@@ -34,13 +33,17 @@
     processInfo = [NSProcessInfo processInfo];
     [processInfo enableSuddenTermination];
     
-    [self setDestinations:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
-    [[NSNotificationCenter defaultCenter] 
-                               addObserver:self 
-                               selector:@selector(saveSettings) 
-                               name:NSWindowWillCloseNotification
-                               object:nil];
 
+    
+    destinations = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
+    
+    [[NSNotificationCenter defaultCenter] 
+                                addObserver:self 
+                                selector:@selector(saveSettings) 
+                                name:NSWindowWillCloseNotification
+                                object:nil];
+ 
+    NSLog(@"loaded configuration %@",destinations);
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -99,7 +102,7 @@
 
 - (void)saveSettings {
     NSLog(@"saving settings");
-    [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];
+    [[NSUserDefaults standardUserDefaults] setObject:destinations forKey:@"destinations"];
    	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -107,25 +110,28 @@
 
     // test to see if the destination is already inserted
     // there has to be a more efficient way of handling this...
-    for (NSDictionary * aDictionary in [self destinations] )
+    for (NSDictionary * aDictionary in destinations)
     {
-        NSString *aDestination = [aDictionary objectForKey:@"destination"];
+        
+        NSString *aDestination = [aDictionary valueForKey:@"destinationVolumePath"];
+        NSLog(@"got %@ from %@",aDestination, aDictionary);
         if ([aDestination isEqualToString:newDestination])
             return;
     }
-    NSMutableArray *tmp = [[NSMutableArray alloc] init];
-    if ([self destinations])
-        tmp = [[self destinations] mutableCopy];
-    
 
-    [tmp addObject:[NSDictionary dictionaryWithObject:newDestination forKey:@"destination"]];
     
-    [self setDestinations:tmp];
-    NSLog(@"%@", [self destinations]);
+    [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                            newDestination, @"destinationVolumePath",
+                            @"", @"destinationVolumePathUsername",
+                            @"", @"destinationVolumePathPassword",
+                            [NSNumber numberWithInt:0], @"isAFP",nil]];
     [self saveSettings];
+    [destinationsTableView reloadData];
 }
 
 - (void) setCurrentDestination:(NSString *)newVal {
+    
+    NSLog(@"setCurrentDestination %@", newVal);
     currentDestination = newVal;
     [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
     
@@ -168,6 +174,7 @@
 {
     [NSApp activateIgnoringOtherApps:YES];
     [prefsWindow makeKeyAndOrderFront:self];
+    [destinationsTableView reloadData];
 }
 
 - (IBAction)addExternalDrive:(id)sender 
@@ -192,7 +199,6 @@
 
 - (IBAction)addCurrentDrive:(id)sender 
 {
-
 
     NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
 
@@ -221,13 +227,17 @@
 - (IBAction)applyNewDestination:(id)sender {
     [prefsWindow close];
     
-    NSDictionary *newDestination = [[self destinations] objectAtIndex:[[self destinationsController] selectionIndex]]; 
+    NSLog(@"setting to item at selectedRow %ld", [destinationsTableView selectedRow]);
+    if ([destinationsTableView selectedRow] == -1) 
+        return;
     
-    NSLog(@"new destination will be set to %@", [newDestination valueForKey:@"destination"]);
+    NSDictionary *newDestination = [destinations objectAtIndex:[destinationsTableView selectedRow]];
+    
+    NSLog(@"new destination will be set to %@", [newDestination valueForKey:@"destinationVolumePath"]);
 
     
     NSString *command = @kTediumHelperToolSetDestinationCommand;
-    if([self helperToolPerformAction: command])
+    if([self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]])
         [self growlMessage:@"Failure" message:@"Failed to set new destination"];
 }
 
@@ -238,5 +248,45 @@
     
 	NSLog(@"got new data!");
 }
+
+- (IBAction)removeDestination:(id)sender {
+    [destinationsTableView abortEditing];
+    NSLog(@"table view claims it has %ld rows",[destinationsTableView numberOfRows]);
+    NSLog(@"about to remove item at index %ld", [destinationsTableView selectedRow]);    
+    if ([destinationsTableView selectedRow] == -1)
+        return;
+    
+
+    [destinations removeObjectAtIndex:[destinationsTableView selectedRow]];
+    [destinationsTableView reloadData];
+
+}
+
+#pragma mark NSTableViewDataSource routines
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
+{
+    NSLog(@"numberOfRowsInTableView");
+    if(!destinations)
+        return 0;
+    
+    NSLog(@"destinations contains: %lu",[destinations count]);
+    return [destinations count];
+}
+
+
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
+{
+    NSDictionary *d = [destinations objectAtIndex:row];
+    NSLog(@"object value %@",[d valueForKey:[tableColumn identifier]]);
+    return [d valueForKey:[tableColumn identifier]];
+}
+
+-(void)selectionChanged:(NSNotification *)notification 
+{
+    NSLog(@"selection changed");
+}
+
 
 @end

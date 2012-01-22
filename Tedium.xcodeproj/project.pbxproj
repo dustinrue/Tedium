@@ -249,14 +249,14 @@
 		DAEBC0A614C4C2280018FA96 /* Tedium */ = {
 			isa = PBXGroup;
 			children = (
-				DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */,
-				DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */,
-				DA81451014C9C49100776C35 /* PopButton.h */,
-				DA81451114C9C49100776C35 /* PopButton.m */,
-				DA8E687914C62DDB00832644 /* AppleScript.h */,
-				DA8E687A14C62DDB00832644 /* AppleScript.m */,
 				DAEBC0B214C4C2280018FA96 /* AppDelegate.h */,
 				DAEBC0B314C4C2280018FA96 /* AppDelegate.m */,
+				DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */,
+				DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */,
+				DA8E687914C62DDB00832644 /* AppleScript.h */,
+				DA8E687A14C62DDB00832644 /* AppleScript.m */,
+				DA81451014C9C49100776C35 /* PopButton.h */,
+				DA81451114C9C49100776C35 /* PopButton.m */,
 				DAEBC0B514C4C2280018FA96 /* MainMenu.xib */,
 				DAEBC0A714C4C2280018FA96 /* Supporting Files */,
 			);

@@ -12,7 +12,7 @@
 
 - (NSString *) currentDestination;
 - (void) setCurrentDestination:(NSString *)newDestination;
-- (NSArray *) destinations;
+- (NSArray *) getAlldestinations;
 
 @end
 

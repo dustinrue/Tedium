@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
     NSNotification *windowCloseNotification;
+    NSMutableArray *destinations;
 
     
     IBOutlet NSMenu *menuBarMenu;
@@ -21,19 +22,22 @@
     IBOutlet NSWindow *addExternalDriveSheet;
     IBOutlet NSWindow *addNetworkShareSheet;
     IBOutlet NSWindow *addCurrentDriveSheet;
+    IBOutlet NSTableView *destinationsTableView;
 
 }
 
-@property (unsafe_unretained) IBOutlet NSArrayController *destinationsController;
+
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
-@property (readwrite,assign) NSArray *destinations;
+
 @property (readwrite,assign) NSWindow *activeSheet;
+
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
+
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)addExternalDrive:(id)sender;
 - (IBAction)addNetworkShare:(id)sender;
@@ -42,5 +46,6 @@
 - (IBAction)closeSheetWithCancel:(id)sender;
 - (IBAction)closePreferences:(id)sender;
 - (IBAction)applyNewDestination:(id)sender;
+- (IBAction)removeDestination:(id)sender;
 
 @end
