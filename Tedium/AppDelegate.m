@@ -17,6 +17,7 @@
 @synthesize window = _window;
 @synthesize currentDestination;
 @synthesize activeSheet;
+@synthesize destinationValueFromSheet;
 
 
 
@@ -43,7 +44,8 @@
                                 name:NSWindowWillCloseNotification
                                 object:nil];
  
-    NSLog(@"loaded configuration %@",destinations);
+    NSLog(@"loaded configuration");
+
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -87,7 +89,6 @@
 - (void) growlMessage:(NSString *)title message:(NSString *)message 
 {
     const int pri = 0;
-    NSLog(@"growl");
     
     [GrowlApplicationBridge notifyWithTitle:title
 								description:message
@@ -114,7 +115,7 @@
     {
         
         NSString *aDestination = [aDictionary valueForKey:@"destinationVolumePath"];
-        NSLog(@"got %@ from %@",aDestination, aDictionary);
+
         if ([aDestination isEqualToString:newDestination])
             return;
     }
@@ -135,7 +136,7 @@
     currentDestination = newVal;
     [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
     
-    [self addNewDestination:newVal];
+
 }
 
 #pragma mark Growl Delegates
@@ -193,7 +194,7 @@
     [NSApp beginSheet:addNetworkShareSheet
 	   modalForWindow:prefsWindow
 	    modalDelegate:self
-	   didEndSelector:@selector(addExternalDriveSheetDidEnd:returnCode:contextInfo:)
+	   didEndSelector:@selector(addNetworkDriveSheetDidEnd:returnCode:contextInfo:)
 	      contextInfo:nil];
 }
 
@@ -210,6 +211,7 @@
 	[NSApp endSheet:[self activeSheet] returnCode:NSOKButton];
 	[[self activeSheet] orderOut:nil];
     [self setActiveSheet:nil];
+
 }
 
 - (IBAction)closeSheetWithCancel:(id)sender
@@ -227,13 +229,10 @@
 - (IBAction)applyNewDestination:(id)sender {
     [prefsWindow close];
     
-    NSLog(@"setting to item at selectedRow %ld", [destinationsTableView selectedRow]);
     if ([destinationsTableView selectedRow] == -1) 
         return;
     
     NSDictionary *newDestination = [destinations objectAtIndex:[destinationsTableView selectedRow]];
-    
-    NSLog(@"new destination will be set to %@", [newDestination valueForKey:@"destinationVolumePath"]);
 
     
     NSString *command = @kTediumHelperToolSetDestinationCommand;
@@ -249,10 +248,17 @@
 	NSLog(@"got new data!");
 }
 
+- (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if (returnCode != NSOKButton)
+		return;
+    
+    [self addNewDestination:[self destinationValueFromSheet]];
+}
+
 - (IBAction)removeDestination:(id)sender {
     [destinationsTableView abortEditing];
-    NSLog(@"table view claims it has %ld rows",[destinationsTableView numberOfRows]);
-    NSLog(@"about to remove item at index %ld", [destinationsTableView selectedRow]);    
+   
     if ([destinationsTableView selectedRow] == -1)
         return;
     
@@ -266,11 +272,9 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
 {
-    NSLog(@"numberOfRowsInTableView");
     if(!destinations)
         return 0;
     
-    NSLog(@"destinations contains: %lu",[destinations count]);
     return [destinations count];
 }
 
@@ -278,15 +282,12 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
 {
+
     NSDictionary *d = [destinations objectAtIndex:row];
-    NSLog(@"object value %@",[d valueForKey:[tableColumn identifier]]);
+
     return [d valueForKey:[tableColumn identifier]];
 }
 
--(void)selectionChanged:(NSNotification *)notification 
-{
-    NSLog(@"selection changed");
-}
 
 
 @end

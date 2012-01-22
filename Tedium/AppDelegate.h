@@ -29,8 +29,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
-
 @property (readwrite,assign) NSWindow *activeSheet;
+@property (assign) NSString *destinationValueFromSheet;
 
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
