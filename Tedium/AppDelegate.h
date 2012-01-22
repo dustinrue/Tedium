@@ -21,6 +21,7 @@
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
     IBOutlet NSTableView *destinationsTableView;
+    IBOutlet NSButton *startAtLoginStatus;
 
 }
 
@@ -52,6 +53,13 @@ enum {
 - (IBAction)closePreferences:(id)sender;
 - (IBAction)applyNewDestination:(id)sender;
 - (IBAction)removeDestination:(id)sender;
+
+// Login item stuff
+- (NSURL *)appPath;
+- (BOOL)willStartAtLogin:(NSURL *)appPath;
+- (void)startAtLogin;
+- (void)disableStartAtLogin;
+- (IBAction)toggleStartAtLoginAction:(id)sender;
 
 
 @end

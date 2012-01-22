@@ -301,6 +301,108 @@
 }
 
 
+#pragma mark Login Item Routines
+
+- (NSURL *) appPath {
+    return [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+}
+
+- (void) startAtLogin {
+    LSSharedFileListRef loginItemList = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    LSSharedFileListInsertItemURL(loginItemList, kLSSharedFileListItemBeforeFirst,
+                                  NULL, NULL, (__bridge_retained CFURLRef)[self appPath], NULL, NULL);
+    CFRelease(loginItemList);
+}
+
+- (void) disableStartAtLogin {
+    NSURL *appPath = [self appPath];
+    
+    // Creates shared file list reference to be used for changing list and reading its various properties.
+    LSSharedFileListRef loginItemList = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    
+    // represents a found start up item
+    
+    // check to see if Tedium is already listed in Start Up Items
+    if (loginItemList) {
+        UInt32 seedValue = 0;
+        
+        // take a snapshot of the list creating an array out of it
+        NSArray *currentLoginItems = (__bridge_transfer id)LSSharedFileListCopySnapshot(loginItemList, &seedValue);
+        
+        // walk the array looking for an entry that belongs to us
+        for (id currentLoginItem in currentLoginItems) {
+            LSSharedFileListItemRef itemToCheck = (__bridge_retained LSSharedFileListItemRef)currentLoginItem;
+            
+            UInt32 resolveFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
+            CFURLRef pathOfCurrentItem = NULL;
+            OSStatus err = LSSharedFileListItemResolve(itemToCheck, resolveFlags, &pathOfCurrentItem, NULL);
+            
+            if (err == noErr) {
+                BOOL startupItemFound = CFEqual(pathOfCurrentItem,(__bridge_retained CFTypeRef) appPath);
+                CFRelease(pathOfCurrentItem);
+                
+                if (startupItemFound) {
+                    LSSharedFileListItemRemove(loginItemList, itemToCheck);
+                }
+            }
+        }
+		
+		CFRelease(loginItemList);
+    }
+}
+
+
+
+- (BOOL) willStartAtLogin:(NSURL *)appPath {
+    
+    // Creates shared file list reference to be used for changing list and reading its various properties.
+    LSSharedFileListRef loginItemList = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    
+    
+    // check to see if Tedium is already listed in Start Up Items
+    if (loginItemList) {
+        UInt32 seedValue = 0;
+        
+        // take a snapshot of the list creating an array out of it
+        NSArray *currentLoginItems = (__bridge_transfer id)LSSharedFileListCopySnapshot(loginItemList, &seedValue);
+        
+        // walk the array looking for an entry that belongs to us
+        for (id currentLoginItem in currentLoginItems) {
+            LSSharedFileListItemRef itemToCheck = (__bridge_retained LSSharedFileListItemRef)currentLoginItem;
+            
+            UInt32 resolveFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
+            CFURLRef pathOfCurrentItem = NULL;
+            OSStatus err = LSSharedFileListItemResolve(itemToCheck, resolveFlags, &pathOfCurrentItem, NULL);
+            
+            if (err == noErr) {
+                BOOL startupItemFound = CFEqual(pathOfCurrentItem,(__bridge_retained CFTypeRef)appPath);
+                CFRelease(pathOfCurrentItem);
+                
+                if (startupItemFound) {
+                    CFRelease(loginItemList);
+                    return TRUE;
+                }
+            }
+        }
+        
+        CFRelease(loginItemList);
+    }
+	
+    return FALSE;
+}
+
+- (IBAction) toggleStartAtLoginAction:(id)sender {
+    
+    
+    if ([self willStartAtLogin:[self appPath]]) {
+        [self disableStartAtLogin];
+    }
+    else {
+        [self startAtLogin];
+        
+    }
+    [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
+}
 
 
 @end
