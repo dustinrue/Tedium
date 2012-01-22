@@ -20,11 +20,7 @@
 @synthesize destinationValueFromSheet;
 @synthesize allConfiguredDestinations;
 
-enum {
-    kDestinationVolumeSetSuccessfully = 0,
-    kDestinationVolumeDoesNotExist    = 512,
-    kDestinationVolumeUnreachable     = 1280,
-};
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

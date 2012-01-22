@@ -26,6 +26,12 @@
 
 }
 
+enum {
+    kDestinationVolumeSetSuccessfully = 0,
+    kDestinationVolumeDoesNotExist    = 512,
+    kDestinationVolumeUnreachable     = 1280,
+};
+
 
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
