@@ -19,9 +19,7 @@
     
     IBOutlet NSMenu *menuBarMenu;
     IBOutlet NSWindow *prefsWindow;
-    IBOutlet NSWindow *addExternalDriveSheet;
     IBOutlet NSWindow *addNetworkShareSheet;
-    IBOutlet NSWindow *addCurrentDriveSheet;
     IBOutlet NSTableView *destinationsTableView;
 
 }
@@ -47,7 +45,6 @@ enum {
 
 
 - (IBAction)openPreferences:(id)sender;
-- (IBAction)addExternalDrive:(id)sender;
 - (IBAction)addNetworkShare:(id)sender;
 - (IBAction)addCurrentDrive:(id)sender;
 - (IBAction)closeSheetWithOK:(id)sender;

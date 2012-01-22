@@ -176,15 +176,6 @@
     [destinationsTableView reloadData];
 }
 
-- (IBAction)addExternalDrive:(id)sender 
-{
-    [self setActiveSheet:addExternalDriveSheet];
-    [NSApp beginSheet:addExternalDriveSheet
-	   modalForWindow:prefsWindow
-	    modalDelegate:self
-	   didEndSelector:@selector(addExternalDriveSheetDidEnd:returnCode:contextInfo:)
-	      contextInfo:nil];
-}
 
 - (IBAction)addNetworkShare:(id)sender 
 {
