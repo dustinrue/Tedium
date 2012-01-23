@@ -132,8 +132,52 @@
     
     NSLog(@"setCurrentDestination %@", newVal);
     currentDestination = newVal;
-    [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
     
+    NSString *forGrowl;
+    
+    NSArray *splitOnAt = [currentDestination componentsSeparatedByString:@"@"];
+    
+    if ([splitOnAt count] == 2) {
+        NSArray *splitOnColon = [[splitOnAt objectAtIndex:0] componentsSeparatedByString:@":"];
+    
+        forGrowl = [NSString stringWithFormat:@"%@:%@@%@",[splitOnColon objectAtIndex:0],[splitOnColon objectAtIndex:1],[splitOnAt objectAtIndex:1]];
+    }
+    else if ([splitOnAt count] > 2) {
+ 
+    }
+    else {
+        forGrowl = newVal;
+    }
+    NSLog(@"%@",forGrowl);
+    [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", forGrowl]];
+    
+    NSString *command = @kTediumHelperToolSetDestinationCommand;
+    
+    NSInteger retval = [self helperToolPerformAction: command withParameter:newVal];
+    
+    switch (retval) {
+        case kDestinationVolumeSetSuccessfully:
+            [self growlMessage:@"Succesfully changed backup destination" message:@"Backup destination was changed successfully"];
+            break;
+            
+            
+        case kDestinationVolumeDoesNotExist:
+            [self growlMessage:@"Failed to change backup destination" message:@"The specified mount point doesn't exist.  Is the external drive connected?"];
+            break;
+            
+            
+        case kDestinationVolumeUnreachable:
+            [self growlMessage:@"Failed to change backup destination" message:@"Ensure remote server is available, check afp parameters or try again later."];
+            break;
+            
+        case kDestinationVolumeInvalidFormat:
+            [self growlMessage:@"Failed to change backup destination" message:@"Failed to set new backup destination, check afp parameters."];
+            break;
+            
+        default:
+            [self growlMessage:@"Failed to change backup destination" message:[NSString stringWithFormat:@"Unknown error occurred, tmutil returned %d.",retval]];
+            break;
+    }
 
 }
 
@@ -223,31 +267,8 @@
     
     NSDictionary *newDestination = [destinations objectAtIndex:[destinationsTableView selectedRow]];
 
+    [self setCurrentDestination:[newDestination valueForKey:@"destinationVolumePath"]];
     
-    NSString *command = @kTediumHelperToolSetDestinationCommand;
-    
-    NSInteger retval = [self helperToolPerformAction: command withParameter:[newDestination valueForKey:@"destinationVolumePath"]];
-    
-    switch (retval) {
-        case kDestinationVolumeSetSuccessfully:
-            [self growlMessage:@"Tedium succesfully changed the destination" message:@"Backup destination was changed successfully"];
-            break;
-            
-            
-        case kDestinationVolumeDoesNotExist:
-            [self growlMessage:@"Tedium failed to change the destination" message:@"The specified mount point doesn't exist.  Is the external drive connected?"];
-            break;
-            
-            
-        case kDestinationVolumeUnreachable:
-            [self growlMessage:@"Tedium failed to change the destination" message:@"Failed to set new destination, ensure remote server is available, check afp parameters or try again later"];
-            break;
- 
-            
-        default:
-            [self growlMessage:@"Tedium failed to change the destination" message:[NSString stringWithFormat:@"Unknown error occurred, tmutil returned %d",retval]];
-            break;
-    }
 }
 
 - (void)addExternalDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
