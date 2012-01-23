@@ -7,7 +7,8 @@
 // Created by Adam Gerson on 3/6/05.
 // agerson@mac.com
 //
-// Updated 1/22/2012 by Dustin Rue to make it compatible with 10.7
+// Updated 1/22/2012 by Dustin Rue silence compiler warnings
+// ruedu@dustinrue.com
 //
 
 #import <Cocoa/Cocoa.h>

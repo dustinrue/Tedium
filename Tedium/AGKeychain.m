@@ -7,7 +7,8 @@
 // Created by Adam Gerson on 3/6/05.
 // agerson@mac.com
 //
-// Updated 1/22/2012 by Dustin Rue to make it compatible with 10.7
+// Updated 1/22/2012 by Dustin Rue silence compiler warnings
+// ruedu@dustinrue.com
 //
 
 
@@ -31,15 +32,15 @@
 	
 	attributes[0].tag = kSecAccountItemAttr;
     attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [username length];
+    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
     
     attributes[1].tag = kSecDescriptionItemAttr;
     attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [keychainItemKind length];
+    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
 	
 	attributes[2].tag = kSecLabelItemAttr;
     attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [keychainItemName length];
+    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
 
     list.count = 3;
     list.attr = attributes;
@@ -72,15 +73,15 @@
 	
     attributes[0].tag = kSecAccountItemAttr;
     attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [username length];
+    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
     
     attributes[1].tag = kSecDescriptionItemAttr;
     attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [keychainItemKind length];
+    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
 	
 	attributes[2].tag = kSecLabelItemAttr;
     attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [keychainItemName length];
+    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
 
     list.count = 3;
     list.attr = attributes;
@@ -112,22 +113,22 @@
 	
     attributes[0].tag = kSecAccountItemAttr;
     attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [username length];
+    attributes[0].length = [[NSNumber numberWithUnsignedLong: [username length]] unsignedIntValue];
     
     attributes[1].tag = kSecDescriptionItemAttr;
     attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [keychainItemKind length];
+    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
 	
 	attributes[2].tag = kSecLabelItemAttr;
     attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [keychainItemName length];
+    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
 
     list.count = 3;
     list.attr = attributes;
 	
 	result = SecKeychainSearchCreateFromAttributes(NULL, kSecGenericPasswordItemClass, &list, &search);
 	SecKeychainSearchCopyNext (search, &item);
-    status = SecKeychainItemModifyContent(item, &list, [newPassword length], [newPassword UTF8String]);
+    status = SecKeychainItemModifyContent(item, &list, [[NSNumber numberWithUnsignedLong:[newPassword length]] unsignedIntValue], [newPassword UTF8String]);
 	
     if (status != 0) {
         NSLog(@"Error modifying item: %d", (int)status);
@@ -146,20 +147,20 @@
 	
     attributes[0].tag = kSecAccountItemAttr;
     attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [username length];
+    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
     
     attributes[1].tag = kSecDescriptionItemAttr;
     attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [keychainItemKind length];
+    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
 	
 	attributes[2].tag = kSecLabelItemAttr;
     attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [keychainItemName length];
+    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
 
     list.count = 3;
     list.attr = attributes;
 
-    status = SecKeychainItemCreateFromContent(kSecGenericPasswordItemClass, &list, [password length], [password UTF8String], NULL,NULL,&item);
+    status = SecKeychainItemCreateFromContent(kSecGenericPasswordItemClass, &list, [[NSNumber numberWithUnsignedLong:[password length]] unsignedIntValue], [password UTF8String], NULL,NULL,&item);
     if (status != 0) {
         NSLog(@"Error creating new item: %d\n", (int)status);
     }
@@ -173,19 +174,18 @@
     SecKeychainAttributeList list;
     SecKeychainAttribute attributes[3];
     OSErr result;
-    int i = 0;
 
 	attributes[0].tag = kSecAccountItemAttr;
     attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [username length];
+    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
     
     attributes[1].tag = kSecDescriptionItemAttr;
     attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [keychainItemKind length];
+    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
 	
 	attributes[2].tag = kSecLabelItemAttr;
     attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [keychainItemName length];
+    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
 
     list.count = 3;
     list.attr = attributes;
@@ -257,6 +257,7 @@
         printf("Error = %d\n", (int)status);
 		return @"Error getting password";
     }
+    return @"reached end of method and shouldn't have, yay you!";
 }
 
 
