@@ -11,9 +11,8 @@
 				<cocoa key="currentDestination"/>
 			</property>
             
-            <property name="all destinations" code="ADST" description="Get all of the available destinations" access="r">
-                <type type="record" list="yes" />
-				<cocoa key="getAllDestinations" class="NSArray"/>
+            <property name="all destinations" code="ADST" description="Get all of the available destinations" type="text" access="r">
+                <cocoa key="getAllDestinations"/>
 			</property>
             
 		</class>

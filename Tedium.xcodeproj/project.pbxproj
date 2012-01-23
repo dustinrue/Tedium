@@ -101,7 +101,7 @@
 
 /* Begin PBXFileReference section */
 		7395E18614C7C31F00AC1796 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
-		DA0BDA0D14CCE3D000205D80 /* KeychainServices.h */ = {isa = PBXFileReference; fileEncoding = 4; path = KeychainServices.h; sourceTree = "<group>"; };
+		DA0BDA0D14CCE3D000205D80 /* KeychainServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainServices.h; sourceTree = "<group>"; };
 		DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainServices.m; sourceTree = "<group>"; };
 		DA0BDA1014CD096D00205D80 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA0BDA1114CD096D00205D80 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };

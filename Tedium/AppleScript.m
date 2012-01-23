@@ -7,7 +7,6 @@
 //
 
 #import "AppleScript.h"
-#import "AppDelegate.h"
 
 @implementation NSApplication (AppleScript)
 
@@ -21,13 +20,13 @@
     [[NSApp delegate] setCurrentDestination:newDestination];
 }
 
-- (NSArray *) getAllDestinations
+- (NSString *) getAllDestinations
 {
-    NSLog(@"I see you!");
-    //return [NSArray arrayWithObjects:@"name","age", nil];
+
     NSArray *tmp = [[NSApp delegate] allConfiguredDestinations];
-    NSLog(@"%@",tmp);
-    return tmp;
+
+    NSString *error;
+    return [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:tmp format:NSPropertyListXMLFormat_v1_0 errorDescription:&error] encoding:NSUTF8StringEncoding];
 }
 
 @end

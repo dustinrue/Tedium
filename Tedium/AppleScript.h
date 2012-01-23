@@ -12,7 +12,8 @@
 
 - (NSString *) currentDestination;
 - (void) setCurrentDestination:(NSString *)newDestination;
-- (NSArray *) getAllDestinations;
+- (NSString *) getAllDestinations;
+- (NSArray *)allConfiguredDestinations;
 
 @end
 
