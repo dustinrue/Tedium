@@ -123,18 +123,20 @@
     
     NSDictionary *afpURL = [self parseDestination:newDestination];
     
-    if (!afpURL) {
-        [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 newDestination, @"destinationVolumePath",
-                                 [NSNumber numberWithInt:0], @"isAFP",nil]];
-    }
-    else if ([afpURL objectForKey:@"cleanedURL"]) {
+  
+
+    if ([afpURL objectForKey:@"cleanedURL"]) {
         [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
         
         if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
             [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
         }
+    }
+    else {
+        [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                 newDestination, @"destinationVolumePath",
+                                 [NSNumber numberWithInt:0], @"isAFP",nil]];
     }
     
     [self saveSettings];
@@ -147,8 +149,12 @@
     [self setCurrentDestinationAsNSURL:[NSURL URLWithString:urlText]];
     
     // it isn't an AFP URL so we simply return
-    if ([self currentDestinationAsNSURL] == nil)
+    if ([self currentDestinationAsNSURL] == nil) {
+        NSLog(@"returning nil");
         return nil;
+        
+    }
+        
     
     NSString *username = [[self currentDestinationAsNSURL] user];
     NSString *password = [[self currentDestinationAsNSURL] password];
