@@ -28,7 +28,8 @@
 enum {
     kDestinationVolumeSetSuccessfully = 0,
     kDestinationVolumeDoesNotExist    = 512,
-    kDestinationVolumeUnreachable     = 1280, 
+    kDestinationVolumeUnreachable     = 1280,
+    kDestinationVolumeNotAvailable    = 16384,
     kDestinationVolumeInvalidFormat   = 52736,
 };
 

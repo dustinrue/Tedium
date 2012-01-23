@@ -232,6 +232,10 @@
             [self growlMessage:@"Failed to change backup destination" message:@"Failed to set new backup destination, check afp parameters."];
             break;
             
+        case kDestinationVolumeNotAvailable:
+            [self growlMessage:@"Failed to change backup destination" message:@"AFP server isn't available, try again later"];
+            break;
+            
         default:
             [self growlMessage:@"Failed to change backup destination" message:[NSString stringWithFormat:@"Unknown error occurred, tmutil returned %d.",retval]];
             break;
