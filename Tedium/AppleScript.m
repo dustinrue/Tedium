@@ -7,6 +7,7 @@
 //
 
 #import "AppleScript.h"
+#import "AppDelegate.h"
 
 @implementation NSApplication (AppleScript)
 
