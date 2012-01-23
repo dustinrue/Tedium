@@ -35,6 +35,7 @@ enum {
 
 @property (assign) IBOutlet NSWindow *window;
 @property (readwrite,retain,nonatomic) NSString *currentDestination;
+@property (readwrite,retain) NSURL *currentDestinationAsNSURL;
 @property (readwrite,assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
 @property (assign) NSArray *allConfiguredDestinations;
@@ -44,6 +45,7 @@ enum {
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
+- (NSDictionary *)parseDestination:(NSString *)destination;
 
 
 - (IBAction)openPreferences:(id)sender;

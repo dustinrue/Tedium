@@ -68,7 +68,7 @@
 
 + (BOOL)deleteKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withAddress:(NSString *)address
 {
-	SecKeychainAttribute attributes[3];
+	SecKeychainAttribute attributes[4];
     SecKeychainAttributeList list;
     SecKeychainItemRef item;
 	SecKeychainSearchRef search;
@@ -92,7 +92,7 @@
     attributes[3].data = (void *)[address UTF8String];
     attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
 
-    list.count = 3;
+    list.count = 4;
     list.attr = attributes;
 	
 	result = SecKeychainSearchCreateFromAttributes(NULL, kSecInternetPasswordItemClass, &list, &search);
@@ -113,7 +113,7 @@
 
 + (BOOL)modifyKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withNewPassword:(NSString *)newPassword withAddress:(NSString *)address
 {
-	SecKeychainAttribute attributes[3];
+	SecKeychainAttribute attributes[4];
     SecKeychainAttributeList list;
     SecKeychainItemRef item;
 	SecKeychainSearchRef search;
@@ -136,7 +136,7 @@
     attributes[3].data = (void *)[address UTF8String];
     attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
 
-    list.count = 3;
+    list.count = 4;
     list.attr = attributes;
 	
 	result = SecKeychainSearchCreateFromAttributes(NULL, kSecInternetPasswordItemClass, &list, &search);
@@ -170,6 +170,9 @@
     attributes[2].data = (void *)[keychainItemName UTF8String];
     attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
     
+    attributes[3].tag = kSecServerItemAttr;
+    attributes[3].data = (void *)[address UTF8String];
+    attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
     
 
     list.count = 4;
