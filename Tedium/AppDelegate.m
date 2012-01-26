@@ -44,6 +44,8 @@
  
     NSLog(@"loaded configuration");
     [self setAllConfiguredDestinations:destinations];
+    notifications = [NSDistributedNotificationCenter defaultCenter];
+    [notifications addObserver:self selector:@selector(didReceiveNotification:) name:@"com.dustinrue.Tedium.allDestinationsRequest" object:nil];
 
 }
 
@@ -497,5 +499,18 @@
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
+#pragma mark Notifications routines
+
+-(void) didReceiveNotification:(NSNotification *)notification
+{
+
+    NSLog(@"got notified of %@ from %@",[notification name], [notification object]);
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithCapacity:[[self allConfiguredDestinations] count]];
+    
+    
+    [tmp setValue:[self allConfiguredDestinations] forKey:@"destinations"];
+    
+    [notifications postNotificationName:@"com.dustinrue.Tedium.allDestinationsResponse" object:nil userInfo:tmp deliverImmediately:YES];
+}
 
 @end

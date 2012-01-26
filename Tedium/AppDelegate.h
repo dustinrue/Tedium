@@ -15,6 +15,7 @@
     NSProcessInfo *processInfo;
     NSNotification *windowCloseNotification;
     NSMutableArray *destinations;
+    NSDistributedNotificationCenter *notifications;
 
     
     IBOutlet NSMenu *menuBarMenu;
