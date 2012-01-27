@@ -48,6 +48,7 @@ enum {
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
 - (NSDictionary *)parseDestination:(NSString *)destination;
+- (void) setDestinationFromNotification:(NSNotification *)notification;
 
 
 - (IBAction)openPreferences:(id)sender;

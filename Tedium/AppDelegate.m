@@ -46,6 +46,7 @@
     [self setAllConfiguredDestinations:destinations];
     notifications = [NSDistributedNotificationCenter defaultCenter];
     [notifications addObserver:self selector:@selector(didReceiveNotification:) name:@"com.dustinrue.Tedium.allDestinationsRequest" object:nil];
+    [notifications addObserver:self selector:@selector(setDestinationFromNotification:) name:@"com.dustinrue.Tedium.setDestination" object:nil];
 
 }
 
@@ -184,6 +185,10 @@
             [NSString stringWithFormat:@"afp://%@@%@%@",username,hostname,url],@"cleanedURL",nil];
 
     
+}
+- (void) setDestination:(NSNotification *)notification {
+    [self setCurrentDestination:[[notification userInfo] valueForKey:@"destinationVolumePath"]];
+         
 }
 
 - (void) setCurrentDestination:(NSString *)newVal {
@@ -510,6 +515,7 @@
     
     [tmp setValue:[self allConfiguredDestinations] forKey:@"destinations"];
     
+    NSLog(@"sending back %@",tmp);
     [notifications postNotificationName:@"com.dustinrue.Tedium.allDestinationsResponse" object:nil userInfo:tmp deliverImmediately:YES];
 }
 
