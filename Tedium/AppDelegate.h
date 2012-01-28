@@ -8,15 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
+#import "DOTediumApp.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource> {
+@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource, DOTediumApp> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
     NSNotification *windowCloseNotification;
     NSMutableArray *destinations;
-    NSDistributedNotificationCenter *notifications;
-
+	NSConnection *serverConnection;
     
     IBOutlet NSMenu *menuBarMenu;
     IBOutlet NSWindow *prefsWindow;
@@ -34,13 +34,11 @@ enum {
     kDestinationVolumeInvalidFormat   = 52736,
 };
 
-
 @property (assign) IBOutlet NSWindow *window;
-@property (readwrite,retain,nonatomic) NSString *currentDestination;
 @property (readwrite,retain) NSURL *currentDestinationAsNSURL;
 @property (readwrite,assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
-@property (assign) NSArray *allConfiguredDestinations;
+@property (nonatomic, assign) NSArray *allConfiguredDestinations;
 
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
@@ -48,7 +46,6 @@ enum {
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
 - (NSDictionary *)parseDestination:(NSString *)destination;
-- (void) setDestinationFromNotification:(NSNotification *)notification;
 
 
 - (IBAction)openPreferences:(id)sender;

@@ -137,6 +137,7 @@
 		DAEBC0AE14C4C2280018FA96 /* Tedium-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tedium-Prefix.pch"; sourceTree = "<group>"; };
 		DAEBC0B014C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DAEBC0B614C4C2280018FA96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		DD0AB9A314D362A0001F1A7D /* DOTediumApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOTediumApp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +255,7 @@
 			children = (
 				DA0BDA1014CD096D00205D80 /* AppDelegate.h */,
 				DA0BDA1114CD096D00205D80 /* AppDelegate.m */,
+				DD0AB9A314D362A0001F1A7D /* DOTediumApp.h */,
 				DA0BDA0D14CCE3D000205D80 /* KeychainServices.h */,
 				DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */,
 				DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */,

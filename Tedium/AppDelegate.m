@@ -41,13 +41,16 @@
     
     destinations = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
     
- 
     NSLog(@"loaded configuration");
-    [self setAllConfiguredDestinations:destinations];
-    notifications = [NSDistributedNotificationCenter defaultCenter];
-    [notifications addObserver:self selector:@selector(didReceiveNotification:) name:@"com.dustinrue.Tedium.allDestinationsRequest" object:nil];
-    [notifications addObserver:self selector:@selector(setDestinationFromNotification:) name:@"com.dustinrue.Tedium.setDestination" object:nil];
-
+	
+	// Register server for DO
+	serverConnection = [NSConnection new];
+	[serverConnection setRootObject: self];
+	NSLog(@"name: '%@'", NSBundle.mainBundle.bundleIdentifier);
+	if (![serverConnection registerName: NSBundle.mainBundle.bundleIdentifier]) {//@"com.dustinrue.Tedium"]) {
+		NSLog(@"Failed to register name for DO, another instance of Tedium might be running");
+		serverConnection = nil;
+	}
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -186,13 +189,9 @@
 
     
 }
-- (void) setDestination:(NSNotification *)notification {
-    [self setCurrentDestination:[[notification userInfo] valueForKey:@"destinationVolumePath"]];
-         
-}
 
 - (void) setCurrentDestination:(NSString *)newVal {
-    
+    NSLog(@"Setting dest: %@", newVal);
     currentDestination = newVal;
     
     NSDictionary *tmp = [self parseDestination:newVal];
@@ -248,6 +247,15 @@
             break;
     }
 
+}
+
+- (NSArray *) allDestinations {
+	NSMutableArray *result = [NSMutableArray new];
+	
+	for (NSDictionary *volume in destinations)
+		[result addObject: [volume objectForKey: @"destinationVolumePath"]];
+	
+	return [result copy];
 }
 
 #pragma mark Growl Delegates
@@ -502,21 +510,6 @@
         
     }
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
-}
-
-#pragma mark Notifications routines
-
--(void) didReceiveNotification:(NSNotification *)notification
-{
-
-    NSLog(@"got notified of %@ from %@",[notification name], [notification object]);
-    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithCapacity:[[self allConfiguredDestinations] count]];
-    
-    
-    [tmp setValue:[self allConfiguredDestinations] forKey:@"destinations"];
-    
-    NSLog(@"sending back %@",tmp);
-    [notifications postNotificationName:@"com.dustinrue.Tedium.allDestinationsResponse" object:nil userInfo:tmp deliverImmediately:YES];
 }
 
 @end
