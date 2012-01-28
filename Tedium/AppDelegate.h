@@ -25,7 +25,7 @@
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
     IBOutlet NSTableView *destinationsTableView;
-    IBOutlet NSButton *startAtLoginStatus;
+    IBOutlet NSMenuItem *startAtLoginStatus;
 
 }
 

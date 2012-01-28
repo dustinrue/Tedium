@@ -517,6 +517,7 @@
         
     }
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
+    [startAtLoginStatus2 setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
 
