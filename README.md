@@ -9,7 +9,7 @@ Tedium allows you to switch Time Machine backup destinations easily.
 How to Get Tedium
 -----------------------
 
-Tedium can be downloaded from <a href="http://dl.dropbox.com/u/12850/Tedium/Tedium.zip">http://dl.dropbox.com/u/12850/Tedium/Tedium.zip</a>. It is currently in an alpha state so expect bugs.
+Tedium can be downloaded from <a href="http://www.tediumapp.com/download/0.0.1">http://www.tediumapp.com/download/0.0.1</a>. It is currently in an alpha state so expect bugs.
 
 Building Tedium from Source
 ---------------------------------
