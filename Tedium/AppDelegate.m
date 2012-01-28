@@ -19,7 +19,8 @@
 @synthesize currentDestination;
 @synthesize activeSheet;
 @synthesize destinationValueFromSheet;
-@synthesize allConfiguredDestinations;
+@synthesize destinations;
+@synthesize destination;
 @synthesize currentDestinationAsNSURL;
 
 
@@ -39,14 +40,16 @@
     
 
     
-    destinations = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]];
+    [self setDestinations:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]]];
+    
+    if (![self destinations]) 
+        [self setDestinations:[[NSMutableArray alloc] init]];
     
  
+
     NSLog(@"loaded configuration");
-    [self setAllConfiguredDestinations:destinations];
-    notifications = [NSDistributedNotificationCenter defaultCenter];
-    [notifications addObserver:self selector:@selector(didReceiveNotification:) name:@"com.dustinrue.Tedium.allDestinationsRequest" object:nil];
-    [notifications addObserver:self selector:@selector(setDestinationFromNotification:) name:@"com.dustinrue.Tedium.setDestination" object:nil];
+    
+    
 
 }
 
@@ -105,16 +108,16 @@
 
 - (void)saveSettings {
     NSLog(@"saving settings");
-    [[NSUserDefaults standardUserDefaults] setObject:destinations forKey:@"destinations"];
+    [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];
    	[[NSUserDefaults standardUserDefaults] synchronize];
-    [self setAllConfiguredDestinations:destinations];
+
 }
 
 - (void)addNewDestination:(NSString *)newDestination {
 
     // test to see if the destination is already inserted
     // there has to be a more efficient way of handling this...
-    for (NSDictionary * aDictionary in destinations)
+    for (NSDictionary * aDictionary in [self destinations])
     {
         
         NSString *aDestination = [aDictionary valueForKey:@"destinationVolumePath"];
@@ -129,7 +132,7 @@
   
 
     if ([afpURL objectForKey:@"cleanedURL"]) {
-        [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+        [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
         
         if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
@@ -137,7 +140,7 @@
         }
     }
     else {
-        [destinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+        [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  newDestination, @"destinationVolumePath",
                                  [NSNumber numberWithInt:0], @"isAFP",nil]];
     }
@@ -146,9 +149,9 @@
     [destinationsTableView reloadData];
 }
 
-- (NSDictionary *)parseDestination:(NSString *)destination {
+- (NSDictionary *)parseDestination:(NSString *)destinationToParse {
 
-    NSString *urlText = [destination stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlText = [destinationToParse stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self setCurrentDestinationAsNSURL:[NSURL URLWithString:urlText]];
     
     // it isn't an AFP URL so we simply return
@@ -186,13 +189,15 @@
 
     
 }
+/*
 - (void) setDestination:(NSNotification *)notification {
     [self setCurrentDestination:[[notification userInfo] valueForKey:@"destinationVolumePath"]];
          
 }
+ */
 
 - (void) setCurrentDestination:(NSString *)newVal {
-    
+    NSLog(@"setting destination");
     currentDestination = newVal;
     
     NSDictionary *tmp = [self parseDestination:newVal];
@@ -334,7 +339,7 @@
     if ([destinationsTableView selectedRow] == -1) 
         return;
     
-    NSDictionary *newDestination = [destinations objectAtIndex:[destinationsTableView selectedRow]];
+    NSDictionary *newDestination = [[self destinations] objectAtIndex:[destinationsTableView selectedRow]];
 
     [self setCurrentDestination:[newDestination valueForKey:@"destinationVolumePath"]];
     
@@ -363,7 +368,7 @@
     if ([destinationsTableView selectedRow] == -1)
         return;
    
-    NSDictionary *tmp = [self parseDestination:[[destinations objectAtIndex:[destinationsTableView selectedRow]] valueForKey:@"destinationVolumePath"]];
+    NSDictionary *tmp = [self parseDestination:[[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] valueForKey:@"destinationVolumePath"]];
 
     
 
@@ -373,7 +378,7 @@
 
    
 
-    [destinations removeObjectAtIndex:[destinationsTableView selectedRow]];
+    [[self destinations] removeObjectAtIndex:[destinationsTableView selectedRow]];
     [destinationsTableView reloadData];
 
     [self saveSettings];
@@ -384,10 +389,13 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
 {
-    if(!destinations)
+    if (!destinations) {
+        NSLog(@"derp");
         return 0;
+    }
+
     
-    return [destinations count];
+    return [[self destinations] count];
 }
 
 
@@ -395,7 +403,7 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
 {
 
-    NSDictionary *d = [destinations objectAtIndex:row];
+    NSDictionary *d = [[self destinations] objectAtIndex:row];
 
     return [d valueForKey:[tableColumn identifier]];
 }
@@ -504,19 +512,12 @@
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
-#pragma mark Notifications routines
 
--(void) didReceiveNotification:(NSNotification *)notification
-{
+#pragma mark Scripting Support
 
-    NSLog(@"got notified of %@ from %@",[notification name], [notification object]);
-    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] initWithCapacity:[[self allConfiguredDestinations] count]];
-    
-    
-    [tmp setValue:[self allConfiguredDestinations] forKey:@"destinations"];
-    
-    NSLog(@"sending back %@",tmp);
-    [notifications postNotificationName:@"com.dustinrue.Tedium.allDestinationsResponse" object:nil userInfo:tmp deliverImmediately:YES];
+
+- (NSMutableArray *)getDestinationsForScripting {
+    return [self destinations];
 }
 
 @end

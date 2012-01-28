@@ -8,14 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
+@class Destination;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
     NSNotification *windowCloseNotification;
-    NSMutableArray *destinations;
     NSDistributedNotificationCenter *notifications;
+
 
     
     IBOutlet NSMenu *menuBarMenu;
@@ -40,15 +41,15 @@ enum {
 @property (readwrite,retain) NSURL *currentDestinationAsNSURL;
 @property (readwrite,assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
-@property (assign) NSArray *allConfiguredDestinations;
-
+@property (retain) NSMutableArray *destinations;
+@property (retain) Destination *destination;
 
 - (NSImage *)prepareImageForMenubar:(NSString *)name;
 - (void)showInStatusBar:(id)sender;
 - (void)setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
 - (NSDictionary *)parseDestination:(NSString *)destination;
-- (void) setDestinationFromNotification:(NSNotification *)notification;
+- (NSMutableArray *)getDestinationsForScripting;
 
 
 - (IBAction)openPreferences:(id)sender;
@@ -66,6 +67,5 @@ enum {
 - (void)startAtLogin;
 - (void)disableStartAtLogin;
 - (IBAction)toggleStartAtLoginAction:(id)sender;
-
 
 @end
