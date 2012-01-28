@@ -42,7 +42,10 @@
     processInfo = [NSProcessInfo processInfo];
     [processInfo enableSuddenTermination];
     
-
+    NSMutableDictionary *appDefaults = [NSMutableDictionary dictionary];
+	[appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
+    
+	[[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
     
     [self setDestinations:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]]];
     
