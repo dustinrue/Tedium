@@ -1,0 +1,3 @@
+[submodule "Tedium/QuincyKit"]
+	path = Tedium/QuincyKit
+	url = git://github.com/TheRealKerni/QuincyKit.git

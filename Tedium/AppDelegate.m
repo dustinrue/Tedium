@@ -13,6 +13,7 @@
 
 
 
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -24,10 +25,13 @@
 @synthesize currentDestinationAsNSURL;
 
 
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    [[BWQuincyManager sharedQuincyManager] setSubmissionURL:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumCrashReportURL"]];
+    [[BWQuincyManager sharedQuincyManager] setCompanyName:@"Tedium developers"];
+    [[BWQuincyManager sharedQuincyManager] setDelegate:self];
+    
     menuBarImage = [self prepareImageForMenubar:@"awesomeclock"];
     [self showInStatusBar:nil];
     [self setMenuBarImage:menuBarImage];
@@ -520,4 +524,9 @@
     return [self destinations];
 }
 
+#pragma mark QuincyKit
+- (void) showMainApplicationWindow {
+	[prefsWindow makeFirstResponder: nil];
+    
+}
 @end

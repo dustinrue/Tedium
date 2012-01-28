@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
+#import "BWQuincyManager.h"
+
 @class Destination;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource> {
+@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource,BWQuincyManagerDelegate> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
