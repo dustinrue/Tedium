@@ -139,19 +139,25 @@
   
 
     if ([afpURL objectForKey:@"cleanedURL"]) {
+        // if the selectedRow is NOT -1 then we are editing an entry
         if ([destinationsTableView selectedRow] != -1) {
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                             [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
             [destinationsTableView deselectAll:self];
+            if (![KeychainServices modifyKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withNewPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to update the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+            }
         }
         else {
             [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
+            if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+            }
         }
         
-        if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-            [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
-        }
+        
+        
     }
     else {
         if ([destinationsTableView selectedRow] != -1) {
