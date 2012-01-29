@@ -183,11 +183,8 @@
     [self setCurrentDestinationAsNSURL:[NSURL URLWithString:urlText]];
     
     // it isn't an AFP URL so we simply return
-    if ([self currentDestinationAsNSURL] == nil) {
-        NSLog(@"returning nil");
+    if ([self currentDestinationAsNSURL] == nil)
         return nil;
-        
-    }
         
     
     NSString *username = [[self currentDestinationAsNSURL] user];
@@ -217,15 +214,9 @@
 
     
 }
-/*
-- (void) setDestination:(NSNotification *)notification {
-    [self setCurrentDestination:[[notification userInfo] valueForKey:@"destinationVolumePath"]];
-         
-}
- */
 
 - (void) setCurrentDestination:(NSString *)newVal {
-    NSLog(@"setting destination");
+    NSLog(@"setting destination to %@", newVal);
     currentDestination = newVal;
     
     NSDictionary *tmp = [self parseDestination:newVal];
@@ -287,18 +278,18 @@
 
 - (void) growlIsReady
 {
-    NSLog(@"growl reports it is ready");
+    return;
 }
 
 
 - (void) growlNotificationWasClicked:(id)clickContext
 {
-    NSLog(@"growl reports the notification was clicked");
+    return;
 }
 
 - (void) growlNotificationTimedOut:(id)clickContext
 {
-    NSLog(@"growl reports the notification timed out");
+    return;
 }
 
 - (NSDictionary *) registrationDictionaryForGrowl 
@@ -325,8 +316,11 @@
 
 - (IBAction)addNetworkShare:(id)sender 
 {
-    NSLog(@"sender is %@", [sender class]);
-
+    // if we're coming from a menu item, specifically
+    // then we're not editing an entry, deselect
+    // all rows because "editing" is later
+    // determined by the fact that NSTableView has a 
+    // selectedRow > 1
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
     }
@@ -420,9 +414,6 @@
     NSDictionary *tmp = [[self destinations] objectAtIndex:[destinationsTableView selectedRow]];
     
     [self setDestinationValueFromSheet:[tmp valueForKey:@"destinationVolumePath"]];
-    
-    NSLog(@"%@", [self destinationValueFromSheet]);
-    
     [self addNetworkShare:self];
 }
 
@@ -431,7 +422,6 @@
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
 {
     if (!destinations) {
-        NSLog(@"derp");
         return 0;
     }
 
