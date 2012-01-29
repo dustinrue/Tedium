@@ -23,6 +23,8 @@
 @synthesize destinations;
 @synthesize destination;
 @synthesize currentDestinationAsNSURL;
+@synthesize hideMenuBarIconStatus;
+@synthesize checkForUpdatesStatusForMenu;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -44,6 +46,10 @@
     
     NSMutableDictionary *appDefaults = [NSMutableDictionary dictionary];
 	[appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
+    [appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"SUEnableAutomaticChecks"];
+    [appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"HideStatusBarIcon"];
+    
+    
     
 	[[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
     
@@ -55,9 +61,12 @@
  
     [destinationsTableView setDoubleAction:@selector(editDestination:)];
     NSLog(@"loaded configuration");
+    ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"] ? [self enableHideMenuBarIcon] : [self disableHideMenuBarIcon]);
     
+    [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+    [self.checkForUpdatesStatusForMenu setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
     
-
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -90,12 +99,13 @@
 		[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
 	}
     
-	menuBarStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    menuBarStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 	[menuBarStatusItem setHighlightMode:YES];
     
 
-	
+
 	[menuBarStatusItem setMenu:menuBarMenu];
+    [self setMenuBarImage:menuBarImage];
 }
 
 - (void) growlMessage:(NSString *)title message:(NSString *)message 
@@ -540,7 +550,7 @@
         [self startAtLogin];
         
     }
-    [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
+    [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
 - (IBAction)openTediumGitHubIssues:(id)sender {
@@ -554,6 +564,8 @@
 }
 
 
+
+
 #pragma mark Scripting Support
 
 
@@ -565,5 +577,87 @@
 - (void) showMainApplicationWindow {
 	[prefsWindow makeFirstResponder: nil];
     
+}
+ 
+#pragma mark Menu Bar Handling
+- (void) enableHideMenuBarIcon {
+    [self setHideMenuBarIconStatus:YES];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"HideStatusBarIcon"];
+    [self saveSettings];
+    sbHideTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval)STATUS_BAR_LINGER
+                                                   target: self
+                                                 selector: @selector(hideFromStatusBar:)
+                                                 userInfo: nil
+                                                  repeats: NO];
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
+
+- (void) disableHideMenuBarIcon {
+    [self setHideMenuBarIconStatus:NO];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:@"HideStatusBarIcon"];
+    
+    if (sbHideTimer)
+        [sbHideTimer invalidate];
+    [self saveSettings];
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
+
+- (BOOL) willHideMenuBarIcon {
+    return [self hideMenuBarIconStatus];
+}
+
+- (IBAction)toggleHideMenuBarIcon:(id)sender {
+    if ([self willHideMenuBarIcon]) {
+        [self disableHideMenuBarIcon];
+    }
+    else {
+        [self enableHideMenuBarIcon];
+        
+    }
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
+
+- (IBAction)toggleCheckForUpdates:(id)sender {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]) {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:@"SUCheckAtStartup"];
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:@"SUEnableAutomaticChecks"];
+        
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"SUEnableAutomaticChecks"];    
+    }
+    
+    [[self checkForUpdatesStatusForMenu] setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
+    [self saveSettings];
+}
+
+
+#pragma mark NSApplication Delegates
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+	// Set up status bar.
+    NSLog(@"showing again");
+    [self showInStatusBar:self];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"]) {
+		
+		sbHideTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval)STATUS_BAR_LINGER
+														target: self
+													  selector: @selector(hideFromStatusBar:)
+													  userInfo: nil
+													   repeats: NO];
+	}
+    
+	return YES;
+}
+
+- (void)hideFromStatusBar:(NSTimer *)theTimer {
+	
+	NSLog(@"hiding");
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
+		return;
+    
+	[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
+
 }
 @end

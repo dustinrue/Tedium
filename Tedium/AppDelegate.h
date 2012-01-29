@@ -12,20 +12,23 @@
 
 @class Destination;
 
+#define STATUS_BAR_LINGER	10
+
 @interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource,BWQuincyManagerDelegate> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
     NSNotification *windowCloseNotification;
     NSDistributedNotificationCenter *notifications;
-
+	NSTimer *sbHideTimer;
 
     
     IBOutlet NSMenu *menuBarMenu;
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
     IBOutlet NSTableView *destinationsTableView;
-    IBOutlet NSMenuItem *startAtLoginStatus;
+    IBOutlet NSButton *startAtLoginStatusForMenu;
+    IBOutlet NSButton *hideMenuBarIconStatusForMenu;
 
 }
 
@@ -45,13 +48,19 @@ enum {
 @property (assign) NSString *destinationValueFromSheet;
 @property (retain) NSMutableArray *destinations;
 @property (retain) Destination *destination;
+@property (assign) BOOL hideMenuBarIconStatus;
+@property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 
-- (NSImage *)prepareImageForMenubar:(NSString *)name;
-- (void)showInStatusBar:(id)sender;
-- (void)setMenuBarImage:(NSImage *)imageName;
+
+- (NSImage *) prepareImageForMenubar:(NSString *)name;
+- (void) showInStatusBar:(id)sender;
+- (void) setMenuBarImage:(NSImage *)imageName;
 - (void) growlMessage:(NSString *)title message:(NSString *)message;
 - (NSDictionary *)parseDestination:(NSString *)destination;
 - (NSMutableArray *)getDestinationsForScripting;
+- (void) enableHideMenuBarIcon;
+- (void) disableHideMenuBarIcon;
+- (BOOL) willHideMenuBarIcon;
 
 
 - (IBAction)openPreferences:(id)sender;
@@ -66,6 +75,8 @@ enum {
 - (IBAction)toggleStartAtLoginAction:(id)sender;
 - (IBAction)openTediumGitHubIssues:(id)sender;
 - (IBAction)openDonationPage:(id)sender;
+- (IBAction)toggleHideMenuBarIcon:(id)sender;
+- (IBAction)toggleCheckForUpdates:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;
