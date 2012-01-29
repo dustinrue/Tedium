@@ -28,8 +28,7 @@
 @synthesize creditsFile;
 
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     [[BWQuincyManager sharedQuincyManager] setSubmissionURL:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumCrashReportURL"]];
     [[BWQuincyManager sharedQuincyManager] setCompanyName:@"Tedium developers"];
@@ -71,8 +70,7 @@
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
-- (NSImage *)prepareImageForMenubar:(NSString *)name
-{
+- (NSImage *)prepareImageForMenubar:(NSString *)name {
 	NSImage *img = [NSImage imageNamed:name];
 	[img setScalesWhenResized:YES];
 	[img setSize:NSMakeSize(16, 16)];
@@ -80,8 +78,7 @@
 	return img;
 }
 
-- (void)setMenuBarImage:(NSImage *)imageName 
-{
+- (void)setMenuBarImage:(NSImage *)imageName {
     
     // if the menu bar item has been hidden menuBarStatusItem will have been released
     // and we should not attempt to update the image
@@ -93,8 +90,7 @@
 
 }
 
-- (void)showInStatusBar:(id)sender
-{
+- (void)showInStatusBar:(id)sender {
 	if (menuBarStatusItem) {
 		// Already there? Rebuild it anyway.
 		[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
@@ -109,8 +105,7 @@
     [self setMenuBarImage:menuBarImage];
 }
 
-- (void) growlMessage:(NSString *)title message:(NSString *)message 
-{
+- (void) growlMessage:(NSString *)title message:(NSString *)message  {
     const int pri = 0;
     
     [GrowlApplicationBridge notifyWithTitle:title
@@ -121,7 +116,6 @@
 								   isSticky:NO
 							   clickContext:nil];
 }
-
 
 
 - (void)saveSettings {
@@ -285,26 +279,8 @@
 
 }
 
-#pragma mark Growl Delegates
 
-- (void) growlIsReady
-{
-    return;
-}
-
-
-- (void) growlNotificationWasClicked:(id)clickContext
-{
-    return;
-}
-
-- (void) growlNotificationTimedOut:(id)clickContext
-{
-    return;
-}
-
-- (NSDictionary *) registrationDictionaryForGrowl 
-{
+- (NSDictionary *) registrationDictionaryForGrowl {
     NSDictionary *tmp = [NSDictionary dictionaryWithObjectsAndKeys:
                          [NSNumber numberWithInt:1],
                          @"TicketVersion",
@@ -346,24 +322,21 @@
 	      contextInfo:nil];
 }
 
-- (IBAction)addCurrentDrive:(id)sender 
-{
+- (IBAction)addCurrentDrive:(id)sender {
 
     NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
 
     [self addNewDestination:[NSString stringWithFormat:@"/Volumes/%@",[tmp valueForKey:@"LocalizedDiskImageVolumeName"]]];
 }
 
-- (IBAction)closeSheetWithOK:(id)sender
-{
+- (IBAction)closeSheetWithOK:(id)sender {
 	[NSApp endSheet:[self activeSheet] returnCode:NSOKButton];
 	[[self activeSheet] orderOut:nil];
     [self setActiveSheet:nil];
 
 }
 
-- (IBAction)closeSheetWithCancel:(id)sender
-{
+- (IBAction)closeSheetWithCancel:(id)sender {
 	[NSApp endSheet:[self activeSheet] returnCode:NSCancelButton];
 	[[self activeSheet] orderOut:nil];
     [self setActiveSheet:nil];
@@ -386,8 +359,8 @@
     
 }
 
-- (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
+- (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    
 	if (returnCode != NSOKButton)
 		return;
     
@@ -431,10 +404,22 @@
     [self addNetworkShare:self];
 }
 
+- (IBAction)openTediumGitHubIssues:(id)sender {
+    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumGithubIssuesURL"]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+- (IBAction)openDonationPage:(id)sender {
+    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumDonationsURL"]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+
+
+
 #pragma mark NSTableViewDataSource routines
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
-{
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (!destinations) {
         return 0;
     }
@@ -445,8 +430,7 @@
 
 
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
-{
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 
     NSDictionary *d = [[self destinations] objectAtIndex:row];
 
@@ -557,15 +541,7 @@
     [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
-- (IBAction)openTediumGitHubIssues:(id)sender {
-    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumGithubIssuesURL"]];
-    [[NSWorkspace sharedWorkspace] openURL:url];
-}
 
-- (IBAction)openDonationPage:(id)sender {
-    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumDonationsURL"]];
-    [[NSWorkspace sharedWorkspace] openURL:url];
-}
 
 
 
@@ -637,6 +613,16 @@
     [self saveSettings];
 }
 
+- (void)hideFromStatusBar:(NSTimer *)theTimer {
+	
+	NSLog(@"hiding");
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
+		return;
+    
+	[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
+    
+}
+
 
 
 #pragma mark NSApplication Delegates
@@ -657,13 +643,5 @@
 	return YES;
 }
 
-- (void)hideFromStatusBar:(NSTimer *)theTimer {
-	
-	NSLog(@"hiding");
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
-		return;
-    
-	[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
 
-}
 @end
