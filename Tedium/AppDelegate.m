@@ -25,6 +25,7 @@
 @synthesize currentDestinationAsNSURL;
 @synthesize hideMenuBarIconStatus;
 @synthesize checkForUpdatesStatusForMenu;
+@synthesize creditsFile;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -316,16 +317,19 @@
 }
 
 #pragma mark GUI Routines
-- (IBAction)openPreferences:(id)sender 
-{
+- (IBAction)openPreferences:(id)sender {
     [NSApp activateIgnoringOtherApps:YES];
     [prefsWindow makeKeyAndOrderFront:self];
     [destinationsTableView reloadData];
 }
 
+- (IBAction)showAbout:(id)sender {
+    [aboutWindow makeKeyAndOrderFront:self];
+    [creditsFile readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"]];
+}
 
-- (IBAction)addNetworkShare:(id)sender 
-{
+
+- (IBAction)addNetworkShare:(id)sender {
     // if we're coming from a menu item, specifically
     // then we're not editing an entry, deselect
     // all rows because "editing" is later
@@ -629,8 +633,10 @@
     }
     
     [[self checkForUpdatesStatusForMenu] setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
+    [self.creditsFile readRTFDFromFile:@"Credits.rtf"];
     [self saveSettings];
 }
+
 
 
 #pragma mark NSApplication Delegates

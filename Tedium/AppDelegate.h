@@ -26,6 +26,7 @@
     IBOutlet NSMenu *menuBarMenu;
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
+    IBOutlet NSWindow *aboutWindow;
     IBOutlet NSTableView *destinationsTableView;
     IBOutlet NSButton *startAtLoginStatusForMenu;
     IBOutlet NSButton *hideMenuBarIconStatusForMenu;
@@ -50,6 +51,7 @@ enum {
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
+@property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
 
 
 - (NSImage *) prepareImageForMenubar:(NSString *)name;
@@ -77,6 +79,7 @@ enum {
 - (IBAction)openDonationPage:(id)sender;
 - (IBAction)toggleHideMenuBarIcon:(id)sender;
 - (IBAction)toggleCheckForUpdates:(id)sender;
+- (IBAction)showAbout:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;
