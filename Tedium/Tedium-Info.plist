@@ -44,5 +44,9 @@
 	<string>dsa_pub.pem</string>
 	<key>TediumCrashReportURL</key>
 	<string>http://crashreport.tediumapp.com/crash_v200.php</string>
+	<key>TediumDonationsURL</key>
+	<string>http://www.tediumapp.com/support-tedium</string>
+	<key>TediumGithubIssuesURL</key>
+	<string>https://github.com/dustinrue/Tedium/issues</string>
 </dict>
 </plist>

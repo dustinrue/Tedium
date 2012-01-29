@@ -64,6 +64,8 @@ enum {
 - (IBAction)removeDestination:(id)sender;
 - (IBAction)editDestination:(id)sender;
 - (IBAction)toggleStartAtLoginAction:(id)sender;
+- (IBAction)openTediumGitHubIssues:(id)sender;
+- (IBAction)openDonationPage:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;

@@ -543,6 +543,16 @@
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
+- (IBAction)openTediumGitHubIssues:(id)sender {
+    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumGithubIssuesURL"]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+- (IBAction)openDonationPage:(id)sender {
+    NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumDonationsURL"]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 
 #pragma mark Scripting Support
 
