@@ -53,7 +53,7 @@
         [self setDestinations:[[NSMutableArray alloc] init]];
     
  
-
+    [destinationsTableView setDoubleAction:@selector(editDestination:)];
     NSLog(@"loaded configuration");
     
     
@@ -139,17 +139,30 @@
   
 
     if ([afpURL objectForKey:@"cleanedURL"]) {
-        [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+        if ([destinationsTableView selectedRow] != -1) {
+            [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                            [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
+        }
+        else {
+            [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
+        }
         
         if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
             [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
         }
     }
     else {
-        [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+        if ([destinationsTableView selectedRow] != -1) {
+            [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                            newDestination, @"destinationVolumePath",
+                                            [NSNumber numberWithInt:0], @"isAFP",nil]];
+        }
+        else {
+            [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  newDestination, @"destinationVolumePath",
                                  [NSNumber numberWithInt:0], @"isAFP",nil]];
+        }
     }
     
     [self saveSettings];
@@ -304,6 +317,11 @@
 
 - (IBAction)addNetworkShare:(id)sender 
 {
+    NSLog(@"sender is %@", [sender class]);
+
+    if ([sender class] == [NSMenuItem class]) {
+        [destinationsTableView deselectAll:self];
+    }
     [self setActiveSheet:addNetworkShareSheet];
     [NSApp beginSheet:addNetworkShareSheet
 	   modalForWindow:prefsWindow
@@ -352,19 +370,12 @@
     
 }
 
-- (void)addExternalDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-	if (returnCode != NSOKButton)
-		return;
-    
-	NSLog(@"got new data!");
-}
-
 - (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	if (returnCode != NSOKButton)
 		return;
     
+
     [self addNewDestination:[self destinationValueFromSheet]];
     [self setDestinationValueFromSheet:@""];
 }
@@ -390,6 +401,21 @@
 
     [self saveSettings];
 
+}
+
+- (IBAction)editDestination:(id)sender {
+    [destinationsTableView abortEditing];
+    
+    if ([destinationsTableView selectedRow] == -1)
+        return;
+    
+    NSDictionary *tmp = [[self destinations] objectAtIndex:[destinationsTableView selectedRow]];
+    
+    [self setDestinationValueFromSheet:[tmp valueForKey:@"destinationVolumePath"]];
+    
+    NSLog(@"%@", [self destinationValueFromSheet]);
+    
+    [self addNetworkShare:self];
 }
 
 #pragma mark NSTableViewDataSource routines
@@ -517,7 +543,6 @@
         
     }
     [startAtLoginStatus setState:[self willStartAtLogin:[self appPath]] ? 1:0];
-    [startAtLoginStatus2 setState:[self willStartAtLogin:[self appPath]] ? 1:0];
 }
 
 

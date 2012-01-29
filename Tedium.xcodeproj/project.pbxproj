@@ -24,6 +24,7 @@
 		DA2CDA0414D47316001632F3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2CDA0314D47316001632F3 /* Sparkle.framework */; };
 		DA2CDA0514D478FE001632F3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA2CDA0314D47316001632F3 /* Sparkle.framework */; };
 		DA2CDA0714D479D9001632F3 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = DA2CDA0614D479D9001632F3 /* dsa_pub.pem */; };
+		DA2CDA0914D4BEF4001632F3 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = DA2CDA0814D4BEF4001632F3 /* gear.png */; };
 		DA81451214C9C49100776C35 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DA81451114C9C49100776C35 /* PopButton.m */; };
 		DA81451314C9DAA000776C35 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = DADA99B014C4F6C10041A7F3 /* BetterAuthorizationSampleLib.c */; };
 		DA81451414C9DB5B00776C35 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADA99CD14C4F7AA0041A7F3 /* Security.framework */; };
@@ -138,6 +139,7 @@
 		DA2CD9F514D46FCD001632F3 /* QuincyKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuincyKit-Prefix.pch"; sourceTree = "<group>"; };
 		DA2CDA0314D47316001632F3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		DA2CDA0614D479D9001632F3 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
+		DA2CDA0814D4BEF4001632F3 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
 		DA81451014C9C49100776C35 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopButton.h; sourceTree = "<group>"; };
 		DA81451114C9C49100776C35 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
 		DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+HelperTool.h"; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		DADA99ED14C51BD90041A7F3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA2CDA0814D4BEF4001632F3 /* gear.png */,
 				DA2CDA0614D479D9001632F3 /* dsa_pub.pem */,
 				DABD281A14C92B8B00455E23 /* awesomeclock.icns */,
 				DABD281514C8D0E000455E23 /* minus-8.png */,
@@ -484,6 +487,7 @@
 				DA2CD9EE14D46448001632F3 /* BWQuincyMain.nib in Resources */,
 				DA2CD9F614D46FCD001632F3 /* QuincyKit-Info.plist in Resources */,
 				DA2CDA0714D479D9001632F3 /* dsa_pub.pem in Resources */,
+				DA2CDA0914D4BEF4001632F3 /* gear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

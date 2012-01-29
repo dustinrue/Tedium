@@ -62,12 +62,14 @@ enum {
 - (IBAction)closePreferences:(id)sender;
 - (IBAction)applyNewDestination:(id)sender;
 - (IBAction)removeDestination:(id)sender;
+- (IBAction)editDestination:(id)sender;
+- (IBAction)toggleStartAtLoginAction:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;
 - (BOOL)willStartAtLogin:(NSURL *)appPath;
 - (void)startAtLogin;
 - (void)disableStartAtLogin;
-- (IBAction)toggleStartAtLoginAction:(id)sender;
+
 
 @end
