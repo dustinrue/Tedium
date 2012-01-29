@@ -142,6 +142,7 @@
         if ([destinationsTableView selectedRow] != -1) {
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                             [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
+            [destinationsTableView deselectAll:self];
         }
         else {
             [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -157,6 +158,7 @@
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                             newDestination, @"destinationVolumePath",
                                             [NSNumber numberWithInt:0], @"isAFP",nil]];
+            [destinationsTableView deselectAll:self];
         }
         else {
             [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
