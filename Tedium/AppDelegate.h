@@ -30,7 +30,7 @@
     IBOutlet NSTableView *destinationsTableView;
     IBOutlet NSButton *startAtLoginStatusForMenu;
     IBOutlet NSButton *hideMenuBarIconStatusForMenu;
-
+    __unsafe_unretained NSMenu *destinationsSubMenu;
 }
 
 enum {
@@ -52,6 +52,7 @@ enum {
 @property (assign) BOOL hideMenuBarIconStatus;
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
+@property (unsafe_unretained) IBOutlet NSMenu *destinationsSubMenu;
 
 
 - (NSImage *) prepareImageForMenubar:(NSString *)name;
@@ -63,6 +64,8 @@ enum {
 - (void) enableHideMenuBarIcon;
 - (void) disableHideMenuBarIcon;
 - (BOOL) willHideMenuBarIcon;
+- (void) populateDestinationsSubMenu;
+- (void) applyDestinationViaMenu:(id) sender;
 
 
 - (IBAction)openPreferences:(id)sender;
@@ -86,6 +89,7 @@ enum {
 - (BOOL)willStartAtLogin:(NSURL *)appPath;
 - (void)startAtLogin;
 - (void)disableStartAtLogin;
+
 
 
 @end

@@ -15,6 +15,7 @@
 
 
 @implementation AppDelegate
+@synthesize destinationsSubMenu;
 
 @synthesize window = _window;
 @synthesize currentDestination;
@@ -66,7 +67,7 @@
     [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
     [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
     [self.checkForUpdatesStatusForMenu setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
-    
+    [self populateDestinationsSubMenu];
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -149,8 +150,15 @@
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                             [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
             [destinationsTableView deselectAll:self];
-            if (![KeychainServices modifyKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withNewPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-                [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to update the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+            if ([KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                if (![KeychainServices modifyKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withNewPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to update the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+                }
+            }
+            else {
+                if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+                }
             }
         }
         else {
@@ -179,6 +187,8 @@
     }
     
     [self saveSettings];
+    [destinationsSubMenu removeAllItems];
+    [self populateDestinationsSubMenu];
     [destinationsTableView reloadData];
 }
 
@@ -362,6 +372,10 @@
     
 }
 
+- (void) applyDestinationViaMenu:(id) sender {
+    [self setCurrentDestination:[sender title]];
+}
+
 - (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     
 	if (returnCode != NSOKButton)
@@ -378,12 +392,12 @@
     if ([destinationsTableView selectedRow] == -1)
         return;
    
-    NSDictionary *tmp = [self parseDestination:[[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] valueForKey:@"destinationVolumePath"]];
+    NSDictionary *afpURL = [self parseDestination:[[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] valueForKey:@"destinationVolumePath"]];
 
     
 
-    if ([tmp objectForKey:@"cleanedURL"]) {
-        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if ([afpURL objectForKey:@"cleanedURL"] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     }
 
    
@@ -415,6 +429,14 @@
 - (IBAction)openDonationPage:(id)sender {
     NSURL *url = [NSURL URLWithString:[[[NSBundle mainBundle] infoDictionary] valueForKey:@"TediumDonationsURL"]];
     [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
+- (void) populateDestinationsSubMenu {
+    for (NSDictionary *tmp in [self destinations]) {
+        NSMenuItem *newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
+        [destinationsSubMenu addItem:newMenuItem];
+        
+    }
 }
 
 
