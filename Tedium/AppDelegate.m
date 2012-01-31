@@ -300,9 +300,12 @@
 }
 
 - (IBAction)showAbout:(id)sender {
-    [aboutWindow makeKeyAndOrderFront:self];
+    [NSApp activateIgnoringOtherApps:YES];
+    [aboutWindow makeKeyAndOrderFront:sender];
     [creditsFile readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"]];
+
 }
+
 
 
 - (IBAction)addNetworkShare:(id)sender {
