@@ -32,6 +32,7 @@
 		DA81451A14C9E8D800776C35 /* AppDelegate+HelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */; };
 		DA81451C14CA037300776C35 /* TediumHelperTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = DADA99BE14C4F76E0041A7F3 /* TediumHelperTool */; };
 		DA81451D14CA037300776C35 /* TediumHelperInstallTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = DADA99D514C4F7E90041A7F3 /* TediumHelperInstallTool */; };
+		DAA4E60F14E4B9D1007D3D8F /* NetworkBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */; };
 		DABD281714C8D0E000455E23 /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281514C8D0E000455E23 /* minus-8.png */; };
 		DABD281814C8D0E000455E23 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281614C8D0E000455E23 /* plus-arrow.png */; };
 		DABD281B14C92B8B00455E23 /* awesomeclock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DABD281A14C92B8B00455E23 /* awesomeclock.icns */; };
@@ -144,6 +145,8 @@
 		DA81451114C9C49100776C35 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
 		DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+HelperTool.h"; sourceTree = "<group>"; };
 		DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+HelperTool.m"; sourceTree = "<group>"; };
+		DAA4E60D14E4B9D1007D3D8F /* NetworkBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBrowser.h; sourceTree = "<group>"; };
+		DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBrowser.m; sourceTree = "<group>"; };
 		DABD281514C8D0E000455E23 /* minus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minus-8.png"; path = "Resources/minus-8.png"; sourceTree = "<group>"; };
 		DABD281614C8D0E000455E23 /* plus-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-arrow.png"; path = "Resources/plus-arrow.png"; sourceTree = "<group>"; };
 		DABD281A14C92B8B00455E23 /* awesomeclock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = awesomeclock.icns; path = Resources/awesomeclock.icns; sourceTree = "<group>"; };
@@ -319,14 +322,16 @@
 				DA2CD9E914D4642C001632F3 /* QuincyKit */,
 				DA0BDA1014CD096D00205D80 /* AppDelegate.h */,
 				DA0BDA1114CD096D00205D80 /* AppDelegate.m */,
+				DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */,
+				DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */,
 				73C1A38B14D3ACBB00015FAB /* AppleScriptSupport.h */,
 				73C1A38C14D3ACBB00015FAB /* AppleScriptSupport.m */,
 				73C1A38414D3A50400015FAB /* Destination.h */,
 				73C1A38514D3A50400015FAB /* Destination.m */,
 				DA0BDA0D14CCE3D000205D80 /* KeychainServices.h */,
 				DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */,
-				DA81451814C9E8D700776C35 /* AppDelegate+HelperTool.h */,
-				DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */,
+				DAA4E60D14E4B9D1007D3D8F /* NetworkBrowser.h */,
+				DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */,
 				DA81451014C9C49100776C35 /* PopButton.h */,
 				DA81451114C9C49100776C35 /* PopButton.m */,
 				DAEBC0B514C4C2280018FA96 /* MainMenu.xib */,
@@ -534,6 +539,7 @@
 				DA0BDA1214CD096D00205D80 /* AppDelegate.m in Sources */,
 				73C1A38614D3A50400015FAB /* Destination.m in Sources */,
 				73C1A38D14D3ACBB00015FAB /* AppleScriptSupport.m in Sources */,
+				DAA4E60F14E4B9D1007D3D8F /* NetworkBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

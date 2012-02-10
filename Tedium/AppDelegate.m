@@ -27,6 +27,7 @@
 @synthesize hideMenuBarIconStatus;
 @synthesize checkForUpdatesStatusForMenu;
 @synthesize creditsFile;
+@synthesize networkBrowser;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -39,6 +40,9 @@
     [self showInStatusBar:nil];
     [self setMenuBarImage:menuBarImage];
     
+    
+    [self setNetworkBrowser:[[NetworkBrowser alloc] init]];
+    [[self networkBrowser] start];
 
     
    	[GrowlApplicationBridge setGrowlDelegate: self];
@@ -324,6 +328,7 @@
     // all rows because "editing" is later
     // determined by the fact that NSTableView has a 
     // selectedRow > 1
+    NSLog(@"found servers %@",[networkBrowser foundServers]);
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
     }

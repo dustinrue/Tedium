@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
 #import "BWQuincyManager.h"
+#import "NetworkBrowser.h"
 
 @class Destination;
 
@@ -50,6 +51,8 @@ enum {
 @property (retain) NSMutableArray *destinations;
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
+@property (readwrite,retain) NetworkBrowser *networkBrowser;
+
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
 @property (unsafe_unretained) IBOutlet NSMenu *destinationsSubMenu;
