@@ -54,47 +54,21 @@
 
 + (BOOL)deleteKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withAddress:(NSString *)address
 {
-	SecKeychainAttribute attributes[4];
-    SecKeychainAttributeList list;
-    SecKeychainItemRef item;
-	SecKeychainSearchRef search;
-    OSStatus status;
-	OSErr result;
-	int numberOfItemsFound = 0;
-	
-    attributes[0].tag = kSecAccountItemAttr;
-    attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
+    OSErr result;
     
-    attributes[1].tag = kSecDescriptionItemAttr;
-    attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
-	
-	attributes[2].tag = kSecLabelItemAttr;
-    attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
-    attributes[3].tag = kSecServerItemAttr;
-    attributes[3].data = (void *)[address UTF8String];
-    attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
-
-    list.count = 4;
-    list.attr = attributes;
+    [query setObject:(id)kSecClassInternetPassword forKey:kSecClass];
+    [query setObject:username forKey:kSecAttrAccount];
+    [query setObject:keychainItemKind forKey:kSecAttrDescription];
+    [query setObject:address forKey:kSecAttrServer];
+    [query setObject:keychainItemName forKey:kSecAttrLabel];
+    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
+    
+    NSLog(@"deleting %@",(__bridge CFDictionaryRef)query);
+    result = SecItemDelete((__bridge CFDictionaryRef)query);
 	
-	result = SecKeychainSearchCreateFromAttributes(NULL, kSecInternetPasswordItemClass, &list, &search);
-	while (SecKeychainSearchCopyNext (search, &item) == noErr) {
-        numberOfItemsFound++;
-    }
-	if (numberOfItemsFound) {
-		status = SecKeychainItemDelete(item);
-	}
-	
-    if (status != 0) {
-        NSLog(@"Error deleting item: %d\n", (int)status);
-    }
-	CFRelease (item);
-	CFRelease(search);
-	return !status;
+	return !result;
 }
 
 + (BOOL)modifyKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withNewPassword:(NSString *)newPassword withAddress:(NSString *)address
