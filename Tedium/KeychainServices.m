@@ -65,7 +65,6 @@
     [query setObject:keychainItemName forKey:kSecAttrLabel];
     [query setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
     
-    NSLog(@"deleting %@",(__bridge CFDictionaryRef)query);
     result = SecItemDelete((__bridge CFDictionaryRef)query);
 	
 	return !result;
