@@ -72,42 +72,29 @@
 
 + (BOOL)modifyKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withNewPassword:(NSString *)newPassword withAddress:(NSString *)address
 {
-	SecKeychainAttribute attributes[4];
-    SecKeychainAttributeList list;
-    SecKeychainItemRef item;
-	SecKeychainSearchRef search;
-    OSStatus status;
 	OSErr result;
-	
-    attributes[0].tag = kSecAccountItemAttr;
-    attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [[NSNumber numberWithUnsignedLong: [username length]] unsignedIntValue];
     
-    attributes[1].tag = kSecDescriptionItemAttr;
-    attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
-	
-	attributes[2].tag = kSecLabelItemAttr;
-    attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
-    attributes[3].tag = kSecServerItemAttr;
-    attributes[3].data = (void *)[address UTF8String];
-    attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
-
-    list.count = 4;
-    list.attr = attributes;
-	
-	result = SecKeychainSearchCreateFromAttributes(NULL, kSecInternetPasswordItemClass, &list, &search);
-	SecKeychainSearchCopyNext (search, &item);
-    status = SecKeychainItemModifyContent(item, &list, [[NSNumber numberWithUnsignedLong:[newPassword length]] unsignedIntValue], [newPassword UTF8String]);
-	
-    if (status != 0) {
-        NSLog(@"Error modifying item: %d", (int)status);
+    [query setObject:(id)kSecClassInternetPassword forKey:kSecClass];
+    [query setObject:username forKey:kSecAttrAccount];
+    [query setObject:keychainItemKind forKey:kSecAttrDescription];
+    [query setObject:address forKey:kSecAttrServer];
+    [query setObject:keychainItemName forKey:kSecAttrLabel];
+    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
+    
+    NSMutableDictionary *updateAttributes = [NSMutableDictionary dictionaryWithDictionary:query];
+    
+    [updateAttributes setObject:[newPassword dataUsingEncoding:NSUTF8StringEncoding] forKey:kSecValueData];
+    
+    result = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)updateAttributes);
+    
+    if (result != noErr) {
+        NSLog(@"Error modifying item: %d", (int)result);
     }
-	CFRelease (item);
-	CFRelease(search);
-	return !status;
+
+
+	return !result;
 }
 
 + (BOOL)addKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withPassword:(NSString *)password withAddress:(NSString *)address
