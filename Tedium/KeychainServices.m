@@ -143,7 +143,6 @@
 			password = @"";
 		}
 	}
-    NSLog(@"returning %@", password);
 	return password;
 }
 
