@@ -122,46 +122,28 @@
 
 + (NSString *)getPasswordFromKeychainItem:(NSString *)keychainItemName withItemKind:(NSString *)keychainItemKind forUsername:(NSString *)username withAddress:(NSString *)address
 {
-    SecKeychainSearchRef search;
-    SecKeychainItemRef item;
-    SecKeychainAttributeList list;
-    SecKeychainAttribute attributes[4];
+    CFTypeRef results;
     OSErr result;
-
-	attributes[0].tag = kSecAccountItemAttr;
-    attributes[0].data = (void *)[username UTF8String];
-    attributes[0].length = [[NSNumber numberWithUnsignedLong:[username length]] unsignedIntValue];
     
-    attributes[1].tag = kSecDescriptionItemAttr;
-    attributes[1].data = (void *)[keychainItemKind UTF8String];
-    attributes[1].length = [[NSNumber numberWithUnsignedLong:[keychainItemKind length]] unsignedIntValue];
-	
-	attributes[2].tag = kSecLabelItemAttr;
-    attributes[2].data = (void *)[keychainItemName UTF8String];
-    attributes[2].length = [[NSNumber numberWithUnsignedLong:[keychainItemName length]] unsignedIntValue];
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
-    attributes[3].tag = kSecServerItemAttr;
-    attributes[3].data = (void *)[address UTF8String];
-    attributes[3].length = [[NSNumber numberWithUnsignedLong:[address length]] unsignedIntValue];
-
-    list.count = 4;
-    list.attr = attributes;
-
-    result = SecKeychainSearchCreateFromAttributes(NULL, kSecInternetPasswordItemClass, &list, &search);
-
-    if (result != noErr) {
-        NSLog (@"status %d from SecKeychainSearchCreateFromAttributes\n", result);
-    }
+    [query setObject:(id)kSecClassInternetPassword forKey:kSecClass];
+    [query setObject:username forKey:kSecAttrAccount];
+    [query setObject:keychainItemKind forKey:kSecAttrDescription];
+    [query setObject:address forKey:kSecAttrServer];
+    [query setObject:keychainItemName forKey:kSecAttrLabel];
+    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
+    
+    result = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&results);
 	
-	NSString *password = @"";
-    if (SecKeychainSearchCopyNext (search, &item) == noErr) {
-		password = [self getPasswordFromSecKeychainItemRef:item];
+    NSString *password = @"";
+    if (result == noErr) {
+		password = [self getPasswordFromSecKeychainItemRef:(SecKeychainItemRef)results];
 		if(!password) {
 			password = @"";
 		}
-		CFRelease(item);
-		CFRelease (search);
 	}
+    NSLog(@"returning %@", password);
 	return password;
 }
 
