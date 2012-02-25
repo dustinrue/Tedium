@@ -28,6 +28,7 @@
 @synthesize checkForUpdatesStatusForMenu;
 @synthesize creditsFile;
 @synthesize networkBrowser;
+@synthesize foundDisks;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -39,6 +40,8 @@
     menuBarImage = [self prepareImageForMenubar:@"awesomeclock"];
     [self showInStatusBar:nil];
     [self setMenuBarImage:menuBarImage];
+    
+    foundDisks = [[NSMutableArray alloc] init];
     
     
     [self setNetworkBrowser:[[NetworkBrowser alloc] init]];
@@ -329,25 +332,57 @@
     // determined by the fact that NSTableView has a 
     // selectedRow > 1
     NSDictionary *aRecord = nil;
+    
+    // The networkBrowser is specifically looking for adisk shares
+    // on the network.  A Time Capsule or AFP server will advertise 
+    // that it has adisk shares and foundServers will return an array of
+    // found Time Capsules/AFP servers (or anything claiming to be as much).
+    // Here Tedium is going to look at each one to see if they 
+    // also advertise an available Time Machine compatible share
     for (NSNetService *service in [networkBrowser foundServers]) {
     
+        // get the TXT record for this service (Time Capsule)
         aRecord = [NSNetService dictionaryFromTXTRecordData:[service TXTRecordData]];
         NSArray *allKeys = [aRecord allKeys];
         
+        //NSLog(@"%@", aRecord);
+        
+        // The TXT record describes what shares are available, look
+        // at each one and determine if it is a Time Machine compatible
+        // share
         for (NSString *key in allKeys) {
-            NSArray *tmp = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
-            for (NSString *share in tmp) {
-                if ([share isEqualToString:@"adVF=0xa1"]) {
-                    NSLog(@"got afp://%@/%@", [service hostName],[[[tmp objectAtIndex:1] componentsSeparatedByString:@"="] objectAtIndex:1]);
-                    [self setDestinationValueFromSheet:[NSString stringWithFormat:@"afp://%@/%@", [service hostName],[[[tmp objectAtIndex:1] componentsSeparatedByString:@"="] objectAtIndex:1]]];
+            
+            NSArray *share = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
+                        
+            //NSLog(@"%@",share);
+            
+            // share is now a single disk share hosted on a Time Capsule or AFP server.
+            // Tedium must now look at each property for this share and determine if it is
+            // a Time Machine compatible share or not
+            for (NSString *shareProperty in share) {
+                // the magic string is adVF=0xa1
+                if ([shareProperty isEqualToString:@"adVF=0xa1"]) {
+                    
+                    // we need to get the name of the share but because 
+                    // componentsSeparatedByString returns a simple NSArray
+                    // we need to find the proper entry manually
+                    for (NSString *tmp in share) {
+                        if ([[[tmp componentsSeparatedByString:@"="] objectAtIndex:0] isEqualToString:@"adVN"])
+                            [[self foundDisks] addObject:[NSString stringWithFormat:@"afp://%@/%@", [service hostName], [[tmp componentsSeparatedByString:@"="] objectAtIndex:1]]];
+                    }
+                    
                 }
             }
         }
             
     }
+    
+    //NSLog(@"%@", [self foundDisks]);
+    
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
     }
+    
     [self setActiveSheet:addNetworkShareSheet];
     [NSApp beginSheet:addNetworkShareSheet
 	   modalForWindow:prefsWindow

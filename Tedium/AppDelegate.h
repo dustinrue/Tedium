@@ -52,6 +52,7 @@ enum {
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
 @property (readwrite,retain) NetworkBrowser *networkBrowser;
+@property (readwrite,retain) NSMutableArray *foundDisks;
 
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
