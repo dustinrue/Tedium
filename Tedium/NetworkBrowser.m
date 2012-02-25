@@ -25,7 +25,7 @@
 }
 
 - (void) start {
-    [[self netBrowser] searchForServicesOfType:@"_afpovertcp._tcp" inDomain:@"local."];
+    [[self netBrowser] searchForServicesOfType:@"_adisk._tcp" inDomain:@"local."];
 }
 
 - (void) stop {
@@ -35,11 +35,21 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
 
     [[self foundServers] addObject:netService];
+    [netService resolveWithTimeout:0.5];
 }
 
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing {
     [[self foundServers] removeObject:aNetService];
+}
+
+- (void)netServiceDidResolveAddress:(NSNetService *)sender {
+    
+}
+
+
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
+    
 }
 
 @end

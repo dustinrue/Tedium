@@ -328,7 +328,23 @@
     // all rows because "editing" is later
     // determined by the fact that NSTableView has a 
     // selectedRow > 1
-    NSLog(@"found servers %@",[networkBrowser foundServers]);
+    NSDictionary *aRecord = nil;
+    for (NSNetService *service in [networkBrowser foundServers]) {
+    
+        aRecord = [NSNetService dictionaryFromTXTRecordData:[service TXTRecordData]];
+        NSArray *allKeys = [aRecord allKeys];
+        
+        for (NSString *key in allKeys) {
+            NSArray *tmp = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
+            for (NSString *share in tmp) {
+                if ([share isEqualToString:@"adVF=0xa1"]) {
+                    NSLog(@"got afp://%@/%@", [service hostName],[[[tmp objectAtIndex:1] componentsSeparatedByString:@"="] objectAtIndex:1]);
+                    [self setDestinationValueFromSheet:[NSString stringWithFormat:@"afp://%@/%@", [service hostName],[[[tmp objectAtIndex:1] componentsSeparatedByString:@"="] objectAtIndex:1]]];
+                }
+            }
+        }
+            
+    }
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
     }
