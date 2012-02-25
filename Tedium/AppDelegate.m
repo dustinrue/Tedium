@@ -331,6 +331,9 @@
     // all rows because "editing" is later
     // determined by the fact that NSTableView has a 
     // selectedRow > 1
+    
+    [[self foundDisks] removeAllObjects];
+    
     NSDictionary *aRecord = nil;
     
     // The networkBrowser is specifically looking for adisk shares
