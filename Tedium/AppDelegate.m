@@ -29,6 +29,7 @@
 @synthesize creditsFile;
 @synthesize networkBrowser;
 @synthesize foundDisks;
+@synthesize selectedBonjourShare;
 @synthesize usernameFromSheet;
 @synthesize passwordFromSheet;
 
@@ -78,6 +79,9 @@
     [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
     [self.checkForUpdatesStatusForMenu setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
     [self populateDestinationsSubMenu];
+    
+    [self setPasswordFromSheet:@""];
+    [self setUsernameFromSheet:@""];
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -481,7 +485,7 @@
 	if (returnCode != NSOKButton)
 		return;
     
-    [self setDestinationValueFromSheet:[foundDisks objectAtIndex:[foundSharesTableView selectedRow]]];
+    [self setSelectedBonjourShare:[[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]]];
     [self setActiveSheet:usernamePasswordSheet];
     [NSApp beginSheet:usernamePasswordSheet
 	   modalForWindow:prefsWindow
@@ -494,22 +498,49 @@
 
 - (void)usernamePasswordSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     
-    [sheet orderOut:nil];
-    
-	if (returnCode != NSOKButton)
-		return;
-    
-    NSDictionary *tmp = [[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]];
+   
+    if (returnCode != NSOKButton) {
+        [sheet orderOut:nil];
+        return;
+    }
+
+    NSDictionary *tmp = [self selectedBonjourShare];
     
     if ([[self passwordFromSheet] isEqualToString:@""]) {
         // handle this, a password is required for tmutil
+        NSAlert *alert = [[NSAlert alloc] init];
+		[alert setAlertStyle:NSWarningAlertStyle];
+		[alert setMessageText:NSLocalizedString(@"Password Required", @"")];
+		[alert setInformativeText:NSLocalizedString(@"Destinations without a password are not supported", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+        
+		[alert beginSheetModalForWindow:usernamePasswordSheet
+                          modalDelegate:self
+                         didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                            contextInfo:nil];
     }
     else {
+        [sheet orderOut:nil];
         [self addNewDestination:[NSString stringWithFormat:@"afp://%@:%@@%@/%@", [self usernameFromSheet], [self passwordFromSheet], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]]];
+        [self setSelectedBonjourShare:nil];
     }
-     [self setUsernameFromSheet:@""];
-     [self setPasswordFromSheet:@""];
-     [foundSharesTableView deselectAll:self];
+    
+    [self setUsernameFromSheet:@""];
+    [self setPasswordFromSheet:@""];
+    [foundSharesTableView deselectAll:self];
+}
+
+- (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    
+
+    if (returnCode == NSAlertFirstButtonReturn) {
+        [NSApp beginSheet:usernamePasswordSheet
+           modalForWindow:prefsWindow
+            modalDelegate:self
+           didEndSelector:@selector(usernamePasswordSheetDidEnd:returnCode:contextInfo:)
+              contextInfo:nil];
+    }
 }
 
 - (IBAction)removeDestination:(id)sender {

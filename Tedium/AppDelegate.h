@@ -56,6 +56,7 @@ enum {
 @property (assign) BOOL hideMenuBarIconStatus;
 @property (readwrite, retain) NetworkBrowser *networkBrowser;
 @property (readwrite, retain) NSMutableArray *foundDisks;
+@property (readwrite, retain) NSDictionary *selectedBonjourShare;
 @property (readwrite, retain) NSString *usernameFromSheet;
 @property (readwrite, retain) NSString *passwordFromSheet;
 
