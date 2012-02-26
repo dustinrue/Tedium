@@ -85,7 +85,6 @@
 	OSStatus error = 0;
 	*response = NULL;
 	
-    NSLog(@"actual perform sees %@",action);
 	// create request
 	bundleID = [[NSBundle mainBundle] bundleIdentifier];
 	assert(bundleID != NULL);

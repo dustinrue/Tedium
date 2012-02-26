@@ -71,7 +71,7 @@
  
     [destinationsTableView setDoubleAction:@selector(editDestination:)];
     [foundSharesTableView setDoubleAction:@selector(closeSheetWithOK:)];
-    NSLog(@"loaded configuration");
+
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"] ? [self enableHideMenuBarIcon] : [self disableHideMenuBarIcon]);
     
     [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
@@ -130,7 +130,6 @@
 
 
 - (void)saveSettings {
-    NSLog(@"saving settings");
     [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];
    	[[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -775,7 +774,6 @@
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
 	// Set up status bar.
-    NSLog(@"showing again");
     [self showInStatusBar:self];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"]) {
 		
