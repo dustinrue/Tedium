@@ -29,6 +29,8 @@
 @synthesize creditsFile;
 @synthesize networkBrowser;
 @synthesize foundDisks;
+@synthesize usernameFromSheet;
+@synthesize passwordFromSheet;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -370,8 +372,13 @@
                     // componentsSeparatedByString returns a simple NSArray
                     // we need to find the proper entry manually
                     for (NSString *tmp in share) {
-                        if ([[[tmp componentsSeparatedByString:@"="] objectAtIndex:0] isEqualToString:@"adVN"])
-                            [[self foundDisks] addObject:[NSString stringWithFormat:@"afp://%@/%@", [service hostName], [[tmp componentsSeparatedByString:@"="] objectAtIndex:1]]];
+                        if ([[[tmp componentsSeparatedByString:@"="] objectAtIndex:0] isEqualToString:@"adVN"]) {
+                            NSDictionary *tmShare = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [service hostName],@"hostname",
+                                                 [[tmp componentsSeparatedByString:@"="] objectAtIndex:1],@"share", nil];
+                        
+                            [[self foundDisks] addObject:tmShare];
+                        }
                     }
                     
                 }
@@ -386,11 +393,11 @@
         [destinationsTableView deselectAll:self];
     }
     
-    [self setActiveSheet:addNetworkShareSheet];
-    [NSApp beginSheet:addNetworkShareSheet
+    [self setActiveSheet:bonjourBasedShareSheet];
+    [NSApp beginSheet:bonjourBasedShareSheet
 	   modalForWindow:prefsWindow
 	    modalDelegate:self
-	   didEndSelector:@selector(addNetworkDriveSheetDidEnd:returnCode:contextInfo:)
+	   didEndSelector:@selector(bonjourBasedShareSheetDidEnd:returnCode:contextInfo:)
 	      contextInfo:nil];
 }
 
@@ -403,15 +410,10 @@
 
 - (IBAction)closeSheetWithOK:(id)sender {
 	[NSApp endSheet:[self activeSheet] returnCode:NSOKButton];
-	[[self activeSheet] orderOut:nil];
-    [self setActiveSheet:nil];
-
 }
 
 - (IBAction)closeSheetWithCancel:(id)sender {
 	[NSApp endSheet:[self activeSheet] returnCode:NSCancelButton];
-	[[self activeSheet] orderOut:nil];
-    [self setActiveSheet:nil];
 }
 
 
@@ -437,12 +439,52 @@
 
 - (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     
+    [sheet orderOut:nil];
+    
 	if (returnCode != NSOKButton)
 		return;
     
 
     [self addNewDestination:[self destinationValueFromSheet]];
     [self setDestinationValueFromSheet:@""];
+}
+
+- (void)bonjourBasedShareSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    
+    [sheet orderOut:nil];
+    
+	if (returnCode != NSOKButton)
+		return;
+    
+    [self setDestinationValueFromSheet:[foundDisks objectAtIndex:[foundSharesTableView selectedRow]]];
+    [self setActiveSheet:usernamePasswordSheet];
+    [NSApp beginSheet:usernamePasswordSheet
+	   modalForWindow:prefsWindow
+	    modalDelegate:self
+	   didEndSelector:@selector(usernamePasswordSheetDidEnd:returnCode:contextInfo:)
+	      contextInfo:nil];
+
+
+}
+
+- (void)usernamePasswordSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    
+    [sheet orderOut:nil];
+    
+	if (returnCode != NSOKButton)
+		return;
+    
+    NSDictionary *tmp = [[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]];
+    
+    if ([[self passwordFromSheet] isEqualToString:@""]) {
+        // handle this, a password is required for tmutil
+    }
+    else {
+        [self addNewDestination:[NSString stringWithFormat:@"afp://%@:%@@%@/%@", [self usernameFromSheet], [self passwordFromSheet], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]]];
+    }
+     [self setUsernameFromSheet:@""];
+     [self setPasswordFromSheet:@""];
+     [foundSharesTableView deselectAll:self];
 }
 
 - (IBAction)removeDestination:(id)sender {
@@ -504,21 +546,40 @@
 #pragma mark NSTableViewDataSource routines
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    if (!destinations) {
-        return 0;
-    }
-
     
-    return [[self destinations] count];
+    if (tableView == destinationsTableView) {
+        if (!destinations) {
+            return 0;
+        }
+        return [[self destinations] count];
+    }
+    else {
+        if (!foundDisks) {
+            return 0;
+        }
+        
+        return [[self foundDisks] count];
+    }
+    
+    return 0;
 }
 
 
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    
+    if (tableView == destinationsTableView) {
 
-    NSDictionary *d = [[self destinations] objectAtIndex:row];
+        NSDictionary *d = [[self destinations] objectAtIndex:row];
 
-    return [d valueForKey:[tableColumn identifier]];
+        return [d valueForKey:[tableColumn identifier]];
+    }
+    else if (tableView == foundSharesTableView) {
+        NSDictionary *tmp = [[self foundDisks] objectAtIndex:row];
+        return [NSString stringWithFormat:@"afp://%@/%@", [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]];;
+    }
+    
+    return @"MY NAME IS ERROR";
 }
 
 

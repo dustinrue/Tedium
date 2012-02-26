@@ -27,8 +27,11 @@
     IBOutlet NSMenu *menuBarMenu;
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
+    IBOutlet NSWindow *bonjourBasedShareSheet;
+    IBOutlet NSWindow *usernamePasswordSheet;
     IBOutlet NSWindow *aboutWindow;
     IBOutlet NSTableView *destinationsTableView;
+    IBOutlet NSTableView *foundSharesTableView;
     IBOutlet NSButton *startAtLoginStatusForMenu;
     IBOutlet NSButton *hideMenuBarIconStatusForMenu;
     __unsafe_unretained NSMenu *destinationsSubMenu;
@@ -44,15 +47,17 @@ enum {
 
 
 @property (assign) IBOutlet NSWindow *window;
-@property (readwrite,retain,nonatomic) NSString *currentDestination;
-@property (readwrite,retain) NSURL *currentDestinationAsNSURL;
-@property (readwrite,assign) NSWindow *activeSheet;
+@property (readwrite, retain,nonatomic) NSString *currentDestination;
+@property (readwrite, retain) NSURL *currentDestinationAsNSURL;
+@property (readwrite, assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
 @property (retain) NSMutableArray *destinations;
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
-@property (readwrite,retain) NetworkBrowser *networkBrowser;
-@property (readwrite,retain) NSMutableArray *foundDisks;
+@property (readwrite, retain) NetworkBrowser *networkBrowser;
+@property (readwrite, retain) NSMutableArray *foundDisks;
+@property (readwrite, retain) NSString *usernameFromSheet;
+@property (readwrite, retain) NSString *passwordFromSheet;
 
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
