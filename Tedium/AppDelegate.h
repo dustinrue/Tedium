@@ -78,6 +78,7 @@ enum {
 
 
 - (IBAction)openPreferences:(id)sender;
+- (IBAction)addBonjourBasedNetworkShare:(id)sender;
 - (IBAction)addNetworkShare:(id)sender;
 - (IBAction)addCurrentDrive:(id)sender;
 - (IBAction)closeSheetWithOK:(id)sender;

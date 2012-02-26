@@ -327,7 +327,7 @@
 
 
 
-- (IBAction)addNetworkShare:(id)sender {
+- (IBAction)addBonjourBasedNetworkShare:(id)sender {
     // if we're coming from a menu item, specifically
     // then we're not editing an entry, deselect
     // all rows because "editing" is later
@@ -398,6 +398,31 @@
 	   modalForWindow:prefsWindow
 	    modalDelegate:self
 	   didEndSelector:@selector(bonjourBasedShareSheetDidEnd:returnCode:contextInfo:)
+	      contextInfo:nil];
+}
+
+- (IBAction)addNetworkShare:(id)sender {
+    // if we're coming from a menu item, specifically
+    // then we're not editing an entry, deselect
+    // all rows because "editing" is later
+    // determined by the fact that NSTableView has a 
+    // selectedRow > 1
+    
+
+    
+    
+    
+    //NSLog(@"%@", [self foundDisks]);
+    
+    if ([sender class] == [NSMenuItem class]) {
+        [destinationsTableView deselectAll:self];
+    }
+    
+    [self setActiveSheet:addNetworkShareSheet];
+    [NSApp beginSheet:addNetworkShareSheet
+	   modalForWindow:prefsWindow
+	    modalDelegate:self
+	   didEndSelector:@selector(addNetworkDriveSheetDidEnd:returnCode:contextInfo:)
 	      contextInfo:nil];
 }
 
