@@ -34,6 +34,7 @@
     IBOutlet NSTableView *foundSharesTableView;
     IBOutlet NSButton *startAtLoginStatusForMenu;
     IBOutlet NSButton *hideMenuBarIconStatusForMenu;
+
     __unsafe_unretained NSMenu *destinationsSubMenu;
 }
 
@@ -59,6 +60,7 @@ enum {
 @property (readwrite, retain) NSDictionary *selectedBonjourShare;
 @property (readwrite, retain) NSString *usernameFromSheet;
 @property (readwrite, retain) NSString *passwordFromSheet;
+@property (readonly, retain)    NSString *versionString;
 
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
@@ -100,7 +102,6 @@ enum {
 - (BOOL)willStartAtLogin:(NSURL *)appPath;
 - (void)startAtLogin;
 - (void)disableStartAtLogin;
-
 
 
 @end

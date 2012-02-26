@@ -15,6 +15,7 @@
 
 
 @implementation AppDelegate
+@synthesize versionString;
 @synthesize destinationsSubMenu;
 
 @synthesize window = _window;
@@ -824,6 +825,9 @@
     
 }
 
+- (NSString *)versionString {
+	return [NSString stringWithFormat:@"Tedium %@",[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]];
+}
 
 
 #pragma mark NSApplication Delegates
