@@ -372,14 +372,14 @@
             
             NSArray *share = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
                         
-            //NSLog(@"%@",share);
+            NSLog(@"%@",share);
             
             // share is now a single disk share hosted on a Time Capsule or AFP server.
             // Tedium must now look at each property for this share and determine if it is
             // a Time Machine compatible share or not
             for (NSString *shareProperty in share) {
                 // the magic string is adVF=0xa1
-                if ([shareProperty isEqualToString:@"adVF=0xa1"]) {
+                if ([shareProperty isEqualToString:@"adVF=0x81"]) {
                     
                     // we need to get the name of the share but because 
                     // componentsSeparatedByString returns a simple NSArray
