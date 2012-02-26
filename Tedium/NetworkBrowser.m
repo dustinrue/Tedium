@@ -3,7 +3,7 @@
 //  Tedium
 //
 //  Created by Dustin Rue on 2/9/12.
-//  Copyright (c) 2012. All rights reserved.
+//  Copyright (c) 2012 Dustin Rue. All rights reserved.
 //
 
 #import "NetworkBrowser.h"
