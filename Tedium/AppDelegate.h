@@ -34,6 +34,7 @@
     IBOutlet NSTableView *foundSharesTableView;
     IBOutlet NSButton *startAtLoginStatusForMenu;
     IBOutlet NSButton *hideMenuBarIconStatusForMenu;
+    IBOutlet NSButton *localSnapshotsStatusForMenu;
 
     __unsafe_unretained NSMenu *destinationsSubMenu;
 }
@@ -55,12 +56,13 @@ enum {
 @property (retain) NSMutableArray *destinations;
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
+@property (assign) BOOL localSnapshotsStatus;
 @property (readwrite, retain) NetworkBrowser *networkBrowser;
 @property (readwrite, retain) NSMutableArray *foundDisks;
 @property (readwrite, retain) NSDictionary *selectedBonjourShare;
 @property (readwrite, retain) NSString *usernameFromSheet;
 @property (readwrite, retain) NSString *passwordFromSheet;
-@property (readonly, retain)    NSString *versionString;
+@property (readonly, retain)  NSString *versionString;
 
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
@@ -78,6 +80,7 @@ enum {
 - (BOOL) willHideMenuBarIcon;
 - (void) populateDestinationsSubMenu;
 - (void) applyDestinationViaMenu:(id) sender;
+- (BOOL) isLocalSnapshotsEnabled;
 
 
 - (IBAction)openPreferences:(id)sender;
@@ -96,6 +99,7 @@ enum {
 - (IBAction)toggleHideMenuBarIcon:(id)sender;
 - (IBAction)toggleCheckForUpdates:(id)sender;
 - (IBAction)showAbout:(id)sender;
+- (IBAction)toggleLocalSnapshots:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;

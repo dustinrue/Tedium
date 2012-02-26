@@ -12,15 +12,17 @@
 #import "BetterAuthorizationSampleLib.h"
 
 // Helper tool version
-#define kTediumHelperToolVersionNumber                  1
+#define kTediumHelperToolVersionNumber                  2
 
 // Commands
 #define kTediumHelperToolGetVersionCommand              "GetVersion"
 #define kTediumHelperToolGetVersionResponse             "Version"
 
 #define kTediumHelperToolSetDestinationCommand          "SetDestination"
+#define kTediumHelperToolSetMobileBackupCommand         "SetMobileBackup"
 
-#define kTediumHelperToolSetDestinationCommandRight         "com.dustinrue.Tedium.SetDestinationCommandRight"
+#define kTediumHelperToolSetDestinationCommandRight     "com.dustinrue.Tedium.SetDestinationCommandRight"
+#define kTediumHelperToolSetMobileBackupCommandRight    "com.dustinrue.Tedium.SetMobileBackupCommandRight"
 
 // Commands array (keep in sync!)
 extern const BASCommandSpec kTediumHelperToolCommandSet[];

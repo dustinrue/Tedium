@@ -26,6 +26,7 @@
 @synthesize destination;
 @synthesize currentDestinationAsNSURL;
 @synthesize hideMenuBarIconStatus;
+@synthesize localSnapshotsStatus;
 @synthesize checkForUpdatesStatusForMenu;
 @synthesize creditsFile;
 @synthesize networkBrowser;
@@ -78,7 +79,8 @@
     
     [startAtLoginStatusForMenu setState:[self willStartAtLogin:[self appPath]] ? 1:0];
     [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
-    [self.checkForUpdatesStatusForMenu setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
+    [checkForUpdatesStatusForMenu setState:[[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]];
+    [localSnapshotsStatusForMenu setState:[self isLocalSnapshotsEnabled]];
     [self populateDestinationsSubMenu];
     
     [self setPasswordFromSheet:@""];
@@ -314,6 +316,12 @@
                           @"DefaultNotifications",
                          nil];
     return tmp;
+}
+
+- (BOOL) isLocalSnapshotsEnabled {
+    NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
+
+    return [[tmp valueForKey:@"MobileBackups"] boolValue];
 }
 
 #pragma mark GUI Routines
@@ -597,6 +605,21 @@
         NSMenuItem *newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
         [destinationsSubMenu addItem:newMenuItem];
         
+    }
+}
+
+- (IBAction)toggleLocalSnapshots:(id)sender {
+    if ([localSnapshotsStatusForMenu state]) {
+        NSString *command = @kTediumHelperToolSetMobileBackupCommand;
+        
+        [self helperToolPerformAction: command withParameter:[NSNumber numberWithInt:1]];
+        [localSnapshotsStatusForMenu setState:1];
+    }
+    else {
+        NSString *command = @kTediumHelperToolSetMobileBackupCommand;
+        
+        [self helperToolPerformAction: command withParameter:[NSNumber numberWithInt:0]];
+        [localSnapshotsStatusForMenu setState:0];
     }
 }
 

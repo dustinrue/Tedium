@@ -49,7 +49,7 @@ static OSStatus DoGetVersion(AuthorizationRef			auth,
 }
 
 
-// Implements the GetVersionCommand. Returns the version number of the helper tool.
+// Implements the SetDestination. Returns the version number of the helper tool.
 static OSStatus DoSetDestination(AuthorizationRef			auth,
                                  const void *				userData,
                                  CFDictionaryRef			request,
@@ -80,7 +80,39 @@ static OSStatus DoSetDestination(AuthorizationRef			auth,
     
 }
 
+// Implements the SetMobileBackup. Returns the version number of the helper tool.
+static OSStatus DoSetMobileBackup(AuthorizationRef			auth,
+                                 const void *				userData,
+                                 CFDictionaryRef			request,
+                                 CFMutableDictionaryRef		response,
+                                 aslclient					asl,
+                                 aslmsg						aslMsg) {
+	
+	OSStatus retval = noErr;
+	int value;
+	
+	
+	assert(auth     != NULL);
+	assert(request  != NULL);
+	assert(response != NULL);
 
+    CFNumberRef parameter = (CFNumberRef) CFDictionaryGetValue(request, CFSTR("param"));
+    
+    char command[256];
+    
+    CFNumberGetValue(parameter, kCFNumberSInt32Type, &value);
+    
+    
+    if (value) 
+        sprintf(command, "/usr/bin/tmutil enablelocal");
+    else
+        sprintf(command, "/usr/bin/tmutil disablelocal");
+    
+    retval = system(command);
+    //syslog(LOG_EMERG, "command finished");
+	return retval;
+    
+}
 
 #pragma mark -
 #pragma mark Tool Infrastructure
@@ -89,6 +121,7 @@ static OSStatus DoSetDestination(AuthorizationRef			auth,
 static const BASCommandProc kHelperToolCommandProcs[] = {
 	DoGetVersion,
     DoSetDestination,
+    DoSetMobileBackup,
 	NULL
 };
 
