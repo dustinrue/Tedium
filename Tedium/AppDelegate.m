@@ -70,6 +70,7 @@
     
  
     [destinationsTableView setDoubleAction:@selector(editDestination:)];
+    [foundSharesTableView setDoubleAction:@selector(closeSheetWithOK:)];
     NSLog(@"loaded configuration");
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"] ? [self enableHideMenuBarIcon] : [self disableHideMenuBarIcon]);
     
