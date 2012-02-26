@@ -542,6 +542,9 @@
            didEndSelector:@selector(usernamePasswordSheetDidEnd:returnCode:contextInfo:)
               contextInfo:nil];
     }
+    else {
+        [usernamePasswordSheet orderOut:nil];
+    }
 }
 
 - (IBAction)removeDestination:(id)sender {
