@@ -580,7 +580,7 @@
         return [NSString stringWithFormat:@"afp://%@/%@", [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]];;
     }
     
-    return @"MY NAME IS ERROR";
+    return @"I AM ERROR";
 }
 
 
