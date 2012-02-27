@@ -10,8 +10,9 @@
 #import "AppDelegate+HelperTool.h"
 #import "TediumHelpertoolCommon.h"
 #import "KeychainServices.h"
-
-
+#import "NSString+Bonjour.h"
+#import "NSArray+Bonjour.h"
+#import "NSDictionary+Bonjour.h"
 
 
 @implementation AppDelegate
@@ -371,30 +372,20 @@
         for (NSString *key in allKeys) {
             
             NSArray *share = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
-                        
-            NSLog(@"%@",share);
-            
-            // share is now a single disk share hosted on a Time Capsule or AFP server.
-            // Tedium must now look at each property for this share and determine if it is
+              
+            NSDictionary *shareDictionary = [share dictionary];
+
+            NSLog(@"share properties %@",shareDictionary);
+
+            // shareDictionary is now a single disk share hosted on a Time Capsule or AFP server.
+            // Tedium now checks the properties for this share and determines if it is
             // a Time Machine compatible share or not
-            for (NSString *shareProperty in share) {
-                // the magic string is adVF=0xa1
-                if ([shareProperty isEqualToString:@"adVF=0x81"]) {
-                    
-                    // we need to get the name of the share but because 
-                    // componentsSeparatedByString returns a simple NSArray
-                    // we need to find the proper entry manually
-                    for (NSString *tmp in share) {
-                        if ([[[tmp componentsSeparatedByString:@"="] objectAtIndex:0] isEqualToString:@"adVN"]) {
-                            NSDictionary *tmShare = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [service hostName],@"hostname",
-                                                 [[tmp componentsSeparatedByString:@"="] objectAtIndex:1],@"share", nil];
+            if ([shareDictionary isTimeMachineShare]) {
+                NSDictionary *tmShare = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [service hostName],@"hostname",
+                                         [shareDictionary valueForKey:@"adVN"],@"share", nil];
                         
-                            [[self foundDisks] addObject:tmShare];
-                        }
-                    }
-                    
-                }
+                [[self foundDisks] addObject:tmShare];
             }
         }
             

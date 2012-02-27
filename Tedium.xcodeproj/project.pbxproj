@@ -13,6 +13,9 @@
 		73C1A38D14D3ACBB00015FAB /* AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C1A38C14D3ACBB00015FAB /* AppleScriptSupport.m */; };
 		DA0BDA0F14CCE3D000205D80 /* KeychainServices.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */; };
 		DA0BDA1214CD096D00205D80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BDA1114CD096D00205D80 /* AppDelegate.m */; };
+		DA16361914FB131000A38906 /* NSString+Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = DA16361814FB131000A38906 /* NSString+Bonjour.m */; };
+		DA16361C14FB25CB00A38906 /* NSArray+Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = DA16361B14FB25CB00A38906 /* NSArray+Bonjour.m */; };
+		DA16361F14FB2C6300A38906 /* NSDictionary+Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = DA16361E14FB2C6300A38906 /* NSDictionary+Bonjour.m */; };
 		DA20C98714C52C4500DF9043 /* Tedium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98614C52C4500DF9043 /* Tedium.sdef */; };
 		DA2CD8CE14D4636B001632F3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBC0A014C4C2280018FA96 /* Cocoa.framework */; };
 		DA2CD9EE14D46448001632F3 /* BWQuincyMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = DA2CD9EB14D46448001632F3 /* BWQuincyMain.nib */; };
@@ -131,6 +134,12 @@
 		DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainServices.m; sourceTree = "<group>"; };
 		DA0BDA1014CD096D00205D80 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA0BDA1114CD096D00205D80 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DA16361714FB131000A38906 /* NSString+Bonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Bonjour.h"; sourceTree = "<group>"; };
+		DA16361814FB131000A38906 /* NSString+Bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Bonjour.m"; sourceTree = "<group>"; };
+		DA16361A14FB25CB00A38906 /* NSArray+Bonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Bonjour.h"; sourceTree = "<group>"; };
+		DA16361B14FB25CB00A38906 /* NSArray+Bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Bonjour.m"; sourceTree = "<group>"; };
+		DA16361D14FB2C6300A38906 /* NSDictionary+Bonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Bonjour.h"; sourceTree = "<group>"; };
+		DA16361E14FB2C6300A38906 /* NSDictionary+Bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Bonjour.m"; sourceTree = "<group>"; };
 		DA20C98614C52C4500DF9043 /* Tedium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tedium.sdef; path = Resources/Tedium.sdef; sourceTree = "<group>"; };
 		DA2CD8CD14D4636B001632F3 /* QuincyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuincyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2CD9EB14D46448001632F3 /* BWQuincyMain.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BWQuincyMain.nib; sourceTree = "<group>"; };
@@ -330,6 +339,12 @@
 				73C1A38514D3A50400015FAB /* Destination.m */,
 				DA0BDA0D14CCE3D000205D80 /* KeychainServices.h */,
 				DA0BDA0E14CCE3D000205D80 /* KeychainServices.m */,
+				DA16361A14FB25CB00A38906 /* NSArray+Bonjour.h */,
+				DA16361B14FB25CB00A38906 /* NSArray+Bonjour.m */,
+				DA16361D14FB2C6300A38906 /* NSDictionary+Bonjour.h */,
+				DA16361E14FB2C6300A38906 /* NSDictionary+Bonjour.m */,
+				DA16361714FB131000A38906 /* NSString+Bonjour.h */,
+				DA16361814FB131000A38906 /* NSString+Bonjour.m */,
 				DAA4E60D14E4B9D1007D3D8F /* NetworkBrowser.h */,
 				DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */,
 				DA81451014C9C49100776C35 /* PopButton.h */,
@@ -540,6 +555,9 @@
 				73C1A38614D3A50400015FAB /* Destination.m in Sources */,
 				73C1A38D14D3ACBB00015FAB /* AppleScriptSupport.m in Sources */,
 				DAA4E60F14E4B9D1007D3D8F /* NetworkBrowser.m in Sources */,
+				DA16361914FB131000A38906 /* NSString+Bonjour.m in Sources */,
+				DA16361C14FB25CB00A38906 /* NSArray+Bonjour.m in Sources */,
+				DA16361F14FB2C6300A38906 /* NSDictionary+Bonjour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
