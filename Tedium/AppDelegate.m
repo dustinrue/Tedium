@@ -494,6 +494,9 @@
 	if (returnCode != NSOKButton)
 		return;
     
+    if ([foundSharesTableView selectedRow] == -1) 
+        return;
+    
     [self setSelectedBonjourShare:[[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]]];
     [self setActiveSheet:usernamePasswordSheet];
     [NSApp beginSheet:usernamePasswordSheet
