@@ -91,6 +91,8 @@
     [networkBrowser setDelegate:self];
     [[self mobileBackupNowMenuItem] setEnabled:NO];
     [self toggleMobileBackupMenuItem];
+    
+    [menuBarMenu update];
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -635,7 +637,7 @@
         
     [self helperToolPerformAction: command withParameter:nil];
 
-    [self growlMessage:@"Mobile Backup Started" message:@"Starting a Mobile backup"];
+    [self growlMessage:@"Mobile Backup Started" message:@"Mobile backup started"];
 }
 
 - (IBAction)doBackupNow:(id)sender {
@@ -643,18 +645,17 @@
     NSString *command = @kTediumHelperToolBackupNowCommand;
     
     [self helperToolPerformAction: command withParameter:nil];
-    [self growlMessage:@"Backup Started" message:@"Starting a Time Machine backup"];
+    [self growlMessage:@"Backup Started" message:@"Time Machine backup started"];
 }
 
 - (void) toggleMobileBackupMenuItem {
 
-    if ([self isLocalSnapshotsEnabled])
-        NSLog(@"ho!");        
     [[self mobileBackupNowMenuItem] setEnabled:[self isLocalSnapshotsEnabled]];
+    [menuBarMenu update];
         
 }
 - (void) toggleBackupMenuItem {
-    
+    [menuBarMenu update];    
 }
 
 
@@ -909,6 +910,14 @@
 - (void) foundDisksDidChange {
     [self buildFoundDisksList];
     [foundSharesTableView reloadData];
+}
+
+#pragma mark NSMenu delegates
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem == [self mobileBackupNowMenuItem])
+        return [self isLocalSnapshotsEnabled];
+    else 
+        return YES;
 }
 
 
