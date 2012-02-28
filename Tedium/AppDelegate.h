@@ -67,6 +67,8 @@ enum {
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
 @property (unsafe_unretained) IBOutlet NSMenu *destinationsSubMenu;
+@property (weak) IBOutlet NSMenuItem *mobileBackupNowMenuItem;
+@property (weak) IBOutlet NSMenuItem *backupNowMenuItem;
 
 
 - (NSImage *) prepareImageForMenubar:(NSString *)name;
@@ -81,6 +83,8 @@ enum {
 - (void) populateDestinationsSubMenu;
 - (void) applyDestinationViaMenu:(id) sender;
 - (BOOL) isLocalSnapshotsEnabled;
+- (void) toggleMobileBackupMenuItem;
+- (void) toggleBackupMenuItem;
 
 
 - (IBAction)openPreferences:(id)sender;
@@ -99,13 +103,16 @@ enum {
 - (IBAction)toggleHideMenuBarIcon:(id)sender;
 - (IBAction)toggleCheckForUpdates:(id)sender;
 - (IBAction)showAbout:(id)sender;
-- (IBAction)toggleLocalSnapshots:(id)sender;
+- (IBAction)toggleMobileBackups:(id)sender;
+- (IBAction)doMobileBackupNow:(id)sender;
+- (IBAction)doBackupNow:(id)sender;
 
 // Login item stuff
 - (NSURL *)appPath;
 - (BOOL)willStartAtLogin:(NSURL *)appPath;
 - (void)startAtLogin;
 - (void)disableStartAtLogin;
+
 
 
 @end

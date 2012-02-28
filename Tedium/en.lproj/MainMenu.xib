@@ -94,6 +94,32 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="68896131">
+									<reference key="NSMenu" ref="110575045"/>
+									<string key="NSTitle">Mobile Backup Now</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="814029187">
+									<reference key="NSMenu" ref="110575045"/>
+									<string key="NSTitle">Backup Now</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="856575608">
+									<reference key="NSMenu" ref="110575045"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="505005174">
 									<reference key="NSMenu" ref="110575045"/>
 									<string key="NSTitle">Check for Updates...</string>
@@ -165,6 +191,7 @@
 								</object>
 							</array>
 							<string key="NSName">_NSAppleMenu</string>
+							<bool key="NSNoAutoenable">YES</bool>
 						</object>
 					</object>
 				</array>
@@ -642,7 +669,7 @@
 										<object class="NSButton" id="248461265">
 											<reference key="NSNextResponder" ref="942382532"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{16, 10}, {124, 18}}</string>
+											<string key="NSFrame">{{16, 10}, {120, 18}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
 											<reference key="NSNextKeyView" ref="196214441"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -650,7 +677,7 @@
 											<object class="NSButtonCell" key="NSCell" id="505814676">
 												<int key="NSCellFlags">-2080244224</int>
 												<int key="NSCellFlags2">0</int>
-												<string key="NSContents">Local Snapshots</string>
+												<string key="NSContents">Mobile Backups</string>
 												<reference key="NSSupport" ref="969745699"/>
 												<string key="NSCellIdentifier">_NS:9</string>
 												<reference key="NSControlView" ref="248461265"/>
@@ -703,7 +730,7 @@
 					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="996610296"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMinSize">{666, 382}</string>
 				<string key="NSMaxSize">{666, 382}</string>
 				<int key="NSWindowAnimationBehavior">3</int>
@@ -855,7 +882,7 @@
 					<reference key="NSNextKeyView" ref="469591767"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -872,7 +899,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="363031579">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSScrollView" id="535354145">
@@ -1013,6 +1040,7 @@
 							<reference key="NSHScroller" ref="414563996"/>
 							<reference key="NSContentView" ref="769885369"/>
 							<reference key="NSHeaderClipView" ref="944397047"/>
+							<reference key="NSCornerView" ref="954609110"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSButton" id="908117521">
@@ -1062,10 +1090,11 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 212}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="535354145"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -1081,7 +1110,7 @@
 				<string key="NSWindowContentMaxSize">{276, 272}</string>
 				<string key="NSWindowContentMinSize">{276, 272}</string>
 				<object class="NSView" key="NSWindowView" id="941201168">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="59677517">
@@ -1277,10 +1306,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{276, 272}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="194874714"/>
 					<string key="NSReuseIdentifierKey">_NS:207</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMinSize">{276, 288}</string>
 				<string key="NSMaxSize">{276, 288}</string>
 				<int key="NSWindowAnimationBehavior">3</int>
@@ -1296,7 +1326,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="872906154">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="896655693">
@@ -1446,10 +1476,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{396, 152}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="896655693"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -1753,12 +1784,44 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<int key="connectionID">860</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">doBackupNow</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="814029187"/>
+					</object>
+					<int key="connectionID">865</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleLocalSnapshots:</string>
+						<string key="label">doMobileBackupNow:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="68896131"/>
+					</object>
+					<int key="connectionID">867</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doBackupNow:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="814029187"/>
+					</object>
+					<int key="connectionID">868</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mobileBackupNowMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="68896131"/>
+					</object>
+					<int key="connectionID">869</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleMobileBackups:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="248461265"/>
 					</object>
-					<int key="connectionID">861</int>
+					<int key="connectionID">871</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1949,6 +2012,9 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<reference ref="958540605"/>
 							<reference ref="530745256"/>
 							<reference ref="914624399"/>
+							<reference ref="68896131"/>
+							<reference ref="814029187"/>
+							<reference ref="856575608"/>
 						</array>
 						<reference key="parent" ref="694149608"/>
 					</object>
@@ -2629,6 +2695,21 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="505814676"/>
 						<reference key="parent" ref="248461265"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">862</int>
+						<reference key="object" ref="68896131"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">863</int>
+						<reference key="object" ref="814029187"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">864</int>
+						<reference key="object" ref="856575608"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -2779,17 +2860,20 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="248461265"/>
-						<string key="toolTip">If checked, Tedium will enable Time Machine's local snapshot feature</string>
+						<string key="toolTip">If checked, Tedium will enable Time Machine's Mobile Backups feature</string>
 					</object>
 				</object>
 				<string key="858.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="859.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="862.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="863.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="864.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">861</int>
+			<int key="maxID">871</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

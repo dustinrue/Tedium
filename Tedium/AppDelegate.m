@@ -18,6 +18,8 @@
 @implementation AppDelegate
 @synthesize versionString;
 @synthesize destinationsSubMenu;
+@synthesize mobileBackupNowMenuItem;
+@synthesize backupNowMenuItem;
 
 @synthesize window = _window;
 @synthesize currentDestination;
@@ -87,7 +89,8 @@
     [self setPasswordFromSheet:@""];
     [self setUsernameFromSheet:@""];
     [networkBrowser setDelegate:self];
-    
+    [[self mobileBackupNowMenuItem] setEnabled:NO];
+    [self toggleMobileBackupMenuItem];
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -609,7 +612,7 @@
     }
 }
 
-- (IBAction)toggleLocalSnapshots:(id)sender {
+- (IBAction)toggleMobileBackups:(id)sender {
     if ([localSnapshotsStatusForMenu state]) {
         NSString *command = @kTediumHelperToolSetMobileBackupCommand;
         
@@ -622,8 +625,37 @@
         [self helperToolPerformAction: command withParameter:[NSNumber numberWithInt:0]];
         [localSnapshotsStatusForMenu setState:0];
     }
+    [self toggleMobileBackupMenuItem];
 }
 
+#pragma mark Backup Routines
+- (IBAction)doMobileBackupNow:(id)sender {
+
+    NSString *command = @kTediumHelperToolMobileBackupNowCommand;
+        
+    [self helperToolPerformAction: command withParameter:nil];
+
+    [self growlMessage:@"Mobile Backup Started" message:@"Starting a Mobile backup"];
+}
+
+- (IBAction)doBackupNow:(id)sender {
+    
+    NSString *command = @kTediumHelperToolBackupNowCommand;
+    
+    [self helperToolPerformAction: command withParameter:nil];
+    [self growlMessage:@"Backup Started" message:@"Starting a Time Machine backup"];
+}
+
+- (void) toggleMobileBackupMenuItem {
+
+    if ([self isLocalSnapshotsEnabled])
+        NSLog(@"ho!");        
+    [[self mobileBackupNowMenuItem] setEnabled:[self isLocalSnapshotsEnabled]];
+        
+}
+- (void) toggleBackupMenuItem {
+    
+}
 
 
 

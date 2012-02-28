@@ -21,8 +21,13 @@
 #define kTediumHelperToolSetDestinationCommand          "SetDestination"
 #define kTediumHelperToolSetMobileBackupCommand         "SetMobileBackup"
 
+#define kTediumHelperToolMobileBackupNowCommand         "MobileBackupNow"
+#define kTediumHelperToolBackupNowCommand               "BackupNow"
+
 #define kTediumHelperToolSetDestinationCommandRight     "com.dustinrue.Tedium.SetDestinationCommandRight"
 #define kTediumHelperToolSetMobileBackupCommandRight    "com.dustinrue.Tedium.SetMobileBackupCommandRight"
+#define kTediumHelperToolMobileBackupNowCommandRight    "com.dustinrue.Tedium.MobileBackupNowCommandRight"
+#define kTediumHelperToolBackupNowCommandRight          "com.dustinrue.Tedium.BackupNowCommandRight"
 
 // Commands array (keep in sync!)
 extern const BASCommandSpec kTediumHelperToolCommandSet[];

@@ -28,6 +28,18 @@ const BASCommandSpec kTediumHelperToolCommandSet[] = {
         "SetMobileBackup",
         NULL
     },
+    {   kTediumHelperToolMobileBackupNowCommand,
+        kTediumHelperToolMobileBackupNowCommandRight,
+        "allow",
+        "MobileBackupNow",
+        NULL
+    },
+    {   kTediumHelperToolBackupNowCommand,
+        kTediumHelperToolBackupNowCommandRight,
+        "allow",
+        "BackupNow",
+        NULL
+    },
     {	NULL,
 		NULL,
 		NULL,

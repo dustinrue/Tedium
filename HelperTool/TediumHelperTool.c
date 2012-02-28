@@ -114,6 +114,59 @@ static OSStatus DoSetMobileBackup(AuthorizationRef			auth,
     
 }
 
+// Implements the SetMobileBackup. Returns the version number of the helper tool.
+static OSStatus DoMobileBackupNow(AuthorizationRef			auth,
+                                  const void *				userData,
+                                  CFDictionaryRef			request,
+                                  CFMutableDictionaryRef	response,
+                                  aslclient					asl,
+                                  aslmsg					aslMsg) {
+	
+	OSStatus retval = noErr;
+	
+	assert(auth     != NULL);
+	assert(request  != NULL);
+	assert(response != NULL);
+    
+    
+    char command[256];
+    
+    sprintf(command, "/usr/bin/tmutil snapshot");
+    
+    retval = system(command);
+    //syslog(LOG_EMERG, "command finished");
+	return retval;
+    
+}
+
+// Implements the SetMobileBackup. Returns the version number of the helper tool.
+static OSStatus DoBackupNow(AuthorizationRef                auth,
+                                  const void *				userData,
+                                  CFDictionaryRef			request,
+                                  CFMutableDictionaryRef	response,
+                                  aslclient					asl,
+                                  aslmsg					aslMsg) {
+	
+	OSStatus retval = noErr;
+
+
+	assert(auth     != NULL);
+	assert(request  != NULL);
+	assert(response != NULL);
+    
+    char command[256];
+    
+    
+
+    sprintf(command, "/usr/bin/tmutil startbackup");
+
+    
+    retval = system(command);
+    //syslog(LOG_EMERG, "command finished");
+	return retval;
+    
+}
+
 #pragma mark -
 #pragma mark Tool Infrastructure
 
@@ -122,6 +175,8 @@ static const BASCommandProc kHelperToolCommandProcs[] = {
 	DoGetVersion,
     DoSetDestination,
     DoSetMobileBackup,
+    DoMobileBackupNow,
+    DoBackupNow,
 	NULL
 };
 
