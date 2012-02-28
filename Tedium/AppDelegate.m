@@ -86,6 +86,8 @@
     
     [self setPasswordFromSheet:@""];
     [self setUsernameFromSheet:@""];
+    [networkBrowser setDelegate:self];
+    
 }
 
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
@@ -341,7 +343,7 @@
 
 
 
-- (IBAction)addBonjourBasedNetworkShare:(id)sender {
+- (void)buildFoundDisksList {
     // if we're coming from a menu item, specifically
     // then we're not editing an entry, deselect
     // all rows because "editing" is later
@@ -349,6 +351,7 @@
     // selectedRow > 1
     
     [[self foundDisks] removeAllObjects];
+    [foundSharesTableView reloadData];
     
     NSDictionary *aRecord = nil;
     
@@ -359,7 +362,7 @@
     // Here Tedium is going to look at each one to see if they 
     // also advertise an available Time Machine compatible share
     for (NSNetService *service in [networkBrowser foundServers]) {
-    
+        
         // get the TXT record for this service (Time Capsule)
         aRecord = [NSNetService dictionaryFromTXTRecordData:[service TXTRecordData]];
         NSArray *allKeys = [aRecord allKeys];
@@ -372,11 +375,11 @@
         for (NSString *key in allKeys) {
             
             NSArray *share = [[[NSString alloc] initWithData:[aRecord valueForKey:key] encoding:NSUTF8StringEncoding] componentsSeparatedByString:@","];
-              
+            
             NSDictionary *shareDictionary = [share dictionary];
-
+            
             NSLog(@"share properties %@",shareDictionary);
-
+            
             // shareDictionary is now a single disk share hosted on a Time Capsule or AFP server.
             // Tedium now checks the properties for this share and determines if it is
             // a Time Machine compatible share or not
@@ -384,19 +387,23 @@
                 NSDictionary *tmShare = [NSDictionary dictionaryWithObjectsAndKeys:
                                          [service hostName],@"hostname",
                                          [shareDictionary valueForKey:@"adVN"],@"share", nil];
-                        
+                
                 [[self foundDisks] addObject:tmShare];
             }
         }
-            
+        
     }
+}
+
+- (IBAction)addBonjourBasedNetworkShare:(id)sender {
+    [self buildFoundDisksList];
     
     //NSLog(@"%@", [self foundDisks]);
     
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
     }
-    
+    [foundSharesTableView reloadData];
     [self setActiveSheet:bonjourBasedShareSheet];
     [NSApp beginSheet:bonjourBasedShareSheet
 	   modalForWindow:prefsWindow
@@ -634,7 +641,6 @@
         if (!foundDisks) {
             return 0;
         }
-        
         return [[self foundDisks] count];
     }
     
@@ -865,6 +871,12 @@
 	}
     
 	return YES;
+}
+
+#pragma mark DRNetworkBrowserDelegate routines
+- (void) foundDisksDidChange {
+    [self buildFoundDisksList];
+    [foundSharesTableView reloadData];
 }
 
 

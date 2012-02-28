@@ -8,10 +8,12 @@
 
 #import "NetworkBrowser.h"
 
+
 @implementation NetworkBrowser
 
 @synthesize netBrowser;
 @synthesize foundServers;
+@synthesize delegate;
 
 - (NetworkBrowser *)init {
     if ((self = [super init])) {
@@ -35,21 +37,40 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
 
     [[self foundServers] addObject:netService];
-    [netService resolveWithTimeout:0.5];
+    
+    if (!moreServicesComing) {
+        [netService setDelegate:self];
+        [netService resolveWithTimeout:1.5];
+    }
 }
 
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing {
+    
+    NSLog(@"service is leaving %@", aNetService);
     [[self foundServers] removeObject:aNetService];
+    
+    if (!moreComing) {
+        if ([[self delegate] respondsToSelector:@selector(foundDisksDidChange)])
+            [[self delegate] foundDisksDidChange];
+    }
+
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
-    
+    if ([[self delegate] respondsToSelector:@selector(foundDisksDidChange)])
+        [[self delegate] foundDisksDidChange];
 }
 
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
-    
+    NSLog(@"failed to resolve found services!");
+}
+
+
+- (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)aNetServiceBrowser {
+    if ([[self delegate] respondsToSelector:@selector(foundDisksDidChange)])
+        [[self delegate] foundDisksDidChange];
 }
 
 @end

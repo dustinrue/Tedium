@@ -8,12 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NetworkBrowser : NSObject <NSNetServiceBrowserDelegate>
+@protocol DRNetworkBrowserDelegate <NSObject>;
+
+- (void) foundDisksDidChange;
+
+@end
+
+@interface NetworkBrowser : NSObject <NSNetServiceBrowserDelegate,NSNetServiceDelegate>
 
 @property (readwrite, retain) NSNetServiceBrowser *netBrowser;
 @property (readwrite, retain) NSMutableArray *foundServers;
+@property (nonatomic, assign) id <DRNetworkBrowserDelegate> delegate;
 
 - (void) start;
 - (void) stop;
 
 @end
+
+
