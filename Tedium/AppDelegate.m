@@ -95,6 +95,9 @@
     [menuBarMenu update];
 }
 
+
+#pragma mark -
+#pragma mark Menu Bar Icon
 // Helper: Load a named image, and scale it to be suitable for menu bar use.
 - (NSImage *)prepareImageForMenubar:(NSString *)name {
 	NSImage *img = [NSImage imageNamed:name];
@@ -130,7 +133,56 @@
 	[menuBarStatusItem setMenu:menuBarMenu];
     [self setMenuBarImage:menuBarImage];
 }
+- (void) enableHideMenuBarIcon {
+    [self setHideMenuBarIconStatus:YES];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"HideStatusBarIcon"];
+    [self saveSettings];
+    sbHideTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval)STATUS_BAR_LINGER
+                                                   target: self
+                                                 selector: @selector(hideFromStatusBar:)
+                                                 userInfo: nil
+                                                  repeats: NO];
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
 
+- (void) disableHideMenuBarIcon {
+    [self setHideMenuBarIconStatus:NO];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:@"HideStatusBarIcon"];
+    
+    if (sbHideTimer)
+        [sbHideTimer invalidate];
+    [self saveSettings];
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
+
+- (BOOL) willHideMenuBarIcon {
+    return [self hideMenuBarIconStatus];
+}
+
+- (IBAction)toggleHideMenuBarIcon:(id)sender {
+    if ([self willHideMenuBarIcon]) {
+        [self disableHideMenuBarIcon];
+    }
+    else {
+        [self enableHideMenuBarIcon];
+        
+    }
+    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
+}
+
+- (void)hideFromStatusBar:(NSTimer *)theTimer {
+	
+	NSLog(@"hiding");
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
+		return;
+    
+	[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
+    
+}
+
+
+#pragma mark -
+#pragma mark Growl Support
 - (void) growlMessage:(NSString *)title message:(NSString *)message  {
     const int pri = 0;
     
@@ -143,6 +195,18 @@
 							   clickContext:nil];
 }
 
+- (NSDictionary *) registrationDictionaryForGrowl {
+    NSDictionary *tmp = [NSDictionary dictionaryWithObjectsAndKeys:
+                         [NSNumber numberWithInt:1],
+                         @"TicketVersion",
+                         [NSArray arrayWithObject:@"TediumGrowl"], 
+                         @"AllNotifications",
+                         [NSArray arrayWithObject:@"TediumGrowl"], 
+                         @"DefaultNotifications",
+                         nil];
+    return tmp;
+}
+
 
 - (void)saveSettings {
     [[NSUserDefaults standardUserDefaults] setObject:[self destinations] forKey:@"destinations"];
@@ -150,6 +214,9 @@
 
 }
 
+
+#pragma mark -
+#pragma mark Destination Handling
 - (void)addNewDestination:(NSString *)newDestination {
 
     // test to see if the destination is already inserted
@@ -313,41 +380,6 @@
 
 }
 
-
-- (NSDictionary *) registrationDictionaryForGrowl {
-    NSDictionary *tmp = [NSDictionary dictionaryWithObjectsAndKeys:
-                         [NSNumber numberWithInt:1],
-                         @"TicketVersion",
-                         [NSArray arrayWithObject:@"TediumGrowl"], 
-                          @"AllNotifications",
-                         [NSArray arrayWithObject:@"TediumGrowl"], 
-                          @"DefaultNotifications",
-                         nil];
-    return tmp;
-}
-
-- (BOOL) isLocalSnapshotsEnabled {
-    NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
-
-    return [[tmp valueForKey:@"MobileBackups"] boolValue];
-}
-
-#pragma mark GUI Routines
-- (IBAction)openPreferences:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    [prefsWindow makeKeyAndOrderFront:self];
-    [destinationsTableView reloadData];
-}
-
-- (IBAction)showAbout:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    [aboutWindow makeKeyAndOrderFront:sender];
-    [creditsFile readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"]];
-
-}
-
-
-
 - (void)buildFoundDisksList {
     // if we're coming from a menu item, specifically
     // then we're not editing an entry, deselect
@@ -399,6 +431,30 @@
         
     }
 }
+
+
+
+
+
+
+#pragma mark -
+#pragma mark GUI Routines
+- (IBAction)openPreferences:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    [prefsWindow makeKeyAndOrderFront:self];
+    [destinationsTableView reloadData];
+}
+
+- (IBAction)showAbout:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    [aboutWindow makeKeyAndOrderFront:sender];
+    [creditsFile readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"]];
+
+}
+
+
+
+
 
 - (IBAction)addBonjourBasedNetworkShare:(id)sender {
     [self buildFoundDisksList];
@@ -630,6 +686,7 @@
     [self toggleMobileBackupMenuItem];
 }
 
+#pragma mark -
 #pragma mark Backup Routines
 - (IBAction)doMobileBackupNow:(id)sender {
 
@@ -658,8 +715,14 @@
     [menuBarMenu update];    
 }
 
+- (BOOL) isLocalSnapshotsEnabled {
+    NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
+    
+    return [[tmp valueForKey:@"MobileBackups"] boolValue];
+}
 
 
+#pragma mark -
 #pragma mark NSTableViewDataSource routines
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -699,6 +762,7 @@
 }
 
 
+#pragma mark -
 #pragma mark Login Item Routines
 
 - (NSURL *) appPath {
@@ -806,7 +870,7 @@
 
 
 
-
+#pragma mark -
 #pragma mark Scripting Support
 
 
@@ -814,49 +878,14 @@
     return [self destinations];
 }
 
+#pragma mark -
 #pragma mark QuincyKit
 - (void) showMainApplicationWindow {
 	[prefsWindow makeFirstResponder: nil];
     
 }
  
-#pragma mark Menu Bar Handling
-- (void) enableHideMenuBarIcon {
-    [self setHideMenuBarIconStatus:YES];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"HideStatusBarIcon"];
-    [self saveSettings];
-    sbHideTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval)STATUS_BAR_LINGER
-                                                   target: self
-                                                 selector: @selector(hideFromStatusBar:)
-                                                 userInfo: nil
-                                                  repeats: NO];
-    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
-}
 
-- (void) disableHideMenuBarIcon {
-    [self setHideMenuBarIconStatus:NO];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:@"HideStatusBarIcon"];
-    
-    if (sbHideTimer)
-        [sbHideTimer invalidate];
-    [self saveSettings];
-    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
-}
-
-- (BOOL) willHideMenuBarIcon {
-    return [self hideMenuBarIconStatus];
-}
-
-- (IBAction)toggleHideMenuBarIcon:(id)sender {
-    if ([self willHideMenuBarIcon]) {
-        [self disableHideMenuBarIcon];
-    }
-    else {
-        [self enableHideMenuBarIcon];
-        
-    }
-    [hideMenuBarIconStatusForMenu setState:[self willHideMenuBarIcon] ? 1:0];
-}
 
 - (IBAction)toggleCheckForUpdates:(id)sender {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]) {
@@ -874,21 +903,12 @@
     [self saveSettings];
 }
 
-- (void)hideFromStatusBar:(NSTimer *)theTimer {
-	
-	NSLog(@"hiding");
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
-		return;
-    
-	[[NSStatusBar systemStatusBar] removeStatusItem:menuBarStatusItem];
-    
-}
-
-- (NSString *)versionString {
-	return [NSString stringWithFormat:@"Tedium %@",[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]];
-}
 
 
+
+
+
+#pragma mark -
 #pragma mark NSApplication Delegates
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
@@ -906,12 +926,15 @@
 	return YES;
 }
 
+#pragma mark -
 #pragma mark DRNetworkBrowserDelegate routines
 - (void) foundDisksDidChange {
     [self buildFoundDisksList];
     [foundSharesTableView reloadData];
 }
 
+
+#pragma mark -
 #pragma mark NSMenu delegates
 - (BOOL) validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem == [self mobileBackupNowMenuItem])
@@ -920,5 +943,13 @@
         return YES;
 }
 
+- (void)menuWillOpen:(NSMenu *)menu {
+    [menuBarMenu update];
+}
 
+#pragma mark -
+#pragma mark Misc
+- (NSString *)versionString {
+	return [NSString stringWithFormat:@"Tedium %@",[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]];
+}
 @end
