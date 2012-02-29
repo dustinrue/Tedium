@@ -944,6 +944,7 @@
 }
 
 - (void)menuWillOpen:(NSMenu *)menu {
+    [self toggleMobileBackupMenuItem];
     [menuBarMenu update];
 }
 
