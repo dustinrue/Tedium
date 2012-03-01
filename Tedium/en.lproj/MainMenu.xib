@@ -96,7 +96,7 @@
 								</object>
 								<object class="NSMenuItem" id="68896131">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Mobile Backup Now</string>
+									<string key="NSTitle">Mobile Back Up Now</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -104,7 +104,7 @@
 								</object>
 								<object class="NSMenuItem" id="814029187">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Backup Now</string>
+									<string key="NSTitle">Back Up Now</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -196,6 +196,7 @@
 					</object>
 				</array>
 				<string key="NSName">_NSMainMenu</string>
+				<bool key="NSNoAutoenable">YES</bool>
 			</object>
 			<object class="NSWindowTemplate" id="972006081">
 				<int key="NSWindowStyleMask">4103</int>
@@ -225,6 +226,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{438, 228}</string>
 											<reference key="NSSuperview" ref="388887216"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="39276037"/>
 											<string key="NSReuseIdentifierKey">_NS:1828</string>
 											<bool key="NSEnabled">YES</bool>
@@ -233,6 +235,7 @@
 												<int key="NSvFlags">256</int>
 												<string key="NSFrameSize">{438, 17}</string>
 												<reference key="NSSuperview" ref="39276037"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="360438036"/>
 												<string key="NSReuseIdentifierKey">_NS:1830</string>
 												<reference key="NSTableView" ref="1060513361"/>
@@ -242,6 +245,7 @@
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
 												<reference key="NSSuperview" ref="196214441"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="388887216"/>
 												<string key="NSReuseIdentifierKey">_NS:1833</string>
 											</object>
@@ -335,6 +339,7 @@
 									</array>
 									<string key="NSFrame">{{1, 17}, {438, 228}}</string>
 									<reference key="NSSuperview" ref="196214441"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1060513361"/>
 									<string key="NSReuseIdentifierKey">_NS:1826</string>
 									<reference key="NSDocView" ref="1060513361"/>
@@ -346,6 +351,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 									<reference key="NSSuperview" ref="196214441"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="657792783"/>
 									<string key="NSReuseIdentifierKey">_NS:1845</string>
 									<reference key="NSTarget" ref="196214441"/>
@@ -357,6 +363,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 									<reference key="NSSuperview" ref="196214441"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="319139754"/>
 									<string key="NSReuseIdentifierKey">_NS:1847</string>
 									<int key="NSsFlags">1</int>
@@ -372,6 +379,7 @@
 									</array>
 									<string key="NSFrame">{{1, 0}, {438, 17}}</string>
 									<reference key="NSSuperview" ref="196214441"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="647767534"/>
 									<string key="NSReuseIdentifierKey">_NS:1831</string>
 									<reference key="NSDocView" ref="647767534"/>
@@ -382,6 +390,7 @@
 							</array>
 							<string key="NSFrame">{{206, 47}, {440, 246}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="388887216"/>
 							<string key="NSReuseIdentifierKey">_NS:1824</string>
 							<int key="NSsFlags">133682</int>
@@ -397,6 +406,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{206, 19}, {26, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="40381234"/>
 							<string key="NSReuseIdentifierKey">_NS:2466</string>
 							<bool key="NSEnabled">YES</bool>
@@ -424,6 +434,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{232, 19}, {19, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="98681150"/>
 							<string key="NSReuseIdentifierKey">_NS:2466</string>
 							<bool key="NSEnabled">YES</bool>
@@ -451,6 +462,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 301}, {632, 39}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="34183811"/>
 							<string key="NSReuseIdentifierKey">_NS:360</string>
 							<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -480,6 +492,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{573, 11}, {76, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="444110608">
@@ -502,6 +515,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{498, 11}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1041655871"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
@@ -525,6 +539,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{251, 19}, {20, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="128410738"/>
 							<string key="NSReuseIdentifierKey">_NS:2466</string>
 							<bool key="NSEnabled">YES</bool>
@@ -560,6 +575,7 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{16, 70}, {107, 18}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="662496932"/>
 											<string key="NSReuseIdentifierKey">_NS:771</string>
 											<bool key="NSEnabled">YES</bool>
@@ -590,6 +606,7 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{16, 50}, {116, 18}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="293278887"/>
 											<string key="NSReuseIdentifierKey">_NS:771</string>
 											<bool key="NSEnabled">YES</bool>
@@ -615,6 +632,7 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{16, 30}, {139, 18}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="248461265"/>
 											<string key="NSReuseIdentifierKey">_NS:771</string>
 											<bool key="NSEnabled">YES</bool>
@@ -648,6 +666,7 @@
 											</set>
 											<string key="NSFrame">{{15, 94}, {141, 133}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="272321426"/>
 											<string key="NSReuseIdentifierKey">_NS:2141</string>
 											<bool key="NSEnabled">YES</bool>
@@ -671,6 +690,7 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{16, 10}, {120, 18}}</string>
 											<reference key="NSSuperview" ref="942382532"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="196214441"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
@@ -694,12 +714,14 @@
 									</array>
 									<string key="NSFrame">{{1, 1}, {171, 234}}</string>
 									<reference key="NSSuperview" ref="34183811"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="196527261"/>
 									<string key="NSReuseIdentifierKey">_NS:21</string>
 								</object>
 							</array>
 							<string key="NSFrame">{{17, 43}, {173, 250}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="942382532"/>
 							<string key="NSReuseIdentifierKey">_NS:18</string>
 							<string key="NSOffsets">{0, 0}</string>
@@ -728,9 +750,10 @@
 					</array>
 					<string key="NSFrameSize">{666, 360}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="996610296"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{666, 382}</string>
 				<string key="NSMaxSize">{666, 382}</string>
 				<int key="NSWindowAnimationBehavior">3</int>
@@ -882,7 +905,7 @@
 					<reference key="NSNextKeyView" ref="469591767"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -899,7 +922,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="363031579">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSScrollView" id="535354145">
@@ -1040,7 +1063,6 @@
 							<reference key="NSHScroller" ref="414563996"/>
 							<reference key="NSContentView" ref="769885369"/>
 							<reference key="NSHeaderClipView" ref="944397047"/>
-							<reference key="NSCornerView" ref="954609110"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSButton" id="908117521">
@@ -1090,11 +1112,10 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 212}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="535354145"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -1110,7 +1131,7 @@
 				<string key="NSWindowContentMaxSize">{276, 272}</string>
 				<string key="NSWindowContentMinSize">{276, 272}</string>
 				<object class="NSView" key="NSWindowView" id="941201168">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="59677517">
@@ -1306,11 +1327,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{276, 272}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="194874714"/>
 					<string key="NSReuseIdentifierKey">_NS:207</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{276, 288}</string>
 				<string key="NSMaxSize">{276, 288}</string>
 				<int key="NSWindowAnimationBehavior">3</int>
@@ -1326,7 +1346,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="872906154">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="896655693">
@@ -1476,11 +1496,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{396, 152}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="896655693"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -2883,7 +2902,244 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<nil key="sourceID"/>
 			<int key="maxID">872</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AppDelegate</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addBonjourBasedNetworkShare:">id</string>
+						<string key="addCurrentDrive:">id</string>
+						<string key="addNetworkShare:">id</string>
+						<string key="applyNewDestination:">id</string>
+						<string key="closePreferences:">id</string>
+						<string key="closeSheetWithCancel:">id</string>
+						<string key="closeSheetWithOK:">id</string>
+						<string key="doBackupNow:">id</string>
+						<string key="doMobileBackupNow:">id</string>
+						<string key="editDestination:">id</string>
+						<string key="openDonationPage:">id</string>
+						<string key="openPreferences:">id</string>
+						<string key="openTediumGitHubIssues:">id</string>
+						<string key="removeDestination:">id</string>
+						<string key="showAbout:">id</string>
+						<string key="toggleCheckForUpdates:">id</string>
+						<string key="toggleHideMenuBarIcon:">id</string>
+						<string key="toggleMobileBackups:">id</string>
+						<string key="toggleStartAtLoginAction:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addBonjourBasedNetworkShare:">
+							<string key="name">addBonjourBasedNetworkShare:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addCurrentDrive:">
+							<string key="name">addCurrentDrive:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addNetworkShare:">
+							<string key="name">addNetworkShare:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="applyNewDestination:">
+							<string key="name">applyNewDestination:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closePreferences:">
+							<string key="name">closePreferences:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeSheetWithCancel:">
+							<string key="name">closeSheetWithCancel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeSheetWithOK:">
+							<string key="name">closeSheetWithOK:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doBackupNow:">
+							<string key="name">doBackupNow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doMobileBackupNow:">
+							<string key="name">doMobileBackupNow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editDestination:">
+							<string key="name">editDestination:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openDonationPage:">
+							<string key="name">openDonationPage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openPreferences:">
+							<string key="name">openPreferences:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openTediumGitHubIssues:">
+							<string key="name">openTediumGitHubIssues:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeDestination:">
+							<string key="name">removeDestination:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showAbout:">
+							<string key="name">showAbout:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleCheckForUpdates:">
+							<string key="name">toggleCheckForUpdates:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleHideMenuBarIcon:">
+							<string key="name">toggleHideMenuBarIcon:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleMobileBackups:">
+							<string key="name">toggleMobileBackups:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleStartAtLoginAction:">
+							<string key="name">toggleStartAtLoginAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="aboutWindow">NSWindow</string>
+						<string key="addNetworkShareSheet">NSWindow</string>
+						<string key="backupNowMenuItem">NSMenuItem</string>
+						<string key="bonjourBasedShareSheet">NSWindow</string>
+						<string key="checkForUpdatesStatusForMenu">NSButton</string>
+						<string key="creditsFile">NSTextView</string>
+						<string key="destinationsSubMenu">NSMenu</string>
+						<string key="destinationsTableView">NSTableView</string>
+						<string key="foundSharesTableView">NSTableView</string>
+						<string key="hideMenuBarIconStatusForMenu">NSButton</string>
+						<string key="localSnapshotsStatusForMenu">NSButton</string>
+						<string key="menuBarMenu">NSMenu</string>
+						<string key="mobileBackupNowMenuItem">NSMenuItem</string>
+						<string key="prefsWindow">NSWindow</string>
+						<string key="startAtLoginStatusForMenu">NSButton</string>
+						<string key="usernamePasswordSheet">NSWindow</string>
+						<string key="window">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="aboutWindow">
+							<string key="name">aboutWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addNetworkShareSheet">
+							<string key="name">addNetworkShareSheet</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="backupNowMenuItem">
+							<string key="name">backupNowMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="bonjourBasedShareSheet">
+							<string key="name">bonjourBasedShareSheet</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="checkForUpdatesStatusForMenu">
+							<string key="name">checkForUpdatesStatusForMenu</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="creditsFile">
+							<string key="name">creditsFile</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="destinationsSubMenu">
+							<string key="name">destinationsSubMenu</string>
+							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="destinationsTableView">
+							<string key="name">destinationsTableView</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foundSharesTableView">
+							<string key="name">foundSharesTableView</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hideMenuBarIconStatusForMenu">
+							<string key="name">hideMenuBarIconStatusForMenu</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="localSnapshotsStatusForMenu">
+							<string key="name">localSnapshotsStatusForMenu</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuBarMenu">
+							<string key="name">menuBarMenu</string>
+							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mobileBackupNowMenuItem">
+							<string key="name">mobileBackupNowMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="prefsWindow">
+							<string key="name">prefsWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="startAtLoginStatusForMenu">
+							<string key="name">startAtLoginStatusForMenu</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="usernamePasswordSheet">
+							<string key="name">usernamePasswordSheet</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="window">
+							<string key="name">window</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PopButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PopButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SUUpdater</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">checkForUpdates:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">delegate</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">delegate</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SUUpdater.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
