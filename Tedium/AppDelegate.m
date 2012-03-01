@@ -519,7 +519,6 @@
 }
 
 - (IBAction)applyNewDestination:(id)sender {
-    [prefsWindow close];
     
     if ([destinationsTableView selectedRow] == -1) 
         return;
@@ -527,7 +526,7 @@
     NSDictionary *newDestination = [[self destinations] objectAtIndex:[destinationsTableView selectedRow]];
 
     [self setCurrentDestination:[newDestination valueForKey:@"destinationVolumePath"]];
-    
+    [prefsWindow close];
 }
 
 - (void) applyDestinationViaMenu:(id) sender {
