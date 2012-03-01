@@ -37,7 +37,7 @@
 @synthesize selectedBonjourShare;
 @synthesize usernameFromSheet;
 @synthesize passwordFromSheet;
-
+@synthesize shareToBeAdded;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
@@ -172,7 +172,6 @@
 
 - (void)hideFromStatusBar:(NSTimer *)theTimer {
 	
-	NSLog(@"hiding");
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"])
 		return;
     
@@ -217,7 +216,7 @@
 
 #pragma mark -
 #pragma mark Destination Handling
-- (void)addNewDestination:(NSString *)newDestination {
+- (void)addNewDestination:(NSDictionary *)newDestination {
 
     // test to see if the destination is already inserted
     // there has to be a more efficient way of handling this...
@@ -226,37 +225,46 @@
         
         NSString *aDestination = [aDictionary valueForKey:@"destinationVolumePath"];
 
-        if ([aDestination isEqualToString:newDestination])
+        if ([aDestination isEqualToString:[newDestination valueForKey:@"cleanURL"]])
             return;
     }
 
     
-    NSDictionary *afpURL = [self parseDestination:newDestination];
-    
   
-
-    if ([afpURL objectForKey:@"cleanedURL"]) {
+    NSLog(@"adding to keychain %@", newDestination);
+    if ([newDestination objectForKey:@"cleanURL"]) {
         // if the selectedRow is NOT -1 then we are editing an entry
         if ([destinationsTableView selectedRow] != -1) {
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                            [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
+                                            [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
+                                            [newDestination valueForKey:@"username"], @"username",
+                                            [newDestination valueForKey:@"hostname"], @"hostname", 
+                                            [NSNumber numberWithInt:1], @"isAFP",
+                                            [newDestination valueForKey:@"url"], @"url",nil]];
+            
             [destinationsTableView deselectAll:self];
-            if ([KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-                if (![KeychainServices modifyKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withNewPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to update the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+            
+            
+            if ([KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[newDestination valueForKey:@"username"] withAddress:[[newDestination valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                if (![KeychainServices modifyKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[newDestination valueForKey:@"username"] withNewPassword:[newDestination valueForKey:@"password"] withAddress:[[newDestination valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to update the password for %@ to the keychain",[newDestination valueForKey:@"cleanURL"]]];
                 }
             }
             else {
-                if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+                if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[newDestination valueForKey:@"username"] withPassword:[newDestination valueForKey:@"password"] withAddress:[[newDestination valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                    [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[newDestination valueForKey:@"cleanURL"]]];
                 }
             }
         }
         else {
             [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 [afpURL valueForKey:@"cleanedURL"], @"destinationVolumePath", nil]];
-            if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withPassword:[afpURL valueForKey:@"password"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-                [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[afpURL valueForKey:@"cleanURL"]]];
+                                 [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath", 
+                                 [newDestination valueForKey:@"username"], @"username",
+                                 [newDestination valueForKey:@"hostname"], @"hostname",
+                                 [NSNumber numberWithInt:1], @"isAFP",
+                                 [newDestination valueForKey:@"url"], @"url",           nil]];
+            if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[newDestination valueForKey:@"username"] withPassword:[newDestination valueForKey:@"password"] withAddress:[[newDestination valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+                [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[newDestination valueForKey:@"cleanURL"]]];
             }
         }
         
@@ -266,13 +274,13 @@
     else {
         if ([destinationsTableView selectedRow] != -1) {
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                            newDestination, @"destinationVolumePath",
+                                            [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
                                             [NSNumber numberWithInt:0], @"isAFP",nil]];
             [destinationsTableView deselectAll:self];
         }
         else {
             [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 newDestination, @"destinationVolumePath",
+                                 [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
                                  [NSNumber numberWithInt:0], @"isAFP",nil]];
         }
     }
@@ -292,31 +300,18 @@
     if ([self currentDestinationAsNSURL] == nil)
         return nil;
         
-    
-    NSString *username = [[self currentDestinationAsNSURL] user];
-    NSString *password = [[self currentDestinationAsNSURL] password];
+
     NSString *hostname = [[self currentDestinationAsNSURL] host];
     NSString *url      = [[self currentDestinationAsNSURL] path];
     
     // if the URL couldn't be parsed return an empty NSDictionary
-    if (!username || !hostname || !url) {
+    if (!hostname || !url) {
         return [[NSDictionary alloc] init];
     }
     
-    // cover a case where we're setting the destination and we
-    // haven't gotten the password yet.  Leaving this "nil" will
-    // end our dictionary prematurely 
-    if (!password) {
-        password = @"";
-    }
-    
-    
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            username, @"username",
-            password, @"password",
             hostname, @"hostname",
-            url, @"url",
-            [NSString stringWithFormat:@"afp://%@@%@%@",username,hostname,url],@"cleanedURL",nil];
+            url, @"url", nil];
 
     
 }
@@ -330,12 +325,12 @@
     
     NSString *newDestination;
     
-    if ([tmp objectForKey:@"cleanedURL"]) {
-        NSString *password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if ([tmp objectForKey:@"cleanURL"]) {
+        NSString *password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
         newDestination = [NSString stringWithFormat:@"afp://%@:%@@%@%@",[tmp valueForKey:@"username"],password,[tmp valueForKey:@"hostname"],[tmp valueForKey:@"url"]];
         
-        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"cleanedURL"]]];
+        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"cleanURL"]]];
     }
     else {
         newDestination = newVal;
@@ -415,21 +410,22 @@
             
             NSDictionary *shareDictionary = [share dictionary];
             
-            NSLog(@"share properties %@",shareDictionary);
+            //NSLog(@"share properties %@",shareDictionary);
             
             // shareDictionary is now a single disk share hosted on a Time Capsule or AFP server.
             // Tedium now checks the properties for this share and determines if it is
             // a Time Machine compatible share or not
             if ([shareDictionary isTimeMachineShare]) {
-                NSDictionary *tmShare = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [service hostName],@"hostname",
-                                         [shareDictionary valueForKey:@"adVN"],@"share", nil];
                 
-                [[self foundDisks] addObject:tmShare];
+                [[self foundDisks] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                              [service hostName], @"hostname",
+                                              [NSString stringWithFormat:@"/%@",[shareDictionary valueForKey:@"adVN"]], @"url", nil]];
+               
             }
         }
         
     }
+    //NSLog(@"found disks is now %@", [self foundDisks]);
 }
 
 
@@ -480,11 +476,6 @@
     // determined by the fact that NSTableView has a 
     // selectedRow > 1
     
-
-    
-    
-    
-    //NSLog(@"%@", [self foundDisks]);
     
     if ([sender class] == [NSMenuItem class]) {
         [destinationsTableView deselectAll:self];
@@ -541,8 +532,17 @@
 		return;
     
 
-    [self addNewDestination:[self destinationValueFromSheet]];
+    [self setShareToBeAdded:[[self parseDestination:[self destinationValueFromSheet]] mutableCopy]];
     [self setDestinationValueFromSheet:@""];
+    
+    
+    
+    [self setActiveSheet:usernamePasswordSheet];
+    [NSApp beginSheet:usernamePasswordSheet
+	   modalForWindow:prefsWindow
+	    modalDelegate:self
+	   didEndSelector:@selector(usernamePasswordSheetDidEnd:returnCode:contextInfo:)
+	      contextInfo:nil];
 }
 
 - (void)bonjourBasedShareSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
@@ -555,7 +555,7 @@
     if ([foundSharesTableView selectedRow] == -1) 
         return;
     
-    [self setSelectedBonjourShare:[[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]]];
+    [self setShareToBeAdded:[[[self foundDisks] objectAtIndex:[foundSharesTableView selectedRow]] mutableCopy]];
     [self setActiveSheet:usernamePasswordSheet];
     [NSApp beginSheet:usernamePasswordSheet
 	   modalForWindow:prefsWindow
@@ -574,7 +574,7 @@
         return;
     }
 
-    NSDictionary *tmp = [self selectedBonjourShare];
+
     
     if ([[self passwordFromSheet] isEqualToString:@""]) {
         // handle this, a password is required for tmutil
@@ -592,7 +592,10 @@
     }
     else {
         [sheet orderOut:nil];
-        [self addNewDestination:[NSString stringWithFormat:@"afp://%@:%@@%@/%@", [self usernameFromSheet], [self passwordFromSheet], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]]];
+        [[self shareToBeAdded] setValue:[self usernameFromSheet] forKey:@"username"];
+        [[self shareToBeAdded] setValue:[self passwordFromSheet] forKey:@"password"];
+        [[self shareToBeAdded] setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [self usernameFromSheet], [[self shareToBeAdded] valueForKey:@"hostname"], [[self shareToBeAdded] valueForKey:@"url"]]] forKey:@"cleanURL"];
+        [self addNewDestination:[self shareToBeAdded]];
         [self setSelectedBonjourShare:nil];
     }
     
@@ -622,12 +625,12 @@
     if ([destinationsTableView selectedRow] == -1)
         return;
    
-    NSDictionary *afpURL = [self parseDestination:[[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] valueForKey:@"destinationVolumePath"]];
-
+    NSMutableDictionary *afpURL = [[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] mutableCopy];
+    [afpURL setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [afpURL valueForKey:@"username"], [afpURL valueForKey:@"hostname"], [afpURL valueForKey:@"url"]]] forKey:@"cleanURL"];
     
-
-    if ([afpURL objectForKey:@"cleanedURL"] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanedURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"will remove %@ %@", afpURL,([afpURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
+    if ([afpURL objectForKey:@"cleanURL"] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[afpURL valueForKey:@"cleanURL"]];
     }
 
    
@@ -662,6 +665,7 @@
 }
 
 - (void) populateDestinationsSubMenu {
+    NSLog(@"destinations %@", [self destinations]);
     for (NSDictionary *tmp in [self destinations]) {
         NSMenuItem *newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
         [destinationsSubMenu addItem:newMenuItem];
@@ -754,7 +758,7 @@
     }
     else if (tableView == foundSharesTableView) {
         NSDictionary *tmp = [[self foundDisks] objectAtIndex:row];
-        return [NSString stringWithFormat:@"afp://%@/%@", [tmp valueForKey:@"hostname"], [tmp valueForKey:@"share"]];;
+        return [NSString stringWithFormat:@"afp://%@%@", [tmp valueForKey:@"hostname"], [tmp valueForKey:@"url"]];
     }
     
     return @"I AM ERROR";
@@ -951,5 +955,9 @@
 #pragma mark Misc
 - (NSString *)versionString {
 	return [NSString stringWithFormat:@"Tedium %@",[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]];
+}
+
+- (NSString *)cleanURL:(NSString *)urlToClean {
+    return [urlToClean stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 @end

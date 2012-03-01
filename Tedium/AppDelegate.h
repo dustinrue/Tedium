@@ -63,6 +63,7 @@ enum {
 @property (readwrite, retain) NSString *usernameFromSheet;
 @property (readwrite, retain) NSString *passwordFromSheet;
 @property (readonly, retain)  NSString *versionString;
+@property (readwrite, retain) NSMutableDictionary *shareToBeAdded;
 
 @property (unsafe_unretained) IBOutlet NSButton *checkForUpdatesStatusForMenu;
 @property (unsafe_unretained) IBOutlet NSTextView *creditsFile;
@@ -86,6 +87,8 @@ enum {
 - (void) toggleMobileBackupMenuItem;
 - (void) toggleBackupMenuItem;
 - (void) saveSettings;
+- (void) addNewDestination:(NSDictionary *)newDestination;
+- (NSString *)cleanURL:(NSString *)urlToClean;
 
 
 - (IBAction)openPreferences:(id)sender;
