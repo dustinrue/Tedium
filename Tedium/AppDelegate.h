@@ -85,6 +85,7 @@ enum {
 - (BOOL) isLocalSnapshotsEnabled;
 - (void) toggleMobileBackupMenuItem;
 - (void) toggleBackupMenuItem;
+- (void) saveSettings;
 
 
 - (IBAction)openPreferences:(id)sender;
