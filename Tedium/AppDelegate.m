@@ -72,7 +72,7 @@
     [self setDestinations:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"destinations"]]];
     
     if (![self destinations]) 
-        [self setDestinations:[[NSMutableArray alloc] init]];
+        [self setDestinations:[[NSMutableDictionary alloc] init]];
     
  
     [destinationsTableView setDoubleAction:@selector(editDestination:)];
@@ -225,7 +225,7 @@
         
         NSString *aDestination = [aDictionary valueForKey:@"destinationVolumePath"];
 
-        if ([aDestination isEqualToString:[newDestination valueForKey:@"cleanURL"]])
+        if ([aDestination isEqualToString:[newDestination valueForKey:@"destinationVolumePath"]])
             return;
     }
 
@@ -235,12 +235,14 @@
     if ([newDestination objectForKey:@"cleanURL"]) {
         // if the selectedRow is NOT -1 then we are editing an entry
         if ([destinationsTableView selectedRow] != -1) {
-            [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                            [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
-                                            [newDestination valueForKey:@"username"], @"username",
-                                            [newDestination valueForKey:@"hostname"], @"hostname", 
-                                            [NSNumber numberWithInt:1], @"isAFP",
-                                            [newDestination valueForKey:@"url"], @"url",nil]];
+            [[self destinations] setValue:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
+                                           [newDestination valueForKey:@"username"], @"username",
+                                           [newDestination valueForKey:@"hostname"], @"hostname", 
+                                           [NSNumber numberWithInt:1], @"isAFP",
+                                           [newDestination valueForKey:@"url"], @"url",nil]
+                                   forKey:[newDestination valueForKey:@"destinationVolumePath"]];
+            
             
             [destinationsTableView deselectAll:self];
             
@@ -257,12 +259,13 @@
             }
         }
         else {
-            [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath", 
-                                 [newDestination valueForKey:@"username"], @"username",
-                                 [newDestination valueForKey:@"hostname"], @"hostname",
-                                 [NSNumber numberWithInt:1], @"isAFP",
-                                 [newDestination valueForKey:@"url"], @"url",           nil]];
+            [[self destinations] setValue:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath", 
+                                           [newDestination valueForKey:@"username"], @"username",
+                                           [newDestination valueForKey:@"hostname"], @"hostname",
+                                           [NSNumber numberWithInt:1], @"isAFP",
+                                           [newDestination valueForKey:@"url"], @"url",           nil] 
+                                   forKey:[newDestination valueForKey:@"destinationVolumePath"]];
             if (![KeychainServices addKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[newDestination valueForKey:@"username"] withPassword:[newDestination valueForKey:@"password"] withAddress:[[newDestination valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
                 [self growlMessage:@"Keychain Failure" message:[NSString stringWithFormat:@"Failed to add the password for %@ to the keychain",[newDestination valueForKey:@"cleanURL"]]];
             }
@@ -273,15 +276,18 @@
     }
     else {
         if ([destinationsTableView selectedRow] != -1) {
-            [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                            [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
-                                            [NSNumber numberWithInt:0], @"isAFP",nil]];
+            [[self destinations] setValue:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
+                                           [NSNumber numberWithInt:0], @"isAFP",nil]
+                                   forKey:[newDestination valueForKey:@"destinationVolumePath"]];
+                                                                     
             [destinationsTableView deselectAll:self];
         }
         else {
-            [[self destinations] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
-                                 [NSNumber numberWithInt:0], @"isAFP",nil]];
+            [[self destinations] setValue:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [newDestination valueForKey:@"cleanURL"], @"destinationVolumePath",
+                                           [NSNumber numberWithInt:0], @"isAFP",nil]
+                                   forKey:[newDestination valueForKey:@"destinationVolumePath"]];
         }
     }
     
@@ -316,25 +322,25 @@
     
 }
 
-- (void) setCurrentDestination:(NSString *)newVal {
+- (void) setCurrentDestination:(NSDictionary *)newVal {
     NSLog(@"setting destination to %@", newVal);
     currentDestination = newVal;
     
-    NSDictionary *tmp = [self parseDestination:newVal];
+    NSDictionary *tmp = [newVal copy];
 
     
     NSString *newDestination;
     
     if ([tmp objectForKey:@"cleanURL"]) {
-        NSString *password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        
-        newDestination = [NSString stringWithFormat:@"afp://%@:%@@%@%@",[tmp valueForKey:@"username"],password,[tmp valueForKey:@"hostname"],[tmp valueForKey:@"url"]];
+        NSString *password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"destinationVolumePath"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"password %@", password);
+        newDestination = [NSString stringWithFormat:@"afp://%@:%@@%@/%@",[tmp valueForKey:@"username"],password,[tmp valueForKey:@"hostname"],[tmp valueForKey:@"url"]];
         
         [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"cleanURL"]]];
     }
     else {
-        newDestination = newVal;
-        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newDestination]];
+
+        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"destinationVolumeName"]]];
     }
     
 
@@ -513,10 +519,10 @@
     
     if ([destinationsTableView selectedRow] == -1) 
         return;
-    
+    [destinationsTableView valueForKey:@"destinationVolumePath"];
     NSDictionary *newDestination = [[self destinations] objectAtIndex:[destinationsTableView selectedRow]];
 
-    [self setCurrentDestination:[newDestination valueForKey:@"destinationVolumePath"]];
+    [self setCurrentDestination:newDestination];
     [prefsWindow close];
 }
 
@@ -753,8 +759,15 @@
     if (tableView == destinationsTableView) {
 
         NSDictionary *d = [[self destinations] objectAtIndex:row];
+        
+        if ([[d valueForKey:@"isAFP"] intValue] == 1) {
+            return [NSString stringWithFormat:@"afp://%@@%@%@", [d valueForKey:@"username"], [d valueForKey:@"hostname"], [d valueForKey:@"url"]];
+        }
+        else {
+            return [d valueForKey:[tableColumn identifier]];
+        }
 
-        return [d valueForKey:[tableColumn identifier]];
+        
     }
     else if (tableView == foundSharesTableView) {
         NSDictionary *tmp = [[self foundDisks] objectAtIndex:row];
@@ -960,4 +973,5 @@
 - (NSString *)cleanURL:(NSString *)urlToClean {
     return [urlToClean stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
+
 @end
