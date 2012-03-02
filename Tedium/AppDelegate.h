@@ -49,11 +49,11 @@ enum {
 
 
 @property (assign) IBOutlet NSWindow *window;
-@property (readwrite, retain,nonatomic) NSDictionary *currentDestination;
+@property (readwrite, retain,nonatomic) NSString *currentDestination;
 @property (readwrite, retain) NSURL *currentDestinationAsNSURL;
 @property (readwrite, assign) NSWindow *activeSheet;
 @property (assign) NSString *destinationValueFromSheet;
-@property (retain) NSMutableDictionary *destinations;
+@property (retain) NSMutableArray *destinations;
 @property (retain) Destination *destination;
 @property (assign) BOOL hideMenuBarIconStatus;
 @property (assign) BOOL localSnapshotsStatus;
