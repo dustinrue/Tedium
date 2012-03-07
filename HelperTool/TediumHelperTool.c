@@ -49,7 +49,7 @@ static OSStatus DoGetVersion(AuthorizationRef			auth,
 }
 
 
-// Implements the SetDestination. Returns the version number of the helper tool.
+// Implements the SetAFPDestination. 
 static OSStatus DoSetAFPDestination(AuthorizationRef		auth,
                                  const void *				userData,
                                  CFDictionaryRef			request,
@@ -59,8 +59,6 @@ static OSStatus DoSetAFPDestination(AuthorizationRef		auth,
 	
 	OSStatus retval = noErr;
 	
-	
-	
 	assert(auth     != NULL);
 	assert(request  != NULL);
 	assert(response != NULL);
@@ -73,45 +71,44 @@ static OSStatus DoSetAFPDestination(AuthorizationRef		auth,
     
 
     if (uname == NULL) 
-        syslog(LOG_LOCAL0, "uname is null");
+        return BASErrnoToOSStatus(EINVAL);
     
     if (pwd == NULL)
-        syslog(LOG_LOCAL0, "pwd is null");
+        return BASErrnoToOSStatus(EINVAL);
     
     if (!host)
-        syslog(LOG_LOCAL0, "host is null");
+        return BASErrnoToOSStatus(EINVAL);
     
     if (!url)
-        syslog(LOG_LOCAL0, "url is null");
+        return BASErrnoToOSStatus(EINVAL);
     
-    char command[128];
-    char hostname[128];
-    char username[128];
-    char password[128];
-    char theUrl[128];
-    syslog(LOG_LOCAL0, "starting the thing");
+    char command[1024];
+    char hostname[1024];
+    char username[1024];
+    char password[1024];
+    char theUrl[1024];
+
     Boolean success;
 
-    success = CFStringGetCString(uname, username, 128, kCFStringEncodingUTF8);
+    success = CFStringGetCString(uname, username, 1024, kCFStringEncodingUTF8);
     
-    if (!success) {
-        syslog(LOG_EMERG, "big fail");
-    }
+    if (!success) 
+        return BASErrnoToOSStatus(EINVAL);;
+    
     success = CFStringGetCString(pwd, password, 1024, kCFStringEncodingUTF8);
     
-    if (!success) {
-        syslog(LOG_EMERG, "password failed");
-    }
+    if (!success) 
+        return BASErrnoToOSStatus(EINVAL);
     
     success = CFStringGetCString(host, hostname, 1024, kCFStringEncodingUTF8);
     
     if (!success)
-        syslog(LOG_EMERG, "hostname failed");
+        return BASErrnoToOSStatus(EINVAL);
     
     success = CFStringGetCString(url, theUrl, 1024, kCFStringEncodingUTF8);
     
     if (!success)
-        syslog(LOG_EMERG, "url failed");
+        return BASErrnoToOSStatus(EINVAL);
             
     sprintf(command, "/usr/bin/tmutil setdestination afp://\"%s\":\"%s\"@%s%s", username, password, hostname, theUrl);
 
@@ -120,73 +117,33 @@ static OSStatus DoSetAFPDestination(AuthorizationRef		auth,
     
 }
 
-// Implements the SetDestination. Returns the version number of the helper tool.
-static OSStatus DoSetDestination(AuthorizationRef		auth,
-                                    const void *				userData,
-                                    CFDictionaryRef			request,
-                                    CFMutableDictionaryRef		response,
-                                    aslclient					asl,
-                                    aslmsg						aslMsg) {
-	
+// Implements the SetDestination. 
+static OSStatus DoSetDestination(AuthorizationRef			auth,
+                                 const void *				userData,
+                                 CFDictionaryRef			request,
+                                 CFMutableDictionaryRef		response,
+                                 aslclient					asl,
+                                 aslmsg						aslMsg) {
+    
 	OSStatus retval = noErr;
-	
-	
-	
+    
+    
+    
 	assert(auth     != NULL);
 	assert(request  != NULL);
 	assert(response != NULL);
     
-    CFDictionaryRef parameters = (CFDictionaryRef) CFDictionaryGetValue(request, CFSTR("param"));
-    CFStringRef uname     = (CFStringRef) CFDictionaryGetValue(parameters, CFSTR("username"));
-    CFStringRef pwd       = (CFStringRef) CFDictionaryGetValue(parameters, CFSTR("password"));
-    CFStringRef host      = (CFStringRef) CFDictionaryGetValue(parameters, CFSTR("hostname"));
-    CFStringRef url       = (CFStringRef) CFDictionaryGetValue(parameters, CFSTR("url"));
+    CFStringRef parameter = (CFStringRef) CFDictionaryGetValue(request, CFSTR("param"));
     
+    char command[256];
+    char parameters[1024];
     
-    if (uname == NULL) 
-        syslog(LOG_LOCAL0, "uname is null");
+    CFStringGetCString(parameter,parameters,1024, kCFStringEncodingUTF8);
     
-    if (pwd == NULL)
-        syslog(LOG_LOCAL0, "pwd is null");
-    
-    if (!host)
-        syslog(LOG_LOCAL0, "host is null");
-    
-    if (!url)
-        syslog(LOG_LOCAL0, "url is null");
-    
-    char command[128];
-    char hostname[128];
-    char username[128];
-    char password[128];
-    char theUrl[128];
-    syslog(LOG_LOCAL0, "starting the thing");
-    Boolean success;
-    
-    success = CFStringGetCString(uname, username, 128, kCFStringEncodingUTF8);
-    
-    if (!success) {
-        syslog(LOG_EMERG, "big fail");
-    }
-    success = CFStringGetCString(pwd, password, 1024, kCFStringEncodingUTF8);
-    
-    if (!success) {
-        syslog(LOG_EMERG, "password failed");
-    }
-    
-    success = CFStringGetCString(host, hostname, 1024, kCFStringEncodingUTF8);
-    
-    if (!success)
-        syslog(LOG_EMERG, "hostname failed");
-    
-    success = CFStringGetCString(url, theUrl, 1024, kCFStringEncodingUTF8);
-    
-    if (!success)
-        syslog(LOG_EMERG, "url failed");
-    
-    sprintf(command, "/usr/bin/tmutil setdestination afp://\"%s\":\"%s\"@%s%s", username, password, hostname, theUrl);
-    
+    //syslog(LOG_EMERG,"running command with '%s'", parameters);
+    sprintf(command, "/usr/bin/tmutil setdestination '%s'", parameters);
     retval = system(command);
+    //syslog(LOG_EMERG, "command finished");
 	return retval;
     
 }
