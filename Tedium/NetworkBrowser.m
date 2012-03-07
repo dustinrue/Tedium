@@ -27,7 +27,7 @@
 }
 
 - (void) start {
-    [[self netBrowser] searchForServicesOfType:@"_adisk._tcp" inDomain:@"local."];
+    [[self netBrowser] searchForServicesOfType:@"_adisk._tcp." inDomain:@"local."];
 }
 
 - (void) stop {
@@ -36,6 +36,7 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
 
+    NSLog(@"found service %@", netService);
     [[self foundServers] addObject:netService];
     
     if (!moreServicesComing) {
@@ -58,6 +59,7 @@
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
+    NSLog(@"resolved address for %@", sender);
     if ([[self delegate] respondsToSelector:@selector(foundDisksDidChange)])
         [[self delegate] foundDisksDidChange];
 }
