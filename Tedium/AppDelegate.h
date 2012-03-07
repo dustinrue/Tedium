@@ -24,7 +24,7 @@
 	NSTimer *sbHideTimer;
 
     
-    IBOutlet NSMenu *menuBarMenu;
+
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSWindow *addNetworkShareSheet;
     IBOutlet NSWindow *bonjourBasedShareSheet;
@@ -49,6 +49,7 @@ enum {
 
 
 @property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSMenu *menuBarMenu;
 @property (readwrite, retain,nonatomic) NSString *currentDestination;
 @property (readwrite, retain) NSURL *currentDestinationAsNSURL;
 @property (readwrite, assign) NSWindow *activeSheet;
@@ -70,6 +71,7 @@ enum {
 @property (unsafe_unretained) IBOutlet NSMenu *destinationsSubMenu;
 @property (weak) IBOutlet NSMenuItem *mobileBackupNowMenuItem;
 @property (weak) IBOutlet NSMenuItem *backupNowMenuItem;
+@property (weak) IBOutlet NSTextField *usernameFieldControl;
 
 
 - (NSImage *) prepareImageForMenubar:(NSString *)name;

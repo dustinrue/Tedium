@@ -20,6 +20,7 @@
 @synthesize destinationsSubMenu;
 @synthesize mobileBackupNowMenuItem;
 @synthesize backupNowMenuItem;
+@synthesize usernameFieldControl;
 
 @synthesize window = _window;
 @synthesize currentDestination;
@@ -38,6 +39,7 @@
 @synthesize usernameFromSheet;
 @synthesize passwordFromSheet;
 @synthesize shareToBeAdded;
+@synthesize menuBarMenu;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
@@ -291,8 +293,9 @@
     [destinationsTableView reloadData];
 }
 
-- (NSDictionary *)parseDestination:(NSString *)destinationToParse {
+- (NSMutableDictionary *)parseDestination:(NSString *)destinationToParse {
 
+    NSMutableDictionary *retDictionary = nil;
     NSString *urlText = [destinationToParse stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self setCurrentDestinationAsNSURL:[NSURL URLWithString:urlText]];
     
@@ -303,47 +306,74 @@
 
     NSString *hostname = [[self currentDestinationAsNSURL] host];
     NSString *url      = [[self currentDestinationAsNSURL] path];
+    NSString *username = [[self currentDestinationAsNSURL] user];
     
     // if the URL couldn't be parsed return an empty NSDictionary
     if (!hostname || !url) {
-        return [[NSDictionary alloc] init];
+        retDictionary = [[NSMutableDictionary alloc] init];
+        return [[NSMutableDictionary alloc] init];
     }
     
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            hostname, @"hostname",
-            url, @"url", nil];
+    retDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                     hostname, @"hostname",
+                     url, @"url", nil];
+    
+    if (username)
+        [retDictionary setValue:username forKey:@"username"];
+    
+    return retDictionary;
 
     
 }
 
 - (void) setCurrentDestination:(NSString *)newVal {
+    
+    NSString *password;
+    NSString *command;
+    NSMutableDictionary *tmp = nil;
+    
+    for (NSMutableDictionary *dest in [self destinations]) {
+        NSLog(@"dest is %@", dest);
+        if ([[dest valueForKey:@"destinationVolumePath"] isEqualToString:newVal]) {
+            NSLog(@"hit!");
+            tmp = dest;
+        }
+    }
+    if (!tmp) {
+        tmp = [[self parseDestination:newVal] mutableCopy];
+        [tmp setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [tmp valueForKey:@"username"], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"url"]]] forKey:@"cleanURL"];
+    }
+    
     NSLog(@"setting destination to %@", newVal);
     currentDestination = newVal;
     
-    NSDictionary *tmp = [self parseDestination:newVal];
-
     
+
+    NSLog(@"tmp is %@",tmp);
     NSString *newDestination;
     
-    if ([tmp objectForKey:@"cleanURL"]) {
-        NSString *password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if ([[tmp valueForKey:@"isAFP"] intValue] == 1) {
+        command = @kTediumHelperToolSetAFPDestinationCommand;
+        password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"destinationVolumePath"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
         newDestination = [NSString stringWithFormat:@"afp://%@:%@@%@%@",[tmp valueForKey:@"username"],password,[tmp valueForKey:@"hostname"],[tmp valueForKey:@"url"]];
         
         [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"cleanURL"]]];
     }
     else {
+        command = @kTediumHelperToolSetDestinationCommand;
         newDestination = newVal;
         [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newDestination]];
     }
     
 
-
+    if ([[tmp valueForKey:@"isAFP"] intValue] == 1)
+        [tmp setValue:password forKey:@"password"];
+    
+    NSLog(@"param will be %@", tmp);
 
     
-    NSString *command = @kTediumHelperToolSetDestinationCommand;
-    
-    NSInteger retval = [self helperToolPerformAction: command withParameter:newDestination];
+    NSInteger retval = [self helperToolPerformAction: command withParameter:tmp];
     
     switch (retval) {
         case kDestinationVolumeSetSuccessfully:
@@ -601,6 +631,7 @@
     
     [self setUsernameFromSheet:@""];
     [self setPasswordFromSheet:@""];
+    [[self usernameFieldControl] becomeFirstResponder];
     [foundSharesTableView deselectAll:self];
 }
 

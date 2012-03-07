@@ -16,6 +16,12 @@ const BASCommandSpec kTediumHelperToolCommandSet[] = {
 		NULL,								// rightDescriptionKey
 		NULL								// userData
 	},
+    {   kTediumHelperToolSetAFPDestinationCommand,
+        kTediumHelperToolSetAFPDestinationCommandRight,
+        "allow",
+        "SetAFPDestination",
+        NULL
+    },
     {   kTediumHelperToolSetDestinationCommand,
         kTediumHelperToolSetDestinationCommandRight,
         "allow",

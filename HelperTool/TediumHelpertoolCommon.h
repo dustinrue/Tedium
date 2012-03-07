@@ -12,18 +12,20 @@
 #import "BetterAuthorizationSampleLib.h"
 
 // Helper tool version
-#define kTediumHelperToolVersionNumber                  2
+#define kTediumHelperToolVersionNumber                  4
 
 // Commands
 #define kTediumHelperToolGetVersionCommand              "GetVersion"
 #define kTediumHelperToolGetVersionResponse             "Version"
 
+#define kTediumHelperToolSetAFPDestinationCommand       "SetAFPDestination"
 #define kTediumHelperToolSetDestinationCommand          "SetDestination"
 #define kTediumHelperToolSetMobileBackupCommand         "SetMobileBackup"
 
 #define kTediumHelperToolMobileBackupNowCommand         "MobileBackupNow"
 #define kTediumHelperToolBackupNowCommand               "BackupNow"
 
+#define kTediumHelperToolSetAFPDestinationCommandRight  "com.dustinrue.Tedium.SetAFPDestinationCommandRight"
 #define kTediumHelperToolSetDestinationCommandRight     "com.dustinrue.Tedium.SetDestinationCommandRight"
 #define kTediumHelperToolSetMobileBackupCommandRight    "com.dustinrue.Tedium.SetMobileBackupCommandRight"
 #define kTediumHelperToolMobileBackupNowCommandRight    "com.dustinrue.Tedium.MobileBackupNowCommandRight"

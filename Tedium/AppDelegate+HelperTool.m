@@ -89,7 +89,9 @@
 	bundleID = [[NSBundle mainBundle] bundleIdentifier];
 	assert(bundleID != NULL);
 	if (parameter)
-		request = [NSDictionary dictionaryWithObjectsAndKeys: action, @kBASCommandKey, parameter, @"param", nil];
+		request = [NSDictionary dictionaryWithObjectsAndKeys: 
+                   action, @kBASCommandKey, 
+                   parameter, @"param", nil];
 	else
 		request = [NSDictionary dictionaryWithObjectsAndKeys: action, @kBASCommandKey, nil];
 	assert(request != NULL);
