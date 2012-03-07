@@ -326,54 +326,52 @@
     
 }
 
+// this gets the "destinationVolumePath" from either the destinations
+// menu or the tableview.  We need to look that value up in the 
+// destinations array and grab the associated values.
 - (void) setCurrentDestination:(NSString *)newVal {
     
     NSString *password;
     NSString *command;
+    NSInteger retval;
     NSMutableDictionary *tmp = nil;
     
     for (NSMutableDictionary *dest in [self destinations]) {
-        NSLog(@"dest is %@", dest);
         if ([[dest valueForKey:@"destinationVolumePath"] isEqualToString:newVal]) {
-            NSLog(@"hit!");
-            tmp = dest;
+            tmp = [dest mutableCopy];
         }
     }
     if (!tmp) {
         tmp = [[self parseDestination:newVal] mutableCopy];
         [tmp setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [tmp valueForKey:@"username"], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"url"]]] forKey:@"cleanURL"];
     }
-    
-    NSLog(@"setting destination to %@", newVal);
-    currentDestination = newVal;
-    
-    
 
-    NSLog(@"tmp is %@",tmp);
-    NSString *newDestination;
-    
+    // if isAFP then this is an AFP share and we need to call the
+    // appropriate command 
     if ([[tmp valueForKey:@"isAFP"] intValue] == 1) {
         command = @kTediumHelperToolSetAFPDestinationCommand;
         password = [KeychainServices getPasswordFromKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[tmp valueForKey:@"username"] withAddress:[[tmp valueForKey:@"destinationVolumePath"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
-        newDestination = [NSString stringWithFormat:@"afp://%@:%@@%@%@",[tmp valueForKey:@"username"],password,[tmp valueForKey:@"hostname"],[tmp valueForKey:@"url"]];
-        
-        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"cleanURL"]]];
+        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", [tmp valueForKey:@"destinationVolumePath"]]];
     }
+    
+    // not an AFP share so we basically pass destinationVolumePath to 
+    // tmutil as is
     else {
         command = @kTediumHelperToolSetDestinationCommand;
-        newDestination = newVal;
-        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newDestination]];
+        [self growlMessage:@"Updating Destination" message:[NSString stringWithFormat:@"Changing Time Machine destination to %@", newVal]];
     }
     
 
     if ([[tmp valueForKey:@"isAFP"] intValue] == 1)
         [tmp setValue:password forKey:@"password"];
     
-    NSLog(@"param will be %@", tmp);
 
-    
-    NSInteger retval = [self helperToolPerformAction: command withParameter:tmp];
+    if ([[tmp valueForKey:@"isAFP"] intValue] == 1) {
+        retval = [self helperToolPerformAction: command withParameter:tmp];
+    }
+    else 
+        retval = [self helperToolPerformAction: command withParameter:newVal];
     
     switch (retval) {
         case kDestinationVolumeSetSuccessfully:
