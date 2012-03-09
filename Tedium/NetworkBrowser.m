@@ -36,7 +36,6 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
 
-    NSLog(@"found service %@", netService);
     [[self foundServers] addObject:netService];
     
     if (!moreServicesComing) {
@@ -48,7 +47,6 @@
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing {
     
-    NSLog(@"service is leaving %@", aNetService);
     [[self foundServers] removeObject:aNetService];
     
     if (!moreComing) {
@@ -59,7 +57,6 @@
 }
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
-    NSLog(@"resolved address for %@", sender);
     if ([[self delegate] respondsToSelector:@selector(foundDisksDidChange)])
         [[self delegate] foundDisksDidChange];
 }
