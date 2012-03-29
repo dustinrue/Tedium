@@ -17,12 +17,6 @@
 		DA16361C14FB25CB00A38906 /* NSArray+Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = DA16361B14FB25CB00A38906 /* NSArray+Bonjour.m */; };
 		DA16361F14FB2C6300A38906 /* NSDictionary+Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = DA16361E14FB2C6300A38906 /* NSDictionary+Bonjour.m */; };
 		DA20C98714C52C4500DF9043 /* Tedium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DA20C98614C52C4500DF9043 /* Tedium.sdef */; };
-		DA2CD8CE14D4636B001632F3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBC0A014C4C2280018FA96 /* Cocoa.framework */; };
-		DA2CD9EE14D46448001632F3 /* BWQuincyMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = DA2CD9EB14D46448001632F3 /* BWQuincyMain.nib */; };
-		DA2CD9F014D46468001632F3 /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2CD9ED14D46448001632F3 /* BWQuincyManager.m */; };
-		DA2CD9F114D4646C001632F3 /* BWQuincyMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = DA2CD9EB14D46448001632F3 /* BWQuincyMain.nib */; };
-		DA2CD9F214D46CE9001632F3 /* QuincyKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA2CD8CD14D4636B001632F3 /* QuincyKit.framework */; };
-		DA2CD9F314D46D47001632F3 /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2CD9ED14D46448001632F3 /* BWQuincyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA2CD9F614D46FCD001632F3 /* QuincyKit-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA2CD9F414D46FCD001632F3 /* QuincyKit-Info.plist */; };
 		DA2CDA0414D47316001632F3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2CDA0314D47316001632F3 /* Sparkle.framework */; };
 		DA2CDA0514D478FE001632F3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA2CDA0314D47316001632F3 /* Sparkle.framework */; };
@@ -36,6 +30,8 @@
 		DA81451C14CA037300776C35 /* TediumHelperTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = DADA99BE14C4F76E0041A7F3 /* TediumHelperTool */; };
 		DA81451D14CA037300776C35 /* TediumHelperInstallTool in CopyFiles */ = {isa = PBXBuildFile; fileRef = DADA99D514C4F7E90041A7F3 /* TediumHelperInstallTool */; };
 		DAA4E60F14E4B9D1007D3D8F /* NetworkBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */; };
+		DAAFA2121524AC38000442A3 /* BWQuincyMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = DAAFA20F1524AC38000442A3 /* BWQuincyMain.nib */; };
+		DAAFA2131524AC38000442A3 /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFA2111524AC38000442A3 /* BWQuincyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DABD281714C8D0E000455E23 /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281514C8D0E000455E23 /* minus-8.png */; };
 		DABD281814C8D0E000455E23 /* plus-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD281614C8D0E000455E23 /* plus-arrow.png */; };
 		DABD281B14C92B8B00455E23 /* awesomeclock.icns in Resources */ = {isa = PBXBuildFile; fileRef = DABD281A14C92B8B00455E23 /* awesomeclock.icns */; };
@@ -56,13 +52,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DA2CD9E714D463B4001632F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAEBC09314C4C2270018FA96 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DA2CD8CC14D4636B001632F3;
-			remoteInfo = QuincyKit;
-		};
 		DADA99E114C4FAD20041A7F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAEBC09314C4C2270018FA96 /* Project object */;
@@ -86,7 +75,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA2CD9F214D46CE9001632F3 /* QuincyKit.framework in Copy Frameworks */,
 				7395E19014C7C4F500AC1796 /* Growl.framework in Copy Frameworks */,
 				DA2CDA0514D478FE001632F3 /* Sparkle.framework in Copy Frameworks */,
 			);
@@ -141,7 +129,6 @@
 		DA16361D14FB2C6300A38906 /* NSDictionary+Bonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Bonjour.h"; sourceTree = "<group>"; };
 		DA16361E14FB2C6300A38906 /* NSDictionary+Bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Bonjour.m"; sourceTree = "<group>"; };
 		DA20C98614C52C4500DF9043 /* Tedium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tedium.sdef; path = Resources/Tedium.sdef; sourceTree = "<group>"; };
-		DA2CD8CD14D4636B001632F3 /* QuincyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuincyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2CD9EB14D46448001632F3 /* BWQuincyMain.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BWQuincyMain.nib; sourceTree = "<group>"; };
 		DA2CD9EC14D46448001632F3 /* BWQuincyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWQuincyManager.h; sourceTree = "<group>"; };
 		DA2CD9ED14D46448001632F3 /* BWQuincyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWQuincyManager.m; sourceTree = "<group>"; };
@@ -156,6 +143,9 @@
 		DA81451914C9E8D800776C35 /* AppDelegate+HelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+HelperTool.m"; sourceTree = "<group>"; };
 		DAA4E60D14E4B9D1007D3D8F /* NetworkBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkBrowser.h; sourceTree = "<group>"; };
 		DAA4E60E14E4B9D1007D3D8F /* NetworkBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkBrowser.m; sourceTree = "<group>"; };
+		DAAFA20F1524AC38000442A3 /* BWQuincyMain.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = BWQuincyMain.nib; sourceTree = "<group>"; };
+		DAAFA2101524AC38000442A3 /* BWQuincyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWQuincyManager.h; sourceTree = "<group>"; };
+		DAAFA2111524AC38000442A3 /* BWQuincyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWQuincyManager.m; sourceTree = "<group>"; };
 		DABD281514C8D0E000455E23 /* minus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minus-8.png"; path = "Resources/minus-8.png"; sourceTree = "<group>"; };
 		DABD281614C8D0E000455E23 /* plus-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-arrow.png"; path = "Resources/plus-arrow.png"; sourceTree = "<group>"; };
 		DABD281A14C92B8B00455E23 /* awesomeclock.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = awesomeclock.icns; path = Resources/awesomeclock.icns; sourceTree = "<group>"; };
@@ -184,14 +174,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DA2CD8C914D4636B001632F3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DA2CD8CE14D4636B001632F3 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DADA99BB14C4F76E0041A7F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,6 +226,24 @@
 			path = ../../ControlPlane/Source/QuincyKit/client/Mac;
 			sourceTree = "<group>";
 		};
+		DADA39F01524AD9D0093EDCC /* External Source */ = {
+			isa = PBXGroup;
+			children = (
+				DADA39F11524ADB00093EDCC /* Quincy */,
+			);
+			name = "External Source";
+			sourceTree = "<group>";
+		};
+		DADA39F11524ADB00093EDCC /* Quincy */ = {
+			isa = PBXGroup;
+			children = (
+				DAAFA20F1524AC38000442A3 /* BWQuincyMain.nib */,
+				DAAFA2101524AC38000442A3 /* BWQuincyManager.h */,
+				DAAFA2111524AC38000442A3 /* BWQuincyManager.m */,
+			);
+			name = Quincy;
+			sourceTree = "<group>";
+		};
 		DADA99AE14C4F6C10041A7F3 /* TediumHelperTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +282,7 @@
 		DAEBC09114C4C2270018FA96 = {
 			isa = PBXGroup;
 			children = (
+				DADA39F01524AD9D0093EDCC /* External Source */,
 				DADA99ED14C51BD90041A7F3 /* Resources */,
 				DADA99AE14C4F6C10041A7F3 /* TediumHelperTool */,
 				DAEBC0A614C4C2280018FA96 /* Tedium */,
@@ -296,7 +297,6 @@
 				DAEBC09C14C4C2280018FA96 /* Tedium.app */,
 				DADA99BE14C4F76E0041A7F3 /* TediumHelperTool */,
 				DADA99D514C4F7E90041A7F3 /* TediumHelperInstallTool */,
-				DA2CD8CD14D4636B001632F3 /* QuincyKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -371,35 +371,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		DA2CD8CA14D4636B001632F3 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		DA2CD8CC14D4636B001632F3 /* QuincyKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DA2CD8DB14D4636B001632F3 /* Build configuration list for PBXNativeTarget "QuincyKit" */;
-			buildPhases = (
-				DA2CD8C814D4636B001632F3 /* Sources */,
-				DA2CD8C914D4636B001632F3 /* Frameworks */,
-				DA2CD8CA14D4636B001632F3 /* Headers */,
-				DA2CD8CB14D4636B001632F3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = QuincyKit;
-			productName = QuincyKit;
-			productReference = DA2CD8CD14D4636B001632F3 /* QuincyKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		DADA99BD14C4F76E0041A7F3 /* TediumHelperTool */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DADA99C714C4F76E0041A7F3 /* Build configuration list for PBXNativeTarget "TediumHelperTool" */;
@@ -447,7 +419,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DA2CD9E814D463B4001632F3 /* PBXTargetDependency */,
 				DADA99E414C4FAD60041A7F3 /* PBXTargetDependency */,
 				DADA99E214C4FAD20041A7F3 /* PBXTargetDependency */,
 			);
@@ -479,20 +450,11 @@
 				DAEBC09B14C4C2280018FA96 /* Tedium */,
 				DADA99BD14C4F76E0041A7F3 /* TediumHelperTool */,
 				DADA99D414C4F7E90041A7F3 /* TediumHelperInstallTool */,
-				DA2CD8CC14D4636B001632F3 /* QuincyKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DA2CD8CB14D4636B001632F3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DA2CD9F114D4646C001632F3 /* BWQuincyMain.nib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAEBC09A14C4C2280018FA96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -504,24 +466,16 @@
 				DABD281714C8D0E000455E23 /* minus-8.png in Resources */,
 				DABD281814C8D0E000455E23 /* plus-arrow.png in Resources */,
 				DABD281B14C92B8B00455E23 /* awesomeclock.icns in Resources */,
-				DA2CD9EE14D46448001632F3 /* BWQuincyMain.nib in Resources */,
 				DA2CD9F614D46FCD001632F3 /* QuincyKit-Info.plist in Resources */,
 				DA2CDA0714D479D9001632F3 /* dsa_pub.pem in Resources */,
 				DA2CDA0914D4BEF4001632F3 /* gear.png in Resources */,
+				DAAFA2121524AC38000442A3 /* BWQuincyMain.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DA2CD8C814D4636B001632F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DA2CD9F014D46468001632F3 /* BWQuincyManager.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DADA99BA14C4F76E0041A7F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -544,7 +498,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA2CD9F314D46D47001632F3 /* BWQuincyManager.m in Sources */,
 				DA81451314C9DAA000776C35 /* BetterAuthorizationSampleLib.c in Sources */,
 				DAEBC0AD14C4C2280018FA96 /* main.m in Sources */,
 				DADA99B914C4F6C10041A7F3 /* TediumHelperToolCommon.c in Sources */,
@@ -558,17 +511,13 @@
 				DA16361914FB131000A38906 /* NSString+Bonjour.m in Sources */,
 				DA16361C14FB25CB00A38906 /* NSArray+Bonjour.m in Sources */,
 				DA16361F14FB2C6300A38906 /* NSDictionary+Bonjour.m in Sources */,
+				DAAFA2131524AC38000442A3 /* BWQuincyManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DA2CD9E814D463B4001632F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DA2CD8CC14D4636B001632F3 /* QuincyKit */;
-			targetProxy = DA2CD9E714D463B4001632F3 /* PBXContainerItemProxy */;
-		};
 		DADA99E214C4FAD20041A7F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DADA99BD14C4F76E0041A7F3 /* TediumHelperTool */;
@@ -609,36 +558,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DA2CD8D914D4636B001632F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tedium/QuincyKit-Prefix.pch";
-				INFOPLIST_FILE = "Tedium/QuincyKit-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		DA2CD8DA14D4636B001632F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tedium/QuincyKit-Prefix.pch";
-				INFOPLIST_FILE = "Tedium/QuincyKit-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
 		DADA99C814C4F76E0041A7F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -757,15 +676,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA2CD8DB14D4636B001632F3 /* Build configuration list for PBXNativeTarget "QuincyKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DA2CD8D914D4636B001632F3 /* Debug */,
-				DA2CD8DA14D4636B001632F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DADA99C714C4F76E0041A7F3 /* Build configuration list for PBXNativeTarget "TediumHelperTool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

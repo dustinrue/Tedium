@@ -77,7 +77,7 @@
         [self setDestinations:[[NSMutableArray alloc] init]];
     
  
-    [destinationsTableView setDoubleAction:@selector(editDestination:)];
+    //[destinationsTableView setDoubleAction:@selector(editDestination:)];
     [foundSharesTableView setDoubleAction:@selector(closeSheetWithOK:)];
 
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideStatusBarIcon"] ? [self enableHideMenuBarIcon] : [self disableHideMenuBarIcon]);
@@ -231,9 +231,6 @@
             return;
     }
 
-    
-  
-    NSLog(@"adding to keychain %@", newDestination);
     if ([newDestination objectForKey:@"cleanURL"]) {
         // if the selectedRow is NOT -1 then we are editing an entry
         if ([destinationsTableView selectedRow] != -1) {
@@ -367,6 +364,7 @@
         [tmp setValue:password forKey:@"password"];
     
 
+    NSLog(@"tmp is %@",tmp);
     if ([[tmp valueForKey:@"isAFP"] intValue] == 1) {
         retval = [self helperToolPerformAction: command withParameter:tmp];
     }
@@ -657,7 +655,7 @@
     NSMutableDictionary *afpURL = [[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] mutableCopy];
     [afpURL setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [afpURL valueForKey:@"username"], [afpURL valueForKey:@"hostname"], [afpURL valueForKey:@"url"]]] forKey:@"cleanURL"];
     
-    NSLog(@"will remove %@ %@", afpURL,([afpURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
+    NSLog(@"will remove %@ %@", [afpURL objectForKey:@"cleanURL"],([afpURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
     if ([afpURL objectForKey:@"cleanURL"] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
         [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[afpURL valueForKey:@"cleanURL"]];
     }
@@ -666,7 +664,7 @@
 
     [[self destinations] removeObjectAtIndex:[destinationsTableView selectedRow]];
     [destinationsTableView reloadData];
-
+    [self populateDestinationsSubMenu];
     [self saveSettings];
 
 }
@@ -694,7 +692,7 @@
 }
 
 - (void) populateDestinationsSubMenu {
-    NSLog(@"destinations %@", [self destinations]);
+    [destinationsSubMenu removeAllItems];
     for (NSDictionary *tmp in [self destinations]) {
         NSMenuItem *newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
         [destinationsSubMenu addItem:newMenuItem];
