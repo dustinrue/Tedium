@@ -220,7 +220,6 @@
 #pragma mark Destination Handling
 - (void)addNewDestination:(NSDictionary *)newDestination {
 
-    NSLog(@"newDestination %@",newDestination);
     // test to see if the destination is already inserted
     // there has to be a more efficient way of handling this...
     for (NSDictionary * aDictionary in [self destinations])
@@ -365,7 +364,6 @@
         [tmp setValue:password forKey:@"password"];
     
 
-    NSLog(@"tmp is %@",tmp);
     if ([[tmp valueForKey:@"isAFP"] intValue] == 1) {
         retval = [self helperToolPerformAction: command withParameter:tmp];
     }
@@ -658,14 +656,13 @@
         return;
    
     NSMutableDictionary *destinationURL = [[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] mutableCopy];
-    
-    NSLog(@"afpURL is %@", destinationURL);
+
     
     if ([[destinationURL valueForKey:@"isAFP"] boolValue]) {
         [destinationURL setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [destinationURL valueForKey:@"username"], [destinationURL valueForKey:@"hostname"], [destinationURL valueForKey:@"url"]]] forKey:@"cleanURL"];
     }
     
-    NSLog(@"will remove %@ %@", [destinationURL objectForKey:@"cleanURL"],([destinationURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
+    //NSLog(@"will remove %@ %@", [destinationURL objectForKey:@"cleanURL"],([destinationURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
     if ([[destinationURL valueForKey:@"isAFP"] boolValue] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[destinationURL valueForKey:@"username"] withAddress:[[destinationURL valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
         [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[destinationURL valueForKey:@"username"] withAddress:[destinationURL valueForKey:@"cleanURL"]];
     }
