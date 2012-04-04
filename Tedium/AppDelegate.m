@@ -220,6 +220,7 @@
 #pragma mark Destination Handling
 - (void)addNewDestination:(NSDictionary *)newDestination {
 
+    NSLog(@"newDestination %@",newDestination);
     // test to see if the destination is already inserted
     // there has to be a more efficient way of handling this...
     for (NSDictionary * aDictionary in [self destinations])
@@ -231,7 +232,7 @@
             return;
     }
 
-    if ([newDestination objectForKey:@"cleanURL"]) {
+    if ([[newDestination valueForKey:@"isAFP"] boolValue]) {
         // if the selectedRow is NOT -1 then we are editing an entry
         if ([destinationsTableView selectedRow] != -1) {
             [[self destinations] replaceObjectAtIndex:[destinationsTableView selectedRow] withObject:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -519,7 +520,10 @@
 
     NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
 
-    [self addNewDestination:[NSString stringWithFormat:@"/Volumes/%@",[tmp valueForKey:@"LocalizedDiskImageVolumeName"]]];
+    NSDictionary *newDestination = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSString stringWithFormat:@"/Volumes/%@",[tmp valueForKey:@"LocalizedDiskImageVolumeName"]],@"cleanURL",
+                                    [NSNumber numberWithBool:NO],@"isAFP", nil];
+    [self addNewDestination:newDestination];
 }
 
 - (IBAction)closeSheetWithOK:(id)sender {
@@ -621,6 +625,7 @@
         [[self shareToBeAdded] setValue:[self usernameFromSheet] forKey:@"username"];
         [[self shareToBeAdded] setValue:[self passwordFromSheet] forKey:@"password"];
         [[self shareToBeAdded] setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [self usernameFromSheet], [[self shareToBeAdded] valueForKey:@"hostname"], [[self shareToBeAdded] valueForKey:@"url"]]] forKey:@"cleanURL"];
+        [[self shareToBeAdded] setValue:[NSNumber numberWithBool:YES] forKey:@"isAFP"];
         [self addNewDestination:[self shareToBeAdded]];
         [self setSelectedBonjourShare:nil];
     }
@@ -652,12 +657,17 @@
     if ([destinationsTableView selectedRow] == -1)
         return;
    
-    NSMutableDictionary *afpURL = [[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] mutableCopy];
-    [afpURL setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [afpURL valueForKey:@"username"], [afpURL valueForKey:@"hostname"], [afpURL valueForKey:@"url"]]] forKey:@"cleanURL"];
+    NSMutableDictionary *destinationURL = [[[self destinations] objectAtIndex:[destinationsTableView selectedRow]] mutableCopy];
     
-    NSLog(@"will remove %@ %@", [afpURL objectForKey:@"cleanURL"],([afpURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
-    if ([afpURL objectForKey:@"cleanURL"] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[[afpURL valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
-        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[afpURL valueForKey:@"username"] withAddress:[afpURL valueForKey:@"cleanURL"]];
+    NSLog(@"afpURL is %@", destinationURL);
+    
+    if ([[destinationURL valueForKey:@"isAFP"] boolValue]) {
+        [destinationURL setValue:[self cleanURL:[NSString stringWithFormat:@"afp://%@@%@%@", [destinationURL valueForKey:@"username"], [destinationURL valueForKey:@"hostname"], [destinationURL valueForKey:@"url"]]] forKey:@"cleanURL"];
+    }
+    
+    NSLog(@"will remove %@ %@", [destinationURL objectForKey:@"cleanURL"],([destinationURL objectForKey:@"cleanURL"]) ? @"YES":@"NO");
+    if ([[destinationURL valueForKey:@"isAFP"] boolValue] && [KeychainServices checkForExistanceOfKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[destinationURL valueForKey:@"username"] withAddress:[[destinationURL valueForKey:@"cleanURL"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+        [KeychainServices deleteKeychainItem:@"Tedium" withItemKind:@"Time Machine Password" forUsername:[destinationURL valueForKey:@"username"] withAddress:[destinationURL valueForKey:@"cleanURL"]];
     }
 
    
