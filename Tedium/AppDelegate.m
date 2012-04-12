@@ -514,14 +514,46 @@
 	      contextInfo:nil];
 }
 
-- (IBAction)addCurrentDrive:(id)sender {
-
-    NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.TimeMachine.plist"];
-
+- (IBAction)addAttachedExternalDrive:(id)sender {
+    
+    NSOpenPanel *filePicker = [NSOpenPanel openPanel];
+    
+    [filePicker setCanChooseFiles:NO];
+    [filePicker setCanChooseDirectories:YES];
+    [filePicker setAllowsMultipleSelection:NO];
+    [filePicker setDirectoryURL:[NSURL URLWithString:@"file://localhost/Volumes"]];
+    [filePicker setDelegate:self];
+    NSURL *pickedDir = nil;
+    
+    if ([filePicker runModal] == NSOKButton) {
+        pickedDir = [[filePicker URLs] objectAtIndex:0];
+    }
+    else {
+        return;
+    }
+    
     NSDictionary *newDestination = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSString stringWithFormat:@"/Volumes/%@",[tmp valueForKey:@"LocalizedDiskImageVolumeName"]],@"cleanURL",
+                                    [pickedDir path],@"cleanURL",
                                     [NSNumber numberWithBool:NO],@"isAFP", nil];
     [self addNewDestination:newDestination];
+}
+
+- (void)panel:(id)sender didChangeToDirectoryURL:(NSURL *)url {
+    NSString *path = [url path];
+    NSString *volumesDir = [NSString stringWithString:@"/Volumes"];
+    
+    // If the user has changed to a non home directory, send him back home!
+    if (! [path hasPrefix:volumesDir]) [sender setDirectoryURL:[NSURL URLWithString:@"file://localhost/Volumes"]];
+}
+
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
+    NSString *path = [url path];
+    NSString *homeDir = [NSString stringWithString:@"/Volumes"];
+    
+    if (! [path hasPrefix:homeDir]) {
+            return NO;    
+    }
+    return YES;
 }
 
 - (IBAction)closeSheetWithOK:(id)sender {

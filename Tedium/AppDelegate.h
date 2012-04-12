@@ -15,7 +15,7 @@
 
 #define STATUS_BAR_LINGER	10
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource,BWQuincyManagerDelegate, DRNetworkBrowserDelegate,NSMenuDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSTableViewDataSource,BWQuincyManagerDelegate, DRNetworkBrowserDelegate,NSMenuDelegate, NSOpenSavePanelDelegate> {
     NSImage *menuBarImage;
     NSStatusItem *menuBarStatusItem;
     NSProcessInfo *processInfo;
@@ -96,7 +96,7 @@ enum {
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)addBonjourBasedNetworkShare:(id)sender;
 - (IBAction)addNetworkShare:(id)sender;
-- (IBAction)addCurrentDrive:(id)sender;
+- (IBAction)addAttachedExternalDrive:(id)sender;
 - (IBAction)closeSheetWithOK:(id)sender;
 - (IBAction)closeSheetWithCancel:(id)sender;
 - (IBAction)closePreferences:(id)sender;

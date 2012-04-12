@@ -62,7 +62,7 @@
 				<string key="NSWindowContentMaxSize">{666, 360}</string>
 				<string key="NSWindowContentMinSize">{666, 360}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSScrollView" id="196214441">
@@ -242,7 +242,6 @@
 							<reference key="NSHScroller" ref="657792783"/>
 							<reference key="NSContentView" ref="388887216"/>
 							<reference key="NSHeaderClipView" ref="39276037"/>
-							<reference key="NSCornerView" ref="360438036"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSButton" id="319139754">
@@ -580,7 +579,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{666, 360}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="996610296"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
@@ -759,7 +757,7 @@
 					</object>
 					<object class="NSMenuItem" id="950259584">
 						<reference key="NSMenu" ref="430716059"/>
-						<string key="NSTitle">Add Currently Configured Destination...</string>
+						<string key="NSTitle">Add Local Disk...</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -777,7 +775,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="480201002">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="113098024">
@@ -872,7 +870,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 137}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="469591767"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
@@ -1190,7 +1187,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">67121127</int>
+												<int key="NSFlags">100675559</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<reference key="NSBackgroundColor" ref="833027471"/>
@@ -1317,7 +1314,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="872906154">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="896655693">
@@ -1467,7 +1464,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{396, 152}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="896655693"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
@@ -1517,14 +1513,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="destination" ref="972006081"/>
 					</object>
 					<int key="connectionID">607</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">addCurrentDrive:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="950259584"/>
-					</object>
-					<int key="connectionID">610</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1829,6 +1817,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="destination" ref="814029187"/>
 					</object>
 					<int key="connectionID">865</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addAttachedExternalDrive:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="950259584"/>
+					</object>
+					<int key="connectionID">874</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2871,7 +2867,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">873</int>
+			<int key="maxID">874</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
