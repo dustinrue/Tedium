@@ -345,7 +345,6 @@
 							<string key="NSFrame">{{573, 11}, {76, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="444110608">
@@ -800,7 +799,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="480201002">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="113098024">
@@ -808,6 +807,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{391, 12}, {75, 32}}</string>
 							<reference key="NSSuperview" ref="480201002"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="996840522">
@@ -830,6 +830,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{309, 12}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="480201002"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="113098024"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
@@ -853,6 +854,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 48}, {440, 22}}</string>
 							<reference key="NSSuperview" ref="480201002"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="536546205"/>
 							<string key="NSReuseIdentifierKey">_NS:903</string>
 							<bool key="NSEnabled">YES</bool>
@@ -878,6 +880,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 78}, {446, 39}}</string>
 							<reference key="NSSuperview" ref="480201002"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="470841769"/>
 							<string key="NSReuseIdentifierKey">_NS:360</string>
 							<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -885,7 +888,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="38451841">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">272629760</int>
-								<string key="NSContents">Enter the path of a mounted drive or                                              afp://username:password@server/path for a network share</string>
+								<string key="NSContents">Enter the path of a mounted drive or                                              afp://server/path for a network share</string>
 								<reference key="NSSupport" ref="486959597"/>
 								<string key="NSCellIdentifier">_NS:360</string>
 								<reference key="NSControlView" ref="469591767"/>
@@ -895,6 +898,8 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 137}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="469591767"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
