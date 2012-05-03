@@ -581,7 +581,8 @@
 }
 
 - (void) applyDestinationViaMenu:(id) sender {
-    [self setCurrentDestination:[sender title]];
+    [self setCurrentDestination:[[sender title] stringByAddingPercentEscapesUsingEncoding:
+                                 NSUTF8StringEncoding]];
 }
 
 - (void)addNetworkDriveSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
@@ -733,7 +734,14 @@
 - (void) populateDestinationsSubMenu {
     [destinationsSubMenu removeAllItems];
     for (NSDictionary *tmp in [self destinations]) {
-        NSMenuItem *newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
+        NSMenuItem *newMenuItem = nil;
+        
+        if ([[tmp valueForKey:@"isAFP"] boolValue]) 
+            newMenuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"afp://%@@%@%@", [tmp valueForKey:@"username"], [tmp valueForKey:@"hostname"], [tmp valueForKey:@"url"]] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
+        else 
+            newMenuItem = [[NSMenuItem alloc] initWithTitle:[tmp valueForKey:@"destinationVolumePath"] action:@selector(applyDestinationViaMenu:) keyEquivalent:@""];
+        
+        
         [destinationsSubMenu addItem:newMenuItem];
         
     }
@@ -819,11 +827,20 @@
     if (tableView == destinationsTableView) {
 
         NSDictionary *d = [[self destinations] objectAtIndex:row];
+        NSLog(@"thing %@", d);
+        // cheat a bit to ensure the user gets a prettier AFP URL
+        // than what destinationVolumePath will be
+        
+        if ([[tableColumn identifier] isEqualToString:@"destinationVolumePath"] &&
+            [[d valueForKey:@"isAFP"] boolValue]) {
+                return [NSString stringWithFormat:@"afp://%@@%@%@", [d valueForKey:@"username"], [d valueForKey:@"hostname"], [d valueForKey:@"url"]];
 
+        }
         return [d valueForKey:[tableColumn identifier]];
     }
     else if (tableView == foundSharesTableView) {
         NSDictionary *tmp = [[self foundDisks] objectAtIndex:row];
+
         return [NSString stringWithFormat:@"afp://%@%@", [tmp valueForKey:@"hostname"], [tmp valueForKey:@"url"]];
     }
     

@@ -110,7 +110,7 @@ static OSStatus DoSetAFPDestination(AuthorizationRef		auth,
     if (!success)
         return BASErrnoToOSStatus(EINVAL);
             
-    sprintf(command, "/usr/bin/tmutil setdestination afp://\"%s\":\"%s\"@%s%s", username, password, hostname, theUrl);
+    sprintf(command, "/usr/bin/tmutil setdestination afp://\"%s\":\"%s\"@\"%s%s\"", username, password, hostname, theUrl);
 
     retval = system(command);
 	return retval;

@@ -12,7 +12,7 @@
 #import "BetterAuthorizationSampleLib.h"
 
 // Helper tool version
-#define kTediumHelperToolVersionNumber                  5
+#define kTediumHelperToolVersionNumber                  6
 
 // Commands
 #define kTediumHelperToolGetVersionCommand              "GetVersion"
