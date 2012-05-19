@@ -443,7 +443,7 @@
             if ([shareDictionary isTimeMachineShare]) {
                 
                 [[self foundDisks] addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                              [service hostName], @"hostname",
+                                              [[service hostName] withTrailingPeriodRemoved], @"hostname",
                                               [NSString stringWithFormat:@"/%@",[shareDictionary valueForKey:@"adVN"]], @"url", nil]];
                
             }

@@ -12,5 +12,6 @@
 
 - (NSString *) shareType;
 - (NSString *) shareValue;
+- (NSString *) withTrailingPeriodRemoved;
 
 @end

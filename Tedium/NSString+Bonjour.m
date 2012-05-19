@@ -29,4 +29,11 @@
     return [exploded objectAtIndex:1];
 }
 
+- (NSString *) withTrailingPeriodRemoved {
+    if ([[self substringFromIndex:[self length] - 1] isEqualToString:@"."]) {
+        return [self substringToIndex:[self length] - 1];
+    }
+    return self;
+}
+
 @end
